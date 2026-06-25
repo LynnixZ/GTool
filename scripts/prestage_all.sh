@@ -46,11 +46,18 @@ VENV_FLAGS=""; [ "${VENV_ISOLATED:-0}" = 1 ] || VENV_FLAGS="--system-site-packag
 source "$VENV_DIR/bin/activate"
 python -m pip install --upgrade pip wheel setuptools >/dev/null
 
-if python -c "import torch,sys; sys.exit(0 if (torch.cuda.is_available() and torch.__version__.startswith('2.1')) else 1)" 2>/dev/null; then
+# Reuse base torch ONLY if it is EXACTLY 2.1.x with working CUDA (the pinned PyG
+# wheels are pt21cu121). Note: a plain startswith('2.1') wrongly matches 2.12.x.
+if python -c "import torch,sys; v=torch.__version__.split('+')[0].split('.'); sys.exit(0 if (torch.cuda.is_available() and v[0]=='2' and v[1]=='1') else 1)" 2>/dev/null; then
   log "reusing base torch $(python -c 'import torch;print(torch.__version__)')  (cuda OK)"
 else
   log "installing torch==2.1.0 from $TORCH_INDEX_URL"
   pip install --force-reinstall "torch==2.1.0" --index-url "$TORCH_INDEX_URL"
+  # If the base image shipped a NEWER CUDA stack, --system-site-packages can let
+  # mismatched nvidia-* libs shadow the cu121 ones -> cuda=False. If so, re-run
+  # prestage with VENV_ISOLATED=1 (fresh venv) so torch pulls its own cu121 libs.
+  python -c "import torch; assert torch.cuda.is_available(), 'CUDA False after torch install -> retry with: rm -rf \$WORK_DIR/venv && VENV_ISOLATED=1 bash scripts/prestage_all.sh'" \
+    || { log "FATAL: torch installed but CUDA unavailable. Re-run: rm -rf \$WORK_DIR/venv && VENV_ISOLATED=1 bash scripts/prestage_all.sh"; exit 1; }
 fi
 python -c "import torch; assert torch.cuda.is_available(), 'CUDA not available (likely cu13 mismatch)'; print('torch', torch.__version__, 'cuda OK')"
 
