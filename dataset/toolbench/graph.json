@@ -1,0 +1,1715 @@
+{
+    "nodes": [
+        "nitrous endpoint for atmosphere nitrous oxide levels",
+        "random for manatee jokes",
+        "get media for getmedia",
+        "find by title for movies details",
+        "get version for masks detection",
+        "get version for brand recognition",
+        "get info from vin for vin recognition decoder",
+        "profiles for bogieapis",
+        "get the stock history by code for stocks",
+        "history for lightningroulletteapi",
+        "get sentence for pipotronic",
+        "get quotes by specific category for world of quotes",
+        "search on ebay for ebay search result",
+        "get all ipl news for latest ipl news",
+        "all climate change news for climate change news v5",
+        "get quotes by specific author for world of quotes",
+        "qr code gen for simple cheap qr code generator",
+        "get all climate change news for climate change live v3",
+        "get all narco news for narco in mexico",
+        "broadcaster endpoint for tunein",
+        "heads tails for coin flip",
+        "keywordsearch for google keyword scraper",
+        "get latest price for oil thai price",
+        "get fear and greed index for fear and greed index",
+        "random for chess puzzles v2",
+        "all characters for marvel vs capcom 2",
+        "global statistics for covid 19 live data",
+        "organic results for google search 2",
+        "search for soundcloud",
+        "get subdomains for subdomain scan",
+        "python 3 versions for python 3 code compiler",
+        "get user for hello world",
+        "search for searchhook",
+        "web search for web search v2",
+        "get by homicide rate for world cities by homicide rate",
+        "isupdate for turkey public holidays",
+        "supported languages for google translate v3",
+        "allowance for tribal mail translate",
+        "index for crypto fear greed index",
+        "rchant credit card reward lookup for merchant credit card reward",
+        "get all news on pollution for pollution news api",
+        "get news from a specific source for pollution news api",
+        "get all climate change news for climate change api tutorial",
+        "search by query for musiclinkssapi",
+        "list genres for media group",
+        "trending videos by region for tiktok solutions",
+        "generate a face for facegen",
+        "get names for indian names",
+        "business search for yelp reviews",
+        "v1 planets for planets by api ninjas",
+        "voices endpoint for text to speech v2",
+        "history for xxxtremelightningrouletteapi",
+        "latest outcome for xxxtremelightningrouletteapi",
+        "v1 chucknorris for chuck norris by api ninjas",
+        "ublacklist txt for stopmodreposts blocklist",
+        "korean baby boy names for korean baby name ranking",
+        "casino tournaments list for casinosearch",
+        "get records for guinness world records api",
+        "get record details for guinness world records api",
+        "get chickens for kfc chickens",
+        "api nutrition data for edamam nutrition analysis",
+        "root endpoint for my public interface",
+        "name for company consultation reportero industrial mexicano api",
+        "random roman god for roman gods by pizza api",
+        "read transactions for felina multisig wallet api",
+        "get geolocation data for shw geolocation api",
+        "generate qr code for qr code generator v14",
+        "nal query for n meros a letras",
+        "wordsearchenglish for dictionary",
+        "get supported languages for aibit translator",
+        "solat list for waktu solat",
+        "solat time for waktu solat",
+        "unfurl for unfurl api written in go",
+        "generate for instagram hashtags",
+        "get list for jobs from remoteok",
+        "get hashtags for top instagram hashtag",
+        "nearby google for nearby places",
+        "get all climate change news for climate change api v3",
+        "get details of a news item for anime news net",
+        "get all climate change related news for climate news api v2",
+        "count listings by market for airbnb listings",
+        "gulag leaderboard wz2 for cod api 2 0",
+        "get epic free games for epic free games",
+        "get epic free games coming soon for epic free games",
+        "searchjobs for indeed jobs api",
+        "convert for exchange rate",
+        "historical for exchange rate",
+        "get stock price for stock info",
+        "v1 inflation for inflation by api ninjas",
+        "search users for tiktok apis",
+        "questions for quiz",
+        "v1 verify for validect email verification",
+        "verify email for verify email",
+        "v1 for tweetfeed",
+        "supported currencies for currency converter v2",
+        "convert for currency converter v2",
+        "get for number2words",
+        "validate email for validate email",
+        "get anime news list for anime news net",
+        "v1 exchangerate for exchange rate by api ninjas",
+        "get last cryptocurrency news for crypto news api",
+        "go for recipe v2",
+        "view user list for python libraries tst",
+        "public search introspection for musicapi",
+        "get voices for speechnoted",
+        "subdomains lookup for subdomains lookup",
+        "youtube keyword search for youtube keyword search",
+        "get person by id for auther check",
+        "get version for fashion",
+        "trackingpackage for trackingpackage",
+        "v1 airlines for airlines by api ninjas",
+        "v1 interestrate for interest rate by api ninjas",
+        "get all postal code for canada postal codes",
+        "lookup for ip directory",
+        "get all country list for country list",
+        "unknown for reqres",
+        "getmsgs for messages",
+        "primeira liga standings for primeira liga standings",
+        "get matches on a specific date for fifa 2022 schedule and stats",
+        "get podcast episodes for anchor data scrapper",
+        "generate for article rewriter pro api",
+        "fetch email of a person for email finder",
+        "buscar empresas for enotas gateway",
+        "get all characters for game of thrones",
+        "getpharmaciesusingget for italian pharmacy",
+        "search social links for social links search",
+        "fish api fish name for fish species",
+        "search by company name for uganda company data",
+        "get metal prices for gold price live v2",
+        "get symbols for ohlc history forex",
+        "get ohlc history for ohlc history forex",
+        "get all bodies positions for astronomy",
+        "get positions for body for astronomy",
+        "v1 stars for stars by api ninjas",
+        "search for google search api",
+        "main endpoint for amazon pricing and product info",
+        "get webhook for smile",
+        "events for economic events calendar",
+        "instagram user info for instagram v9",
+        "get questions and answers for soft cat quiz",
+        "v1 memes for programming memes images",
+        "by pagination for premium anime mobile wallpapers illustrations",
+        "get indivisual news source news for climate change live v3",
+        "articles for news v3",
+        "binance charts for candlestick chart",
+        "get news from single news resource for climate change news v5",
+        "generate a random word for random word generator",
+        "performance monitor metrics for perf monitor metrics",
+        "verify email for emails verifier",
+        "get latest fx rates for involve thailand fx rates",
+        "red colour qr code generator for image qr code generator",
+        "business name generator for business name generator",
+        "list of available languages for translef translator",
+        "translate for joj translate",
+        "m1 money stock adjusted for u s economic indicators",
+        "get media for instagram downloader v2",
+        "wisdomoftheday for wisdom api",
+        "v1 search post for tokapi mobile version",
+        "games for hfghfgh",
+        "get rentals for deal catcher",
+        "uuidv5 generator for uuid generator",
+        "youtube channel details for youtube channel details",
+        "get multiple random words for random words",
+        "get sign prediction for today by name for zodiacapi",
+        "random for cocktails",
+        "random nonalcoholic for cocktails",
+        "v1 recipe for recipe by api ninjas",
+        "symbols for exchange rate",
+        "search by location for ev charge finder",
+        "search for youtube v3 v2",
+        "qr code image generator for qr code generator api v6",
+        "fastsearchfull for avito scraper",
+        "singleoffer for avito scraper",
+        "filter and query naics description for industry naics search",
+        "get by decade for world population by decade and growth rate",
+        "get by filter for world population by decade and growth rate",
+        "get all ai news for ai news v2",
+        "check user exists for waifu",
+        "garan for borsa",
+        "get individual news source news for climate change api tutorial",
+        "generate qr for qr code wizard",
+        "get sun rise and sun set time for yawin indian astrology",
+        "list all images for qrcode",
+        "get brands for top brand names valuation api",
+        "convert url to image for cloudlayer io",
+        "timezone for timezone by location",
+        "search for epic games store",
+        "available regions for ai news global",
+        "generate flirty line for flirty words",
+        "get stations within 1 km for ev charging stations",
+        "getrecipe for cookr recipe parser",
+        "get all foods for generic food v2",
+        "v1 cryptosymbols for crypto symbols by api ninjas",
+        "fish api fishes for fish species",
+        "airports by keyword for carbonsutra",
+        "get top 50 indie songs for indie songs distrokid unsigned",
+        "search indie songs by filters for indie songs distrokid unsigned",
+        "supported locations for linkedin live data",
+        "get planet position angles for yawin indian astrology",
+        "letters for boggle",
+        "movies link and name for porn movies",
+        "get draw results for new york lottery",
+        "extract data for youtube video data extractor",
+        "all exchange rates for ziff",
+        "latest for exchange rate",
+        "getquotesbycategory for quotes villa",
+        "korean baby girl names for korean baby name ranking",
+        "v1 worldtime for world time by api ninjas",
+        "v1 urllookup for url lookup by api ninjas",
+        "om username generator for unique username generator by pizza api",
+        "get individual news sources for climate change api v3",
+        "translate for google translate v2",
+        "explore popular for soccerway feed",
+        "get car makers for infocarsapi",
+        "allchannel for tvview",
+        "get for synonyms words",
+        "scraper for seo fast audit",
+        "hello for quick qr code generator",
+        "autocomplete for deutsche bahn",
+        "kda calculator for teamriverbubbles random utilities",
+        "crops list for crops",
+        "validate email for email validation v3",
+        "get all global recession news for global recession live",
+        "getesgnews for gaialens esg news",
+        "timezone for services",
+        "get comments with product id for amazon data v3",
+        "retorna dados do endere o atrav s do cep for cep brazil",
+        "top collections this week for top nft sales",
+        "categorytournaments for esportapi",
+        "veiculo tipo id marca for veiculos api",
+        "get the forecast for cloud cast",
+        "carbonfootprintfromcartravel for carbonfootprint",
+        "fx for forexgo",
+        "get individual news source news for climate news api v2",
+        "get the latest 30 news from ieee spectrum for ieee spectrum api",
+        "search for simple youtube search",
+        "ranking list for j2acoin",
+        "riddle by difficulty level for riddlie",
+        "get poster for outking",
+        "search for g search",
+        "flashcards for real estate exam",
+        "location ip for ip geo",
+        "latest by lat lng for ambee pollen data",
+        "getnews for coronavirus smartable",
+        "get voice for anime voice waifu ai api"
+    ],
+    "edges": [
+        {
+            "source": "nitrous endpoint for atmosphere nitrous oxide levels",
+            "target": "random for manatee jokes"
+        },
+        {
+            "source": "get media for getmedia",
+            "target": "find by title for movies details"
+        },
+        {
+            "source": "get version for masks detection",
+            "target": "get version for brand recognition"
+        },
+        {
+            "source": "get version for brand recognition",
+            "target": "get info from vin for vin recognition decoder"
+        },
+        {
+            "source": "profiles for bogieapis",
+            "target": "profiles for bogieapis"
+        },
+        {
+            "source": "get the stock history by code for stocks",
+            "target": "get the stock history by code for stocks"
+        },
+        {
+            "source": "history for lightningroulletteapi",
+            "target": "get sentence for pipotronic"
+        },
+        {
+            "source": "get sentence for pipotronic",
+            "target": "get sentence for pipotronic"
+        },
+        {
+            "source": "get quotes by specific category for world of quotes",
+            "target": "get quotes by specific category for world of quotes"
+        },
+        {
+            "source": "search on ebay for ebay search result",
+            "target": "search on ebay for ebay search result"
+        },
+        {
+            "source": "get all ipl news for latest ipl news",
+            "target": "all climate change news for climate change news v5"
+        },
+        {
+            "source": "all climate change news for climate change news v5",
+            "target": "get all ipl news for latest ipl news"
+        },
+        {
+            "source": "get quotes by specific author for world of quotes",
+            "target": "get quotes by specific category for world of quotes"
+        },
+        {
+            "source": "get quotes by specific category for world of quotes",
+            "target": "get quotes by specific author for world of quotes"
+        },
+        {
+            "source": "get quotes by specific author for world of quotes",
+            "target": "get quotes by specific author for world of quotes"
+        },
+        {
+            "source": "qr code gen for simple cheap qr code generator",
+            "target": "qr code gen for simple cheap qr code generator"
+        },
+        {
+            "source": "get all climate change news for climate change live v3",
+            "target": "get all narco news for narco in mexico"
+        },
+        {
+            "source": "broadcaster endpoint for tunein",
+            "target": "broadcaster endpoint for tunein"
+        },
+        {
+            "source": "broadcaster endpoint for tunein",
+            "target": "heads tails for coin flip"
+        },
+        {
+            "source": "keywordsearch for google keyword scraper",
+            "target": "keywordsearch for google keyword scraper"
+        },
+        {
+            "source": "get latest price for oil thai price",
+            "target": "get latest price for oil thai price"
+        },
+        {
+            "source": "get latest price for oil thai price",
+            "target": "get fear and greed index for fear and greed index"
+        },
+        {
+            "source": "random for chess puzzles v2",
+            "target": "all characters for marvel vs capcom 2"
+        },
+        {
+            "source": "all characters for marvel vs capcom 2",
+            "target": "random for chess puzzles v2"
+        },
+        {
+            "source": "global statistics for covid 19 live data",
+            "target": "organic results for google search 2"
+        },
+        {
+            "source": "organic results for google search 2",
+            "target": "organic results for google search 2"
+        },
+        {
+            "source": "organic results for google search 2",
+            "target": "global statistics for covid 19 live data"
+        },
+        {
+            "source": "search for soundcloud",
+            "target": "search for soundcloud"
+        },
+        {
+            "source": "get subdomains for subdomain scan",
+            "target": "python 3 versions for python 3 code compiler"
+        },
+        {
+            "source": "get user for hello world",
+            "target": "get user for hello world"
+        },
+        {
+            "source": "search for searchhook",
+            "target": "search for searchhook"
+        },
+        {
+            "source": "search for searchhook",
+            "target": "web search for web search v2"
+        },
+        {
+            "source": "web search for web search v2",
+            "target": "web search for web search v2"
+        },
+        {
+            "source": "get by homicide rate for world cities by homicide rate",
+            "target": "isupdate for turkey public holidays"
+        },
+        {
+            "source": "isupdate for turkey public holidays",
+            "target": "get by homicide rate for world cities by homicide rate"
+        },
+        {
+            "source": "supported languages for google translate v3",
+            "target": "allowance for tribal mail translate"
+        },
+        {
+            "source": "index for crypto fear greed index",
+            "target": "rchant credit card reward lookup for merchant credit card reward"
+        },
+        {
+            "source": "rchant credit card reward lookup for merchant credit card reward",
+            "target": "rchant credit card reward lookup for merchant credit card reward"
+        },
+        {
+            "source": "get all news on pollution for pollution news api",
+            "target": "get news from a specific source for pollution news api"
+        },
+        {
+            "source": "get news from a specific source for pollution news api",
+            "target": "get all climate change news for climate change api tutorial"
+        },
+        {
+            "source": "search by query for musiclinkssapi",
+            "target": "search by query for musiclinkssapi"
+        },
+        {
+            "source": "list genres for media group",
+            "target": "list genres for media group"
+        },
+        {
+            "source": "trending videos by region for tiktok solutions",
+            "target": "trending videos by region for tiktok solutions"
+        },
+        {
+            "source": "trending videos by region for tiktok solutions",
+            "target": "generate a face for facegen"
+        },
+        {
+            "source": "get names for indian names",
+            "target": "business search for yelp reviews"
+        },
+        {
+            "source": "business search for yelp reviews",
+            "target": "get names for indian names"
+        },
+        {
+            "source": "business search for yelp reviews",
+            "target": "business search for yelp reviews"
+        },
+        {
+            "source": "v1 planets for planets by api ninjas",
+            "target": "random for manatee jokes"
+        },
+        {
+            "source": "rchant credit card reward lookup for merchant credit card reward",
+            "target": "index for crypto fear greed index"
+        },
+        {
+            "source": "voices endpoint for text to speech v2",
+            "target": "voices endpoint for text to speech v2"
+        },
+        {
+            "source": "history for xxxtremelightningrouletteapi",
+            "target": "latest outcome for xxxtremelightningrouletteapi"
+        },
+        {
+            "source": "latest outcome for xxxtremelightningrouletteapi",
+            "target": "v1 chucknorris for chuck norris by api ninjas"
+        },
+        {
+            "source": "ublacklist txt for stopmodreposts blocklist",
+            "target": "ublacklist txt for stopmodreposts blocklist"
+        },
+        {
+            "source": "korean baby boy names for korean baby name ranking",
+            "target": "korean baby boy names for korean baby name ranking"
+        },
+        {
+            "source": "casino tournaments list for casinosearch",
+            "target": "casino tournaments list for casinosearch"
+        },
+        {
+            "source": "get records for guinness world records api",
+            "target": "get record details for guinness world records api"
+        },
+        {
+            "source": "get chickens for kfc chickens",
+            "target": "api nutrition data for edamam nutrition analysis"
+        },
+        {
+            "source": "api nutrition data for edamam nutrition analysis",
+            "target": "api nutrition data for edamam nutrition analysis"
+        },
+        {
+            "source": "root endpoint for my public interface",
+            "target": "root endpoint for my public interface"
+        },
+        {
+            "source": "root endpoint for my public interface",
+            "target": "name for company consultation reportero industrial mexicano api"
+        },
+        {
+            "source": "name for company consultation reportero industrial mexicano api",
+            "target": "name for company consultation reportero industrial mexicano api"
+        },
+        {
+            "source": "random roman god for roman gods by pizza api",
+            "target": "read transactions for felina multisig wallet api"
+        },
+        {
+            "source": "read transactions for felina multisig wallet api",
+            "target": "random roman god for roman gods by pizza api"
+        },
+        {
+            "source": "get geolocation data for shw geolocation api",
+            "target": "get geolocation data for shw geolocation api"
+        },
+        {
+            "source": "generate qr code for qr code generator v14",
+            "target": "nal query for n meros a letras"
+        },
+        {
+            "source": "nal query for n meros a letras",
+            "target": "generate qr code for qr code generator v14"
+        },
+        {
+            "source": "wordsearchenglish for dictionary",
+            "target": "wordsearchenglish for dictionary"
+        },
+        {
+            "source": "allowance for tribal mail translate",
+            "target": "get supported languages for aibit translator"
+        },
+        {
+            "source": "solat list for waktu solat",
+            "target": "solat time for waktu solat"
+        },
+        {
+            "source": "solat time for waktu solat",
+            "target": "solat list for waktu solat"
+        },
+        {
+            "source": "unfurl for unfurl api written in go",
+            "target": "unfurl for unfurl api written in go"
+        },
+        {
+            "source": "generate for instagram hashtags",
+            "target": "generate for instagram hashtags"
+        },
+        {
+            "source": "generate for instagram hashtags",
+            "target": "get list for jobs from remoteok"
+        },
+        {
+            "source": "get list for jobs from remoteok",
+            "target": "get hashtags for top instagram hashtag"
+        },
+        {
+            "source": "nearby google for nearby places",
+            "target": "nearby google for nearby places"
+        },
+        {
+            "source": "get all climate change news for climate change api v3",
+            "target": "get details of a news item for anime news net"
+        },
+        {
+            "source": "get details of a news item for anime news net",
+            "target": "get details of a news item for anime news net"
+        },
+        {
+            "source": "get details of a news item for anime news net",
+            "target": "get all climate change news for climate change api v3"
+        },
+        {
+            "source": "get all climate change related news for climate news api v2",
+            "target": "get all news on pollution for pollution news api"
+        },
+        {
+            "source": "get all news on pollution for pollution news api",
+            "target": "get all climate change related news for climate news api v2"
+        },
+        {
+            "source": "count listings by market for airbnb listings",
+            "target": "count listings by market for airbnb listings"
+        },
+        {
+            "source": "gulag leaderboard wz2 for cod api 2 0",
+            "target": "get epic free games for epic free games"
+        },
+        {
+            "source": "get epic free games for epic free games",
+            "target": "get epic free games coming soon for epic free games"
+        },
+        {
+            "source": "searchjobs for indeed jobs api",
+            "target": "searchjobs for indeed jobs api"
+        },
+        {
+            "source": "convert for exchange rate",
+            "target": "historical for exchange rate"
+        },
+        {
+            "source": "historical for exchange rate",
+            "target": "historical for exchange rate"
+        },
+        {
+            "source": "get stock price for stock info",
+            "target": "get stock price for stock info"
+        },
+        {
+            "source": "get stock price for stock info",
+            "target": "v1 inflation for inflation by api ninjas"
+        },
+        {
+            "source": "search users for tiktok apis",
+            "target": "questions for quiz"
+        },
+        {
+            "source": "v1 verify for validect email verification",
+            "target": "verify email for verify email"
+        },
+        {
+            "source": "v1 for tweetfeed",
+            "target": "v1 for tweetfeed"
+        },
+        {
+            "source": "supported currencies for currency converter v2",
+            "target": "convert for currency converter v2"
+        },
+        {
+            "source": "convert for currency converter v2",
+            "target": "get for number2words"
+        },
+        {
+            "source": "validate email for validate email",
+            "target": "validate email for validate email"
+        },
+        {
+            "source": "get anime news list for anime news net",
+            "target": "get details of a news item for anime news net"
+        },
+        {
+            "source": "v1 exchangerate for exchange rate by api ninjas",
+            "target": "get last cryptocurrency news for crypto news api"
+        },
+        {
+            "source": "go for recipe v2",
+            "target": "get chickens for kfc chickens"
+        },
+        {
+            "source": "view user list for python libraries tst",
+            "target": "view user list for python libraries tst"
+        },
+        {
+            "source": "get all narco news for narco in mexico",
+            "target": "get all narco news for narco in mexico"
+        },
+        {
+            "source": "public search introspection for musicapi",
+            "target": "get voices for speechnoted"
+        },
+        {
+            "source": "get voices for speechnoted",
+            "target": "get voices for speechnoted"
+        },
+        {
+            "source": "get voices for speechnoted",
+            "target": "public search introspection for musicapi"
+        },
+        {
+            "source": "history for lightningroulletteapi",
+            "target": "history for lightningroulletteapi"
+        },
+        {
+            "source": "subdomains lookup for subdomains lookup",
+            "target": "youtube keyword search for youtube keyword search"
+        },
+        {
+            "source": "youtube keyword search for youtube keyword search",
+            "target": "youtube keyword search for youtube keyword search"
+        },
+        {
+            "source": "get version for masks detection",
+            "target": "get person by id for auther check"
+        },
+        {
+            "source": "get person by id for auther check",
+            "target": "get version for fashion"
+        },
+        {
+            "source": "trackingpackage for trackingpackage",
+            "target": "trackingpackage for trackingpackage"
+        },
+        {
+            "source": "trackingpackage for trackingpackage",
+            "target": "v1 airlines for airlines by api ninjas"
+        },
+        {
+            "source": "v1 interestrate for interest rate by api ninjas",
+            "target": "v1 interestrate for interest rate by api ninjas"
+        },
+        {
+            "source": "get all postal code for canada postal codes",
+            "target": "get all postal code for canada postal codes"
+        },
+        {
+            "source": "get all postal code for canada postal codes",
+            "target": "lookup for ip directory"
+        },
+        {
+            "source": "lookup for ip directory",
+            "target": "get all postal code for canada postal codes"
+        },
+        {
+            "source": "get all country list for country list",
+            "target": "unknown for reqres"
+        },
+        {
+            "source": "getmsgs for messages",
+            "target": "getmsgs for messages"
+        },
+        {
+            "source": "solat time for waktu solat",
+            "target": "solat time for waktu solat"
+        },
+        {
+            "source": "primeira liga standings for primeira liga standings",
+            "target": "get matches on a specific date for fifa 2022 schedule and stats"
+        },
+        {
+            "source": "get matches on a specific date for fifa 2022 schedule and stats",
+            "target": "get matches on a specific date for fifa 2022 schedule and stats"
+        },
+        {
+            "source": "get podcast episodes for anchor data scrapper",
+            "target": "get podcast episodes for anchor data scrapper"
+        },
+        {
+            "source": "generate for article rewriter pro api",
+            "target": "generate for article rewriter pro api"
+        },
+        {
+            "source": "fetch email of a person for email finder",
+            "target": "buscar empresas for enotas gateway"
+        },
+        {
+            "source": "buscar empresas for enotas gateway",
+            "target": "buscar empresas for enotas gateway"
+        },
+        {
+            "source": "get all characters for game of thrones",
+            "target": "history for lightningroulletteapi"
+        },
+        {
+            "source": "getpharmaciesusingget for italian pharmacy",
+            "target": "getpharmaciesusingget for italian pharmacy"
+        },
+        {
+            "source": "search social links for social links search",
+            "target": "search social links for social links search"
+        },
+        {
+            "source": "fish api fish name for fish species",
+            "target": "fish api fish name for fish species"
+        },
+        {
+            "source": "buscar empresas for enotas gateway",
+            "target": "search by company name for uganda company data"
+        },
+        {
+            "source": "get metal prices for gold price live v2",
+            "target": "get metal prices for gold price live v2"
+        },
+        {
+            "source": "v1 inflation for inflation by api ninjas",
+            "target": "get latest price for oil thai price"
+        },
+        {
+            "source": "get latest price for oil thai price",
+            "target": "v1 inflation for inflation by api ninjas"
+        },
+        {
+            "source": "v1 inflation for inflation by api ninjas",
+            "target": "v1 inflation for inflation by api ninjas"
+        },
+        {
+            "source": "convert for currency converter v2",
+            "target": "get symbols for ohlc history forex"
+        },
+        {
+            "source": "get symbols for ohlc history forex",
+            "target": "get ohlc history for ohlc history forex"
+        },
+        {
+            "source": "get all bodies positions for astronomy",
+            "target": "get positions for body for astronomy"
+        },
+        {
+            "source": "get positions for body for astronomy",
+            "target": "get positions for body for astronomy"
+        },
+        {
+            "source": "get positions for body for astronomy",
+            "target": "v1 stars for stars by api ninjas"
+        },
+        {
+            "source": "search for google search api",
+            "target": "search for google search api"
+        },
+        {
+            "source": "search by company name for uganda company data",
+            "target": "search by company name for uganda company data"
+        },
+        {
+            "source": "main endpoint for amazon pricing and product info",
+            "target": "main endpoint for amazon pricing and product info"
+        },
+        {
+            "source": "get webhook for smile",
+            "target": "events for economic events calendar"
+        },
+        {
+            "source": "events for economic events calendar",
+            "target": "get webhook for smile"
+        },
+        {
+            "source": "get webhook for smile",
+            "target": "get webhook for smile"
+        },
+        {
+            "source": "instagram user info for instagram v9",
+            "target": "instagram user info for instagram v9"
+        },
+        {
+            "source": "get questions and answers for soft cat quiz",
+            "target": "v1 memes for programming memes images"
+        },
+        {
+            "source": "by pagination for premium anime mobile wallpapers illustrations",
+            "target": "by pagination for premium anime mobile wallpapers illustrations"
+        },
+        {
+            "source": "get indivisual news source news for climate change live v3",
+            "target": "articles for news v3"
+        },
+        {
+            "source": "binance charts for candlestick chart",
+            "target": "binance charts for candlestick chart"
+        },
+        {
+            "source": "binance charts for candlestick chart",
+            "target": "get the stock history by code for stocks"
+        },
+        {
+            "source": "get news from single news resource for climate change news v5",
+            "target": "all climate change news for climate change news v5"
+        },
+        {
+            "source": "generate a random word for random word generator",
+            "target": "generate a random word for random word generator"
+        },
+        {
+            "source": "performance monitor metrics for perf monitor metrics",
+            "target": "get podcast episodes for anchor data scrapper"
+        },
+        {
+            "source": "get podcast episodes for anchor data scrapper",
+            "target": "performance monitor metrics for perf monitor metrics"
+        },
+        {
+            "source": "verify email for emails verifier",
+            "target": "verify email for emails verifier"
+        },
+        {
+            "source": "verify email for emails verifier",
+            "target": "v1 verify for validect email verification"
+        },
+        {
+            "source": "get latest fx rates for involve thailand fx rates",
+            "target": "get latest fx rates for involve thailand fx rates"
+        },
+        {
+            "source": "red colour qr code generator for image qr code generator",
+            "target": "red colour qr code generator for image qr code generator"
+        },
+        {
+            "source": "business name generator for business name generator",
+            "target": "business name generator for business name generator"
+        },
+        {
+            "source": "articles for news v3",
+            "target": "articles for news v3"
+        },
+        {
+            "source": "articles for news v3",
+            "target": "get all climate change news for climate change live v3"
+        },
+        {
+            "source": "get supported languages for aibit translator",
+            "target": "list of available languages for translef translator"
+        },
+        {
+            "source": "list of available languages for translef translator",
+            "target": "translate for joj translate"
+        },
+        {
+            "source": "translate for joj translate",
+            "target": "translate for joj translate"
+        },
+        {
+            "source": "m1 money stock adjusted for u s economic indicators",
+            "target": "m1 money stock adjusted for u s economic indicators"
+        },
+        {
+            "source": "get media for instagram downloader v2",
+            "target": "get media for instagram downloader v2"
+        },
+        {
+            "source": "get media for instagram downloader v2",
+            "target": "get list for jobs from remoteok"
+        },
+        {
+            "source": "get list for jobs from remoteok",
+            "target": "get list for jobs from remoteok"
+        },
+        {
+            "source": "get sentence for pipotronic",
+            "target": "wisdomoftheday for wisdom api"
+        },
+        {
+            "source": "wisdomoftheday for wisdom api",
+            "target": "get sentence for pipotronic"
+        },
+        {
+            "source": "v1 search post for tokapi mobile version",
+            "target": "v1 search post for tokapi mobile version"
+        },
+        {
+            "source": "games for hfghfgh",
+            "target": "get rentals for deal catcher"
+        },
+        {
+            "source": "uuidv5 generator for uuid generator",
+            "target": "uuidv5 generator for uuid generator"
+        },
+        {
+            "source": "youtube channel details for youtube channel details",
+            "target": "youtube channel details for youtube channel details"
+        },
+        {
+            "source": "get multiple random words for random words",
+            "target": "wordsearchenglish for dictionary"
+        },
+        {
+            "source": "generate a face for facegen",
+            "target": "get sign prediction for today by name for zodiacapi"
+        },
+        {
+            "source": "get anime news list for anime news net",
+            "target": "get media for getmedia"
+        },
+        {
+            "source": "get media for getmedia",
+            "target": "get media for getmedia"
+        },
+        {
+            "source": "random for cocktails",
+            "target": "random nonalcoholic for cocktails"
+        },
+        {
+            "source": "get list for jobs from remoteok",
+            "target": "get media for instagram downloader v2"
+        },
+        {
+            "source": "v1 recipe for recipe by api ninjas",
+            "target": "v1 recipe for recipe by api ninjas"
+        },
+        {
+            "source": "symbols for exchange rate",
+            "target": "symbols for exchange rate"
+        },
+        {
+            "source": "symbols for exchange rate",
+            "target": "convert for exchange rate"
+        },
+        {
+            "source": "get anime news list for anime news net",
+            "target": "get anime news list for anime news net"
+        },
+        {
+            "source": "get version for fashion",
+            "target": "get info from vin for vin recognition decoder"
+        },
+        {
+            "source": "get info from vin for vin recognition decoder",
+            "target": "get version for fashion"
+        },
+        {
+            "source": "search by location for ev charge finder",
+            "target": "search for youtube v3 v2"
+        },
+        {
+            "source": "search for youtube v3 v2",
+            "target": "search by location for ev charge finder"
+        },
+        {
+            "source": "qr code image generator for qr code generator api v6",
+            "target": "qr code image generator for qr code generator api v6"
+        },
+        {
+            "source": "fastsearchfull for avito scraper",
+            "target": "singleoffer for avito scraper"
+        },
+        {
+            "source": "singleoffer for avito scraper",
+            "target": "filter and query naics description for industry naics search"
+        },
+        {
+            "source": "public search introspection for musicapi",
+            "target": "public search introspection for musicapi"
+        },
+        {
+            "source": "get by decade for world population by decade and growth rate",
+            "target": "get by filter for world population by decade and growth rate"
+        },
+        {
+            "source": "get all climate change related news for climate news api v2",
+            "target": "get all ai news for ai news v2"
+        },
+        {
+            "source": "check user exists for waifu",
+            "target": "check user exists for waifu"
+        },
+        {
+            "source": "check user exists for waifu",
+            "target": "latest outcome for xxxtremelightningrouletteapi"
+        },
+        {
+            "source": "garan for borsa",
+            "target": "garan for borsa"
+        },
+        {
+            "source": "find by title for movies details",
+            "target": "find by title for movies details"
+        },
+        {
+            "source": "find by title for movies details",
+            "target": "get all climate change news for climate change api tutorial"
+        },
+        {
+            "source": "get all climate change news for climate change api tutorial",
+            "target": "get individual news source news for climate change api tutorial"
+        },
+        {
+            "source": "subdomains lookup for subdomains lookup",
+            "target": "subdomains lookup for subdomains lookup"
+        },
+        {
+            "source": "python 3 versions for python 3 code compiler",
+            "target": "generate qr for qr code wizard"
+        },
+        {
+            "source": "generate qr for qr code wizard",
+            "target": "generate qr for qr code wizard"
+        },
+        {
+            "source": "get all bodies positions for astronomy",
+            "target": "get sun rise and sun set time for yawin indian astrology"
+        },
+        {
+            "source": "get sun rise and sun set time for yawin indian astrology",
+            "target": "get sun rise and sun set time for yawin indian astrology"
+        },
+        {
+            "source": "list all images for qrcode",
+            "target": "qr code image generator for qr code generator api v6"
+        },
+        {
+            "source": "qr code image generator for qr code generator api v6",
+            "target": "list all images for qrcode"
+        },
+        {
+            "source": "get brands for top brand names valuation api",
+            "target": "convert url to image for cloudlayer io"
+        },
+        {
+            "source": "timezone for timezone by location",
+            "target": "timezone for timezone by location"
+        },
+        {
+            "source": "get individual news source news for climate change api tutorial",
+            "target": "get individual news source news for climate change api tutorial"
+        },
+        {
+            "source": "get individual news source news for climate change api tutorial",
+            "target": "get all climate change news for climate change api tutorial"
+        },
+        {
+            "source": "search for epic games store",
+            "target": "search for epic games store"
+        },
+        {
+            "source": "available regions for ai news global",
+            "target": "get details of a news item for anime news net"
+        },
+        {
+            "source": "get details of a news item for anime news net",
+            "target": "get anime news list for anime news net"
+        },
+        {
+            "source": "generate flirty line for flirty words",
+            "target": "generate a face for facegen"
+        },
+        {
+            "source": "generate a face for facegen",
+            "target": "generate flirty line for flirty words"
+        },
+        {
+            "source": "get stations within 1 km for ev charging stations",
+            "target": "get stations within 1 km for ev charging stations"
+        },
+        {
+            "source": "getrecipe for cookr recipe parser",
+            "target": "getrecipe for cookr recipe parser"
+        },
+        {
+            "source": "getrecipe for cookr recipe parser",
+            "target": "get all foods for generic food v2"
+        },
+        {
+            "source": "get record details for guinness world records api",
+            "target": "heads tails for coin flip"
+        },
+        {
+            "source": "fastsearchfull for avito scraper",
+            "target": "fastsearchfull for avito scraper"
+        },
+        {
+            "source": "get ohlc history for ohlc history forex",
+            "target": "v1 cryptosymbols for crypto symbols by api ninjas"
+        },
+        {
+            "source": "fish api fishes for fish species",
+            "target": "fish api fishes for fish species"
+        },
+        {
+            "source": "name for company consultation reportero industrial mexicano api",
+            "target": "root endpoint for my public interface"
+        },
+        {
+            "source": "get multiple random words for random words",
+            "target": "get multiple random words for random words"
+        },
+        {
+            "source": "get news from a specific source for pollution news api",
+            "target": "get news from a specific source for pollution news api"
+        },
+        {
+            "source": "convert for currency converter v2",
+            "target": "get last cryptocurrency news for crypto news api"
+        },
+        {
+            "source": "airports by keyword for carbonsutra",
+            "target": "airports by keyword for carbonsutra"
+        },
+        {
+            "source": "get top 50 indie songs for indie songs distrokid unsigned",
+            "target": "search indie songs by filters for indie songs distrokid unsigned"
+        },
+        {
+            "source": "get names for indian names",
+            "target": "supported locations for linkedin live data"
+        },
+        {
+            "source": "supported locations for linkedin live data",
+            "target": "supported locations for linkedin live data"
+        },
+        {
+            "source": "generate for instagram hashtags",
+            "target": "get hashtags for top instagram hashtag"
+        },
+        {
+            "source": "get hashtags for top instagram hashtag",
+            "target": "get list for jobs from remoteok"
+        },
+        {
+            "source": "generate a random word for random word generator",
+            "target": "ublacklist txt for stopmodreposts blocklist"
+        },
+        {
+            "source": "get planet position angles for yawin indian astrology",
+            "target": "get sun rise and sun set time for yawin indian astrology"
+        },
+        {
+            "source": "get sun rise and sun set time for yawin indian astrology",
+            "target": "v1 planets for planets by api ninjas"
+        },
+        {
+            "source": "v1 planets for planets by api ninjas",
+            "target": "v1 planets for planets by api ninjas"
+        },
+        {
+            "source": "letters for boggle",
+            "target": "movies link and name for porn movies"
+        },
+        {
+            "source": "heads tails for coin flip",
+            "target": "list genres for media group"
+        },
+        {
+            "source": "get supported languages for aibit translator",
+            "target": "allowance for tribal mail translate"
+        },
+        {
+            "source": "movies link and name for porn movies",
+            "target": "get all characters for game of thrones"
+        },
+        {
+            "source": "get draw results for new york lottery",
+            "target": "wisdomoftheday for wisdom api"
+        },
+        {
+            "source": "list all images for qrcode",
+            "target": "list all images for qrcode"
+        },
+        {
+            "source": "list all images for qrcode",
+            "target": "extract data for youtube video data extractor"
+        },
+        {
+            "source": "extract data for youtube video data extractor",
+            "target": "extract data for youtube video data extractor"
+        },
+        {
+            "source": "all exchange rates for ziff",
+            "target": "all exchange rates for ziff"
+        },
+        {
+            "source": "all exchange rates for ziff",
+            "target": "casino tournaments list for casinosearch"
+        },
+        {
+            "source": "get version for brand recognition",
+            "target": "get person by id for auther check"
+        },
+        {
+            "source": "get person by id for auther check",
+            "target": "get person by id for auther check"
+        },
+        {
+            "source": "random nonalcoholic for cocktails",
+            "target": "random for cocktails"
+        },
+        {
+            "source": "latest for exchange rate",
+            "target": "symbols for exchange rate"
+        },
+        {
+            "source": "symbols for exchange rate",
+            "target": "latest for exchange rate"
+        },
+        {
+            "source": "get all characters for game of thrones",
+            "target": "get all characters for game of thrones"
+        },
+        {
+            "source": "get all characters for game of thrones",
+            "target": "history for xxxtremelightningrouletteapi"
+        },
+        {
+            "source": "history for xxxtremelightningrouletteapi",
+            "target": "history for xxxtremelightningrouletteapi"
+        },
+        {
+            "source": "get draw results for new york lottery",
+            "target": "get draw results for new york lottery"
+        },
+        {
+            "source": "isupdate for turkey public holidays",
+            "target": "isupdate for turkey public holidays"
+        },
+        {
+            "source": "getquotesbycategory for quotes villa",
+            "target": "getquotesbycategory for quotes villa"
+        },
+        {
+            "source": "getquotesbycategory for quotes villa",
+            "target": "korean baby girl names for korean baby name ranking"
+        },
+        {
+            "source": "korean baby girl names for korean baby name ranking",
+            "target": "korean baby boy names for korean baby name ranking"
+        },
+        {
+            "source": "games for hfghfgh",
+            "target": "games for hfghfgh"
+        },
+        {
+            "source": "games for hfghfgh",
+            "target": "casino tournaments list for casinosearch"
+        },
+        {
+            "source": "get all climate change news for climate change live v3",
+            "target": "get indivisual news source news for climate change live v3"
+        },
+        {
+            "source": "v1 worldtime for world time by api ninjas",
+            "target": "v1 worldtime for world time by api ninjas"
+        },
+        {
+            "source": "v1 worldtime for world time by api ninjas",
+            "target": "v1 urllookup for url lookup by api ninjas"
+        },
+        {
+            "source": "v1 verify for validect email verification",
+            "target": "v1 verify for validect email verification"
+        },
+        {
+            "source": "get rentals for deal catcher",
+            "target": "get rentals for deal catcher"
+        },
+        {
+            "source": "om username generator for unique username generator by pizza api",
+            "target": "om username generator for unique username generator by pizza api"
+        },
+        {
+            "source": "get individual news sources for climate change api v3",
+            "target": "get anime news list for anime news net"
+        },
+        {
+            "source": "translate for google translate v2",
+            "target": "translate for google translate v2"
+        },
+        {
+            "source": "explore popular for soccerway feed",
+            "target": "explore popular for soccerway feed"
+        },
+        {
+            "source": "search indie songs by filters for indie songs distrokid unsigned",
+            "target": "search indie songs by filters for indie songs distrokid unsigned"
+        },
+        {
+            "source": "search indie songs by filters for indie songs distrokid unsigned",
+            "target": "get top 50 indie songs for indie songs distrokid unsigned"
+        },
+        {
+            "source": "get car makers for infocarsapi",
+            "target": "v1 airlines for airlines by api ninjas"
+        },
+        {
+            "source": "latest outcome for xxxtremelightningrouletteapi",
+            "target": "history for xxxtremelightningrouletteapi"
+        },
+        {
+            "source": "get all climate change news for climate change api tutorial",
+            "target": "find by title for movies details"
+        },
+        {
+            "source": "allchannel for tvview",
+            "target": "allchannel for tvview"
+        },
+        {
+            "source": "v1 chucknorris for chuck norris by api ninjas",
+            "target": "v1 chucknorris for chuck norris by api ninjas"
+        },
+        {
+            "source": "lookup for ip directory",
+            "target": "lookup for ip directory"
+        },
+        {
+            "source": "events for economic events calendar",
+            "target": "get for number2words"
+        },
+        {
+            "source": "get for number2words",
+            "target": "get for number2words"
+        },
+        {
+            "source": "get for number2words",
+            "target": "events for economic events calendar"
+        },
+        {
+            "source": "gulag leaderboard wz2 for cod api 2 0",
+            "target": "get epic free games coming soon for epic free games"
+        },
+        {
+            "source": "get epic free games coming soon for epic free games",
+            "target": "gulag leaderboard wz2 for cod api 2 0"
+        },
+        {
+            "source": "get for synonyms words",
+            "target": "get for synonyms words"
+        },
+        {
+            "source": "v1 stars for stars by api ninjas",
+            "target": "get planet position angles for yawin indian astrology"
+        },
+        {
+            "source": "get planet position angles for yawin indian astrology",
+            "target": "get planet position angles for yawin indian astrology"
+        },
+        {
+            "source": "search for epic games store",
+            "target": "get questions and answers for soft cat quiz"
+        },
+        {
+            "source": "get sentence for pipotronic",
+            "target": "allchannel for tvview"
+        },
+        {
+            "source": "supported languages for google translate v3",
+            "target": "list of available languages for translef translator"
+        },
+        {
+            "source": "list of available languages for translef translator",
+            "target": "supported languages for google translate v3"
+        },
+        {
+            "source": "v1 airlines for airlines by api ninjas",
+            "target": "get car makers for infocarsapi"
+        },
+        {
+            "source": "unknown for reqres",
+            "target": "get all country list for country list"
+        },
+        {
+            "source": "scraper for seo fast audit",
+            "target": "scraper for seo fast audit"
+        },
+        {
+            "source": "hello for quick qr code generator",
+            "target": "hello for quick qr code generator"
+        },
+        {
+            "source": "hello for quick qr code generator",
+            "target": "generate qr for qr code wizard"
+        },
+        {
+            "source": "get by homicide rate for world cities by homicide rate",
+            "target": "autocomplete for deutsche bahn"
+        },
+        {
+            "source": "autocomplete for deutsche bahn",
+            "target": "autocomplete for deutsche bahn"
+        },
+        {
+            "source": "solat list for waktu solat",
+            "target": "kda calculator for teamriverbubbles random utilities"
+        },
+        {
+            "source": "kda calculator for teamriverbubbles random utilities",
+            "target": "kda calculator for teamriverbubbles random utilities"
+        },
+        {
+            "source": "get all climate change related news for climate news api v2",
+            "target": "get all ipl news for latest ipl news"
+        },
+        {
+            "source": "random for manatee jokes",
+            "target": "v1 planets for planets by api ninjas"
+        },
+        {
+            "source": "crops list for crops",
+            "target": "crops list for crops"
+        },
+        {
+            "source": "validate email for email validation v3",
+            "target": "validate email for email validation v3"
+        },
+        {
+            "source": "verify email for emails verifier",
+            "target": "verify email for verify email"
+        },
+        {
+            "source": "get all global recession news for global recession live",
+            "target": "get all global recession news for global recession live"
+        },
+        {
+            "source": "get news from single news resource for climate change news v5",
+            "target": "get all news on pollution for pollution news api"
+        },
+        {
+            "source": "get all news on pollution for pollution news api",
+            "target": "get all news on pollution for pollution news api"
+        },
+        {
+            "source": "get all news on pollution for pollution news api",
+            "target": "all climate change news for climate change news v5"
+        },
+        {
+            "source": "getesgnews for gaialens esg news",
+            "target": "getesgnews for gaialens esg news"
+        },
+        {
+            "source": "latest for exchange rate",
+            "target": "convert for exchange rate"
+        },
+        {
+            "source": "timezone for services",
+            "target": "timezone for services"
+        },
+        {
+            "source": "timezone for services",
+            "target": "v1 urllookup for url lookup by api ninjas"
+        },
+        {
+            "source": "v1 urllookup for url lookup by api ninjas",
+            "target": "timezone for services"
+        },
+        {
+            "source": "list genres for media group",
+            "target": "v1 memes for programming memes images"
+        },
+        {
+            "source": "get comments with product id for amazon data v3",
+            "target": "get comments with product id for amazon data v3"
+        },
+        {
+            "source": "convert url to image for cloudlayer io",
+            "target": "convert url to image for cloudlayer io"
+        },
+        {
+            "source": "get all foods for generic food v2",
+            "target": "getrecipe for cookr recipe parser"
+        },
+        {
+            "source": "search for youtube v3 v2",
+            "target": "search for youtube v3 v2"
+        },
+        {
+            "source": "questions for quiz",
+            "target": "search users for tiktok apis"
+        },
+        {
+            "source": "search users for tiktok apis",
+            "target": "search users for tiktok apis"
+        },
+        {
+            "source": "retorna dados do endere o atrav s do cep for cep brazil",
+            "target": "retorna dados do endere o atrav s do cep for cep brazil"
+        },
+        {
+            "source": "top collections this week for top nft sales",
+            "target": "top collections this week for top nft sales"
+        },
+        {
+            "source": "supported currencies for currency converter v2",
+            "target": "get last cryptocurrency news for crypto news api"
+        },
+        {
+            "source": "get chickens for kfc chickens",
+            "target": "get chickens for kfc chickens"
+        },
+        {
+            "source": "random roman god for roman gods by pizza api",
+            "target": "view user list for python libraries tst"
+        },
+        {
+            "source": "categorytournaments for esportapi",
+            "target": "categorytournaments for esportapi"
+        },
+        {
+            "source": "get all climate change related news for climate news api v2",
+            "target": "available regions for ai news global"
+        },
+        {
+            "source": "available regions for ai news global",
+            "target": "get all ai news for ai news v2"
+        },
+        {
+            "source": "get all climate change news for climate change api v3",
+            "target": "get individual news sources for climate change api v3"
+        },
+        {
+            "source": "veiculo tipo id marca for veiculos api",
+            "target": "veiculo tipo id marca for veiculos api"
+        },
+        {
+            "source": "get the forecast for cloud cast",
+            "target": "get the forecast for cloud cast"
+        },
+        {
+            "source": "carbonfootprintfromcartravel for carbonfootprint",
+            "target": "carbonfootprintfromcartravel for carbonfootprint"
+        },
+        {
+            "source": "fx for forexgo",
+            "target": "fx for forexgo"
+        },
+        {
+            "source": "fx for forexgo",
+            "target": "get fear and greed index for fear and greed index"
+        },
+        {
+            "source": "get all climate change related news for climate news api v2",
+            "target": "get individual news source news for climate news api v2"
+        },
+        {
+            "source": "get individual news source news for climate news api v2",
+            "target": "get individual news source news for climate news api v2"
+        },
+        {
+            "source": "get individual news source news for climate news api v2",
+            "target": "get the latest 30 news from ieee spectrum for ieee spectrum api"
+        },
+        {
+            "source": "get record details for guinness world records api",
+            "target": "movies link and name for porn movies"
+        },
+        {
+            "source": "search for simple youtube search",
+            "target": "search for simple youtube search"
+        },
+        {
+            "source": "ranking list for j2acoin",
+            "target": "ranking list for j2acoin"
+        },
+        {
+            "source": "random nonalcoholic for cocktails",
+            "target": "api nutrition data for edamam nutrition analysis"
+        },
+        {
+            "source": "hello for quick qr code generator",
+            "target": "performance monitor metrics for perf monitor metrics"
+        },
+        {
+            "source": "performance monitor metrics for perf monitor metrics",
+            "target": "generate qr for qr code wizard"
+        },
+        {
+            "source": "get questions and answers for soft cat quiz",
+            "target": "riddle by difficulty level for riddlie"
+        },
+        {
+            "source": "riddle by difficulty level for riddlie",
+            "target": "riddle by difficulty level for riddlie"
+        },
+        {
+            "source": "riddle by difficulty level for riddlie",
+            "target": "get records for guinness world records api"
+        },
+        {
+            "source": "get poster for outking",
+            "target": "get poster for outking"
+        },
+        {
+            "source": "get poster for outking",
+            "target": "letters for boggle"
+        },
+        {
+            "source": "letters for boggle",
+            "target": "letters for boggle"
+        },
+        {
+            "source": "get sign prediction for today by name for zodiacapi",
+            "target": "get sign prediction for today by name for zodiacapi"
+        },
+        {
+            "source": "get sign prediction for today by name for zodiacapi",
+            "target": "generate flirty line for flirty words"
+        },
+        {
+            "source": "search for g search",
+            "target": "search for g search"
+        },
+        {
+            "source": "get news from a specific source for pollution news api",
+            "target": "get individual news source news for climate change api tutorial"
+        },
+        {
+            "source": "get individual news sources for climate change api v3",
+            "target": "get individual news sources for climate change api v3"
+        },
+        {
+            "source": "get individual news sources for climate change api v3",
+            "target": "get all climate change news for climate change api v3"
+        },
+        {
+            "source": "flashcards for real estate exam",
+            "target": "flashcards for real estate exam"
+        },
+        {
+            "source": "buscar empresas for enotas gateway",
+            "target": "fetch email of a person for email finder"
+        },
+        {
+            "source": "location ip for ip geo",
+            "target": "location ip for ip geo"
+        },
+        {
+            "source": "latest by lat lng for ambee pollen data",
+            "target": "get by filter for world population by decade and growth rate"
+        },
+        {
+            "source": "get by filter for world population by decade and growth rate",
+            "target": "latest by lat lng for ambee pollen data"
+        },
+        {
+            "source": "latest by lat lng for ambee pollen data",
+            "target": "get by decade for world population by decade and growth rate"
+        },
+        {
+            "source": "v1 exchangerate for exchange rate by api ninjas",
+            "target": "get symbols for ohlc history forex"
+        },
+        {
+            "source": "get all global recession news for global recession live",
+            "target": "get anime news list for anime news net"
+        },
+        {
+            "source": "getnews for coronavirus smartable",
+            "target": "getnews for coronavirus smartable"
+        },
+        {
+            "source": "getnews for coronavirus smartable",
+            "target": "get all ai news for ai news v2"
+        },
+        {
+            "source": "get individual news source news for climate news api v2",
+            "target": "get all climate change related news for climate news api v2"
+        },
+        {
+            "source": "get voice for anime voice waifu ai api",
+            "target": "get voice for anime voice waifu ai api"
+        }
+    ]
+}

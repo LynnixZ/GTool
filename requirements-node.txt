@@ -1,0 +1,42 @@
+# Portable requirements for running GTool on a fresh node.
+# The repo's original requirements.txt is a `pip freeze` of a conda env and is
+# NOT installable elsewhere (44 entries are `@ file:///croot/...` local paths).
+# Use THIS file instead. Versions match the original env where they matter.
+#
+# ── Install order (cu121 / Ampere e.g. A100; see RUNBOOK §3 torch notes) ──
+#
+#   # 1) torch first (or reuse the base image's CUDA torch — preferred in China):
+#   pip install torch==2.1.0 --index-url https://download.pytorch.org/whl/cu121
+#   #    (China mirror: --index-url https://mirror.sjtu.edu.cn/pytorch-wheels/cu121)
+#
+#   # 2) PyG companion wheels — MUST come from the PyG wheel index for torch-2.1.0+cu121:
+#   pip install torch-scatter==2.1.2 torch-sparse==0.6.18 torch-cluster==1.6.3 torch-spline-conv==1.2.2 \
+#       -f https://data.pyg.org/whl/torch-2.1.0+cu121.html
+#
+#   # 3) everything else:
+#   pip install -r requirements-node.txt
+#
+# Verify CUDA before training:  python -c "import torch;print(torch.__version__, torch.cuda.is_available())"  # must be True
+
+# --- core DL stack (torch installed separately above) ---
+numpy<2                 # torch 2.1 is incompatible with numpy>=2
+transformers==4.51.3    # >=4.51 needed for Qwen3
+accelerate==1.2.0       # device_map="auto"
+sentencepiece==0.2.0    # Llama/Mistral slow tokenizers
+tokenizers>=0.21        # pulled by transformers; pinned high enough for Qwen3
+
+# --- graph stack (companion wheels installed separately above) ---
+torch-geometric==2.6.1
+
+# --- text encoding for graph building (src/utils/lm_modeling.py) ---
+# lm_modeling imports gensim unconditionally, so it is required even though we use SBERT.
+gensim==4.3.3
+
+# --- data / split / eval ---
+pandas
+scikit-learn            # src/dataset/preprocess/generate_split.py
+Levenshtein==0.26.1     # src/utils/evaluate.py
+tqdm
+
+# --- optional: faster PART-1 downloads (networked node only) ---
+# hf_transfer

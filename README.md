@@ -1,0 +1,319 @@
+# GTool: Graph Enhanced Tool Planning with Large Language Model
+
+本仓库是论文 **《Graph Enhanced Tool Planning with Large Language Model》** 的实现代码。
+本文档总结了方法原理、代码结构和完整的使用流程，方便在 TaskBench 等数据集上选择不同 LLM 进行训练与测试。
+
+---
+
+## 1. 方法概览（论文做了什么）
+
+工具规划（tool planning）任务：给定一个用户请求和一组候选工具，模型需要输出**完成该请求所需工具的有序序列**（先调用哪个、后调用哪个）。
+
+传统做法只把工具描述当作纯文本喂给 LLM，忽略了工具之间天然存在的**依赖关系**（A 的输出是 B 的输入）。GTool 的核心思想是：**把工具集合建模成一张图，用 GNN 编码后作为“软提示（soft token）”注入冻结的 LLM**，让 LLM 在感知工具拓扑结构的前提下做规划。整体属于 G-Retriever / GraphToken 这一类“图 → soft prompt → 冻结 LLM”的架构。
+
+### 关键组件
+
+1. **工具图构建（图文本化）**
+   - 每个数据集提供 `graph_desc.json`，其中 `links` 描述工具间的先后依赖（`source --precedes--> target`）。
+   - 代码把图转成节点表 `nodes.csv` 和边表 `edges.csv`（见 `src/dataset/preprocess/*.py`）。
+   - 额外加入一个 **super-node（超级节点）**，与所有工具节点相连，用来聚合出“图级别”表示；该超级节点的初始特征用**当前用户请求的文本嵌入**。
+
+2. **文本嵌入**
+   - 节点描述（`node_desc.json`）、边类型、用户请求都用 **SBERT（`sentence-transformers/all-roberta-large-v1`，1024 维）** 编码成向量，作为图的节点/边特征。
+   - 编码逻辑见 [src/utils/lm_modeling.py](src/utils/lm_modeling.py)（也支持 contriever / word2vec，默认 sbert）。
+
+3. **GNN 编码器**
+   - 默认 `gt`（GraphTransformer），另含 `gcn`、`gat`，见 [src/model/gnn.py](src/model/gnn.py)。
+   - 输入维度 1024，输出维度对齐 LLM 词向量维度，super-node 的输出向量即作为**图表示**。
+
+4. **图 token 注入冻结 LLM**
+   - LLM **全程冻结**，只训练 GNN 编码器以及几个特殊的可学习 token（`graph_token_embeds`、`node_token_embeds`）。
+   - 把图表示投影到 LLM 词嵌入空间，拼成 `[BOS] <graph_token> <图向量> <graph_token> [工具描述+用户请求] [/INST] [答案]` 的形式喂入 LLM。
+   - 见 [src/model/GTool.py](src/model/GTool.py) 的 `forward` / `inference`。
+
+5. **EARE 辅助损失（边关系自监督）**
+   - 训练时随机 mask 掉一部分边（`mask_prob`），把两个被 mask 节点的 GNN 向量拼成 prompt，让 LLM 回答“这两个节点之间是否有边连接（yes/no）”，正样本用真实被 mask 的边、负样本用负采样的边。
+   - 目的是逼 GNN 学到能反映图结构的表示。见 `GTool.EARE_loss` 与 [src/utils/mask.py](src/utils/mask.py)。
+   - 总损失：`loss = LM_loss + alpha * eare_loss`（`alpha` 默认 0.1）。
+
+6. **输出与评测**
+   - 模型自回归生成 `Tool1: xxx\nTool2: yyy\n...` 形式的工具序列。
+   - 评测三个指标（见 [src/utils/evaluate.py](src/utils/evaluate.py)）：
+     - **node_f1**：工具选择的 F1（选对了哪些工具）。
+     - **edge_f1**：相邻工具对的 F1（顺序/依赖是否正确）。
+     - **NED**：基于 Levenshtein 的归一化编辑距离（`1 - ratio`，越小越好）。
+
+---
+
+## 2. 代码结构
+
+```
+GTool/
+├── train.py                       # 训练 + 训练后自动测试评测的主入口
+├── inference.py                   # 仅加载已训练 checkpoint 做测试评测
+├── src/
+│   ├── config.py                  # 所有超参数 + LLM 模型名→路径映射（要加新模型改这里）
+│   ├── model/
+│   │   ├── GTool.py               # 核心模型：冻结 LLM + GNN + 图 token + EARE loss
+│   │   └── gnn.py                 # GCN / GAT / GraphTransformer
+│   ├── dataset/
+│   │   ├── __init__.py            # load_dataset 注册表（数据集名→类）
+│   │   ├── huggingface.py         # 各数据集的 Dataset 类（运行期读取预处理产物）
+│   │   ├── multimedia.py
+│   │   ├── dailylife.py
+│   │   ├── toole.py
+│   │   └── preprocess/            # 预处理脚本：建图、SBERT 编码、切分 train/val/test
+│   │       ├── huggingface.py
+│   │       ├── multimedia.py
+│   │       ├── dailylife.py
+│   │       ├── toole.py
+│   │       └── generate_split.py  # 6:2:2 随机切分（random_state=42）
+│   └── utils/                     # 评测、mask、collate、lr 调度、checkpoint、seed
+├── dataset/                       # 原始数据（json），预处理产物也会写到各子目录
+├── output/                        # checkpoint(.pth) 与测试结果(.csv) 输出目录
+└── requirements.txt
+```
+
+### 数据集说明
+
+| 数据集 | 属于 | data.json 样本数 | 是否已接入 `load_dataset` |
+|---|---|---|---|
+| `huggingface` | **TaskBench** | 3630 | ✅ |
+| `multimedia`  | **TaskBench** | 2981 | ✅ |
+| `dailylife`   | **TaskBench** | 2787 | ✅ |
+| `toole`       | ToolE | （无 data.json） | ✅ |
+| `toolbench`   | ToolBench | 298 | ❌ 未在 `__init__.py` 注册，暂不可直接用 |
+
+> **TaskBench 训练/测试主要用前三个数据集：`huggingface` / `multimedia` / `dailylife`。**
+
+---
+
+## 3. 环境准备
+
+```bash
+pip install -r requirements.txt
+```
+
+关键依赖（已固定版本）：`torch==2.1.0`、`transformers==4.51.3`、`torch-geometric==2.6.1`（含 torch-scatter/sparse/cluster 的 cu121 轮子）、`peft==0.14.0`、`Levenshtein==0.26.1`、`gensim==4.3.3`、`accelerate`、`sentencepiece`。
+
+需要 **CUDA GPU**（代码大量使用 `cuda:0`、`device_map="auto"` 与 bf16 autocast，CPU 跑不起来）。
+
+> ⚠️ SBERT 模型默认 `local_files_only=True`（见 lm_modeling.py），即要求 `sentence-transformers/all-roberta-large-v1` 已在本地 HF 缓存中。首次使用请先把该模型下载到本地，或临时把该参数改为 `False`。
+
+---
+
+## 4. 使用流程
+
+### 步骤 1：预处理（建图 + SBERT 编码 + 切分）
+
+> ⚠️ 仓库中 `dataset/<name>/` 目前**只有原始 json**，还没有 `nodes.csv` / `edges.csv` / `graphs/*.pt` / `split/`。必须先跑预处理，否则 `train.py` / `inference.py` 找不到文件会报错。
+
+每个数据集跑两步（按 README 原始顺序，第一步生成图与编码，第二步可做自检）：
+
+```bash
+# 1) 预处理：建图、用 SBERT 编码节点/边/请求、生成 train/val/test 划分
+python -m src.dataset.preprocess.huggingface
+# python -m src.dataset.preprocess.multimedia
+# python -m src.dataset.preprocess.dailylife
+# python -m src.dataset.preprocess.toole
+
+# 2) 自检：实例化 Dataset 打印第 0 条样本与各划分数量
+python -m src.dataset.huggingface
+# python -m src.dataset.multimedia
+# python -m src.dataset.dailylife
+# python -m src.dataset.toole
+```
+
+产物会写到 `dataset/<name>/` 下：`nodes.csv`、`edges.csv`、`graphs/{idx}.pt`、`split/{train,val,test}_indices.txt`。
+
+### 步骤 2：训练（含训练后自动测试）
+
+```bash
+python train.py --dataset huggingface --llm_model_name llama
+```
+
+`train.py` 会：训练 → 按验证集 loss 保存最优 checkpoint（带 early stop，`patience` 默认 2）→ 自动加载最优权重在测试集生成预测 → 计算 node_f1 / edge_f1 / NED。
+
+- Checkpoint 保存到 `output/<dataset>/..._checkpoint_best.pth`
+- 测试预测保存到 `output/<dataset>/..._seed_<seed>.csv`（文件名编码了全部关键超参）
+
+### 步骤 3：单独测试（复用已有 checkpoint）
+
+```bash
+python inference.py --dataset huggingface --llm_model_name llama
+```
+
+> 注意：`inference.py` 通过完全相同的超参拼出 checkpoint 路径来加载，所以**测试时传的超参必须和训练时一致**，否则会找不到 `..._checkpoint_best.pth`。
+
+---
+
+## 5. 选择/添加要训练的 LLM
+
+模型名到 HF 路径的映射在 [src/config.py](src/config.py#L3-L7) 的 `llama_model_path`：
+
+```python
+llama_model_path = {
+    "llama":  "meta-llama/Llama-2-7b-hf",
+    "vicuna": "lmsys/vicuna-7b-v1.5",
+    "qwen3":  "Qwen/Qwen3-14B",
+}
+```
+
+**要加新模型**：在这里加一行 `"别名": "HF 仓库或本地路径"`，然后用 `--llm_model_name 别名` 即可。
+
+### ⚠️ 换模型时需要注意（重要）
+
+当前 `GTool.py` 是按 **Llama-2** 的约定写死的，换其它家族的模型前请检查/适配以下几处：
+
+1. **取词嵌入的路径**：`self.model.model.get_input_embeddings()`（GTool.py:59）依赖 `.model.model` 这层结构，Llama 可用；个别架构层级不同，必要时改成 `self.model.get_input_embeddings()`。
+2. **特殊 token / 对话模板**：`BOS='<s>[INST]'`、`EOS_USER='[/INST]'`、`EOS='</s>'`、`PAD='<pad>'`（GTool.py:10-13）是 Llama-2 chat 格式。Qwen3 等模型的特殊 token 和 chat template 不同，直接套用会影响效果，建议按目标模型调整。
+3. **显存设置**：`max_memory={0:'80GiB', 1:'80GiB'}` + `device_map="auto"`（GTool.py:32-36）假设有 2 张 80G 卡。请按你的硬件改这里（单卡 / 不同显存）。14B 模型显存需求明显高于 7B。
+
+---
+
+## 6. 主要超参（`src/config.py`）
+
+| 参数 | 默认 | 说明 |
+|---|---|---|
+| `--dataset` | huggingface | 数据集：huggingface / multimedia / dailylife / toole |
+| `--llm_model_name` | llama | LLM 别名（对应 `llama_model_path`） |
+| `--lr` / `--wd` | 1e-5 / 0.05 | 学习率 / 权重衰减 |
+| `--num_epochs` | 10 | 训练轮数 |
+| `--patience` | 2 | early stop 容忍轮数 |
+| `--batch_size` / `--eval_batch_size` | 4 / 8 | 训练 / 评测 batch |
+| `--grad_steps` | 2 | 梯度累积步（用于 lr 调度节奏） |
+| `--max_txt_len` / `--max_new_tokens` | 3072 / 64 | 输入截断长度 / 生成长度 |
+| `--gnn_model_name` | gt | GNN 类型：gt / gcn / gat |
+| `--gnn_num_layers` | 3 | GNN 层数 |
+| `--gnn_in_dim` / `--gnn_hidden_dim` | 1024 / 1024 | GNN 维度（与 SBERT 1024 对齐） |
+| `--mask_prob` | 0.1 | EARE 中被 mask 的边比例 |
+| `--alpha` | 0.1 | EARE 损失权重 |
+| `--LLMP_dim` | 4 | EARE 每个 batch 采样的正/负边对数量 |
+| `--seed` | 0 | 随机种子 |
+
+---
+
+## 7. 在 TaskBench 上跑一遍的最小命令清单
+
+```bash
+# 0. 装依赖（并确保本地有 all-roberta-large-v1）
+pip install -r requirements.txt
+
+# 1. 预处理三个 TaskBench 数据集
+python -m src.dataset.preprocess.huggingface
+python -m src.dataset.preprocess.multimedia
+python -m src.dataset.preprocess.dailylife
+
+# 2. 针对某个模型逐数据集训练+测试
+python train.py --dataset huggingface --llm_model_name llama
+python train.py --dataset multimedia  --llm_model_name llama
+python train.py --dataset dailylife   --llm_model_name llama
+
+# 3. 换模型：在 config.py 注册别名后
+python train.py --dataset huggingface --llm_model_name qwen3
+```
+
+结果（node_f1 / edge_f1 / NED）会在训练结束时打印，并可从 `output/<dataset>/*.csv` 复算（用 `src/utils/evaluate.py` 的 `eval(path)`）。
+
+---
+
+## 8. 使用 zou 分层切分 + Mistral / Qwen3（本次实验用法）
+
+本节是为「用分层切分逻辑，在 **Mistral-7B-Instruct-v0.3** 和 **Qwen3-8B** 上训练/测试」准备的。**切分用 `preprocess_zou` 的分层逻辑，其余全部沿用 GTool；数据用仓库自带的过滤子集（不碰全量 TaskBench）。**
+
+### 8.1 与 GTool 原生流程的区别
+
+- **切分**：不再用 GTool 的 `split/*.txt`（按下标随机 6:2:2），改用分层切分（80/10/10，按 `domain × topology × chain_length_bucket` 分层 + 训练集工具覆盖保证，seed=42），文件为 `train.jsonl / validation.jsonl / test_node.jsonl / test_chain.jsonl / test_all.jsonl`。
+- **数据范围**：用仓库自带的**过滤子集** `dataset/<domain>/data.json`（huggingface 3630 / multimedia 2981 / dailylife 2787，全部为 `chain` 类型），不重建图、不引入全量 TaskBench。
+- **样本匹配**：新数据类 [src/dataset/zou_split.py](src/dataset/zou_split.py) 用 `id → data.json 行号` 找到 GTool 预处理好的图 `.pt`；gold 顺序直接取记录里的 `trajectory`。
+- **其余全部不变**：建图、SBERT 编码、GNN、冻结 LLM、graph token、EARE/MDPL 损失、评测指标，都还是 GTool 的逻辑。
+
+> 说明：子集**全是 chain**（没有单工具 `node` 样本），所以分层实际是 `domain × chain_length_bucket`，且切出的 `test_node.jsonl` 为空、`test_chain == test_all`——这是预期行为，不是 bug。
+
+### 8.2 准备数据与切分
+
+```bash
+# 1) GTool 原生预处理：为子集建图（SBERT 编码 + super-node），生成 graphs/、nodes.csv 等
+python -m src.dataset.preprocess.huggingface
+python -m src.dataset.preprocess.multimedia
+python -m src.dataset.preprocess.dailylife
+
+# 2) 在子集上跑分层切分（自包含，不依赖 taskbench_sft），产出 JSONL 到 artifacts/splits_subset/
+python -m src.dataset.preprocess_zou.split_subset \
+    --raw_root dataset --out_dir artifacts/splits_subset
+```
+
+[src/dataset/preprocess_zou/split_subset.py](src/dataset/preprocess_zou/split_subset.py) 忠实复刻了 `taskbench_sft` 的切分逻辑（同样的 80/10/10、per-stratum 确定性 shuffle `random.Random(f"{seed}|{key}")`、训练集工具覆盖 resample、chain 简单路径校验、`trajectory` = 拓扑序），但直接读 GTool 子集、零外部依赖。
+
+> 已校验：9398 条 usable 样本 → train 7518 / val 939 / test 941（test_node=0），全部 id 与子集 `data.json` 0 缺失。
+
+### 8.3 训练
+
+```bash
+# Mistral-7B-Instruct-v0.3
+python train_zou.py \
+    --dataset zou_mistral \
+    --llm_model_name mistral \
+    --split_dir artifacts/splits_subset \
+    --raw_root dataset
+
+# Qwen3-8B
+python train_zou.py \
+    --dataset zou_qwen3_8b \
+    --llm_model_name qwen3-8b \
+    --split_dir artifacts/splits_subset \
+    --raw_root dataset
+```
+
+- `--raw_root dataset` 指向 GTool 自带子集（已由 8.2 第 1 步建好图）。
+- `--dataset` 仅作为输出命名空间（`output/<dataset>/`），不同实验请用不同 tag，避免 checkpoint/结果互相覆盖。
+- 训练逻辑与 `train.py` 完全一致：按验证集 loss 保存最优、early stop、训练后在 `--test_split`（默认 `test_all`）上自动评测。
+
+### 8.4 测试
+
+```bash
+python inference_zou.py \
+    --dataset zou_mistral \
+    --llm_model_name mistral \
+    --split_dir artifacts/splits_subset \
+    --raw_root dataset
+```
+
+- 默认会在 `test_node` / `test_chain` / `test_all` 上分别评测（空的 `test_node` 会自动跳过）。
+- **每个测试集都会按 gold answer 的工具数量分桶报告**：`tool=2 / tool=3 / tool>=4`，再加一行 `overall`，每行给 (count, node_f1, edge_f1, ned)。逻辑见 [src/utils/evaluate.py](src/utils/evaluate.py) 的 `eval_grouped`（工具数 = gold label 里 `Tool i:` 的行数）。`train_zou.py` 训练后的测试也用同样的分桶输出。
+- 想只测某一个：加 `--test_split test_chain`。
+- 测试时的超参（`llm_model_name / gnn_num_layers / mask_prob / LLMP_dim / alpha / patience / num_epochs / seed / dataset`）必须与训练一致，否则找不到 `..._checkpoint_best.pth`。
+
+  输出示例：
+  ```
+  [test_all]
+  group        count   node_f1   edge_f1       ned
+  tool=2         312    0.xxxx    0.xxxx    0.xxxx
+  tool=3         289    0.xxxx    0.xxxx    0.xxxx
+  tool>=4        340    0.xxxx    0.xxxx    0.xxxx
+  overall        941    0.xxxx    0.xxxx    0.xxxx
+  ```
+
+### 8.5 模型适配说明（已处理）
+
+GTool 原代码把 Llama-2 的对话标记写死了。为让 Mistral / Qwen3 能跑，[src/model/GTool.py](src/model/GTool.py) 增加了**按模型族选择 prompt 格式**（`PROMPT_FORMATS` + `resolve_prompt_format`），**llama / vicuna 路径保持原样不变**：
+
+| 模型族 | BOS / 用户结束 / EOS | tokenizer | pad |
+|---|---|---|---|
+| llama / vicuna | `<s>[INST]` / `[/INST]` / `</s>` | `use_fast=False` | `<pad>`(id=0)，与原版一致 |
+| mistral | `<s>[INST]` / `[/INST]` / `</s>`（与 Llama-2 同款 INST 格式） | `use_fast=True` | 复用 eos |
+| qwen | `<|im_start|>user\n` / `<|im_end|>\n<|im_start|>assistant\n` / `<|im_end|>` | `use_fast=True` | tokenizer 自带 |
+
+> 这是能跑起来的 baseline 模板；Qwen3 的 chat template 较特殊，若要进一步提点可再细化。另外 `GTool.py` 里 `max_memory={0:'80GiB',1:'80GiB'}` 默认假设两张 80G 卡，请按你的硬件改（单卡/小显存）。
+
+### 8.6 zou-split 相关新增文件一览
+
+| 文件 | 作用 |
+|---|---|
+| [src/dataset/preprocess_zou/split_subset.py](src/dataset/preprocess_zou/split_subset.py) | 在 GTool 子集上跑分层切分（自包含复刻 taskbench_sft 逻辑），产出 JSONL |
+| [src/dataset/zou_split.py](src/dataset/zou_split.py) | 读取分层切分 JSONL，按 id 匹配子集的图，输出 GTool 样本格式 |
+| [train_zou.py](train_zou.py) | 训练（= `train.py` 逻辑 + zou 切分） |
+| [inference_zou.py](inference_zou.py) | 测试（默认对 node/chain/all 分别评测，空集自动跳过） |
+| `src/config.py` | 新增 `mistral` / `qwen3-8b` 模型映射，新增 `--split_dir/--raw_root/--test_split` 参数 |
+| `src/model/GTool.py` | 新增按模型族的 prompt 格式（llama/vicuna 不变） |
+

@@ -1,0 +1,8366 @@
+{
+  "nodes": [
+    {
+      "id": "get weather",
+      "desc": "Get the weather for a specific city and a specific day",
+      "parameters": [
+        {
+          "name": "location",
+          "type": "string",
+          "desc": "The location to get the weather for"
+        },
+        {
+          "name": "date",
+          "type": "date",
+          "desc": "The date to get the weather for"
+        }
+      ]
+    },
+    {
+      "id": "get news for topic",
+      "desc": "Get the news for a specific topic",
+      "parameters": [
+        {
+          "name": "topic",
+          "type": "string",
+          "desc": "The topic to get the news for"
+        }
+      ]
+    },
+    {
+      "id": "stock operation",
+      "desc": "Do a specific operation on a specific stock",
+      "parameters": [
+        {
+          "name": "stock",
+          "type": "string",
+          "desc": "The stock to do the operation on"
+        },
+        {
+          "name": "operation",
+          "type": "string",
+          "desc": "The operation to do, eg. buy, sell, short, cover etc."
+        }
+      ]
+    },
+    {
+      "id": "book flight",
+      "desc": "Book a flight for a specific date, from a specific location to a specific destination",
+      "parameters": [
+        {
+          "name": "date",
+          "type": "date",
+          "desc": "The date to book the flight for"
+        },
+        {
+          "name": "from",
+          "type": "string",
+          "desc": "The location to book the flight from"
+        },
+        {
+          "name": "to",
+          "type": "string",
+          "desc": "The location to book the flight to"
+        }
+      ]
+    },
+    {
+      "id": "book hotel",
+      "desc": "Book a specific hotel for a specific date",
+      "parameters": [
+        {
+          "name": "date",
+          "type": "date",
+          "desc": "The date to book the hotel for"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "desc": "The name of the hotel to book"
+        }
+      ]
+    },
+    {
+      "id": "book restaurant",
+      "desc": "Book a specific restaurant for a specific date",
+      "parameters": [
+        {
+          "name": "date",
+          "type": "date",
+          "desc": "The date to book the restaurant for"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "desc": "The name of the restaurant to book"
+        }
+      ]
+    },
+    {
+      "id": "book car",
+      "desc": "Book a car for a specific date, in a specific location",
+      "parameters": [
+        {
+          "name": "date",
+          "type": "date",
+          "desc": "The date to book the car for"
+        },
+        {
+          "name": "location",
+          "type": "string",
+          "desc": "The location to book the car in"
+        }
+      ]
+    },
+    {
+      "id": "online shopping",
+      "desc": "Buy a product from a specific website",
+      "parameters": [
+        {
+          "name": "website",
+          "type": "string",
+          "desc": "The website to buy the product from, eg. Amazon, Ebay, Taobao etc."
+        },
+        {
+          "name": "product",
+          "type": "string",
+          "desc": "The product to buy"
+        }
+      ]
+    },
+    {
+      "id": "send email",
+      "desc": "Send an email to a specific email address",
+      "parameters": [
+        {
+          "name": "email address",
+          "type": "string",
+          "desc": "The email address to send the email to"
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "desc": "The content of the email"
+        }
+      ]
+    },
+    {
+      "id": "send sms",
+      "desc": "Send an sms to a specific phone number",
+      "parameters": [
+        {
+          "name": "phone number",
+          "type": "string",
+          "desc": "The phone number to send the sms to"
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "desc": "The content of the sms"
+        }
+      ]
+    },
+    {
+      "id": "share by social network",
+      "desc": "Share a specific content by a specific social network",
+      "parameters": [
+        {
+          "name": "content",
+          "type": "string",
+          "desc": "The content to share"
+        },
+        {
+          "name": "social network",
+          "type": "string",
+          "desc": "The social network to share the content by, eg. Wechat, Facebook, Twitter, Weibo etc."
+        }
+      ]
+    },
+    {
+      "id": "search by engine",
+      "desc": "Search a specific query by a specific search engine",
+      "parameters": [
+        {
+          "name": "query",
+          "type": "string",
+          "desc": "The content to search"
+        },
+        {
+          "name": "engine",
+          "type": "string",
+          "desc": "The search engine to use, eg. Google, Bing, Baidu etc."
+        }
+      ]
+    },
+    {
+      "id": "apply for job",
+      "desc": "Apply for a specific job",
+      "parameters": [
+        {
+          "name": "job",
+          "type": "string",
+          "desc": "The job to apply for"
+        }
+      ]
+    },
+    {
+      "id": "see doctor online",
+      "desc": "See a specific doctor for a specific disease",
+      "parameters": [
+        {
+          "name": "disease",
+          "type": "string",
+          "desc": "The disease to see the doctor for"
+        },
+        {
+          "name": "doctor",
+          "type": "string",
+          "desc": "The doctor to see"
+        }
+      ]
+    },
+    {
+      "id": "consult lawyer online",
+      "desc": "Consult a specific lawyer for a specific legal issue",
+      "parameters": [
+        {
+          "name": "issue",
+          "type": "string",
+          "desc": "The legal issue to consult the lawyer for"
+        },
+        {
+          "name": "lawyer",
+          "type": "string",
+          "desc": "The lawyer to consult"
+        }
+      ]
+    },
+    {
+      "id": "enroll in course",
+      "desc": "Enroll in a specific course at a specific university",
+      "parameters": [
+        {
+          "name": "course",
+          "type": "string",
+          "desc": "The course to enroll in"
+        },
+        {
+          "name": "university",
+          "type": "string",
+          "desc": "The university to enroll in the course at"
+        }
+      ]
+    },
+    {
+      "id": "buy insurance",
+      "desc": "Buy a specific insurance from a specific insurance company",
+      "parameters": [
+        {
+          "name": "insurance",
+          "type": "string",
+          "desc": "The insurance to buy"
+        },
+        {
+          "name": "company",
+          "type": "string",
+          "desc": "The insurance company to buy the insurance from"
+        }
+      ]
+    },
+    {
+      "id": "online banking",
+      "desc": "Do a specific banking operation online at a specific bank",
+      "parameters": [
+        {
+          "name": "instruction",
+          "type": "string",
+          "desc": "The banking instruction to do, eg. transfer, deposit, withdraw etc."
+        },
+        {
+          "name": "bank",
+          "type": "string",
+          "desc": "The bank to do the banking operation at"
+        }
+      ]
+    },
+    {
+      "id": "daily bill payment",
+      "desc": "Pay a specific bill",
+      "parameters": [
+        {
+          "name": "bill",
+          "type": "string",
+          "desc": "The bill to pay, eg. electricity, water, gas, phone, internet etc."
+        }
+      ]
+    },
+    {
+      "id": "sell item online",
+      "desc": "Sell a specific item at a specific online store",
+      "parameters": [
+        {
+          "name": "item",
+          "type": "string",
+          "desc": "The item to sell"
+        },
+        {
+          "name": "store",
+          "type": "string",
+          "desc": "The online store to sell the item at, eg. Amazon, Ebay, Taobao etc."
+        }
+      ]
+    },
+    {
+      "id": "do tax return",
+      "desc": "Do the tax return for a specific year",
+      "parameters": [
+        {
+          "name": "year",
+          "type": "string",
+          "desc": "The year to do the tax return for"
+        }
+      ]
+    },
+    {
+      "id": "apply for passport",
+      "desc": "Apply for a passport",
+      "parameters": [
+        {
+          "name": "country",
+          "type": "string",
+          "desc": "The country to apply for the passport for"
+        }
+      ]
+    },
+    {
+      "id": "pay for credit card",
+      "desc": "Pay for a specific credit card",
+      "parameters": [
+        {
+          "name": "credit card",
+          "type": "string",
+          "desc": "The credit card to pay for"
+        }
+      ]
+    },
+    {
+      "id": "auto housework by robot",
+      "desc": "Let a robot do a housework by following a specific instruction",
+      "parameters": [
+        {
+          "name": "instruction",
+          "type": "string",
+          "desc": "The instruction to let the robot follow, eg. clean the floor, wash the dishes, do the laundry etc."
+        }
+      ]
+    },
+    {
+      "id": "auto driving to destination",
+      "desc": "Let a car drive to a specific destination",
+      "parameters": [
+        {
+          "name": "destination",
+          "type": "string",
+          "desc": "The destination to drive to"
+        }
+      ]
+    },
+    {
+      "id": "deliver package",
+      "desc": "Deliver a specific package to a specific destination",
+      "parameters": [
+        {
+          "name": "package",
+          "type": "string",
+          "desc": "The package to deliver"
+        },
+        {
+          "name": "destination",
+          "type": "string",
+          "desc": "The destination to deliver the package to"
+        }
+      ]
+    },
+    {
+      "id": "order food delivery",
+      "desc": "Order a specific food to be delivered to a specific location at a specific platform",
+      "parameters": [
+        {
+          "name": "food",
+          "type": "string",
+          "desc": "The food to order"
+        },
+        {
+          "name": "location",
+          "type": "string",
+          "desc": "The location to deliver the food to"
+        },
+        {
+          "name": "platform",
+          "type": "string",
+          "desc": "The platform to order the food at, eg. Uber Eats, Meituan Waimai etc."
+        }
+      ]
+    },
+    {
+      "id": "order taxi",
+      "desc": "Order a taxi to a specific location at a specific platform",
+      "parameters": [
+        {
+          "name": "location",
+          "type": "string",
+          "desc": "The location to order the taxi to"
+        },
+        {
+          "name": "platform",
+          "type": "string",
+          "desc": "The platform to order the taxi at, eg. Uber, Didi etc."
+        }
+      ]
+    },
+    {
+      "id": "play music by title",
+      "desc": "Play a specific music by a specific title",
+      "parameters": [
+        {
+          "name": "title",
+          "type": "string",
+          "desc": "The title of the music to play"
+        }
+      ]
+    },
+    {
+      "id": "play movie by title",
+      "desc": "Play a specific movie by a specific title",
+      "parameters": [
+        {
+          "name": "title",
+          "type": "string",
+          "desc": "The title of the movie to play"
+        }
+      ]
+    },
+    {
+      "id": "take note",
+      "desc": "Take a note",
+      "parameters": [
+        {
+          "name": "content",
+          "type": "string",
+          "desc": "The content of the note"
+        }
+      ]
+    },
+    {
+      "id": "borrow book online",
+      "desc": "Borrow a specific book from a specific library",
+      "parameters": [
+        {
+          "name": "book",
+          "type": "string",
+          "desc": "The book to borrow"
+        },
+        {
+          "name": "library",
+          "type": "string",
+          "desc": "The library to borrow the book from"
+        }
+      ]
+    },
+    {
+      "id": "recording audio",
+      "desc": "Record an audio",
+      "parameters": [
+        {
+          "name": "content",
+          "type": "string",
+          "desc": "The content of the audio"
+        }
+      ]
+    },
+    {
+      "id": "make video call",
+      "desc": "Make a video call to a specific phone number",
+      "parameters": [
+        {
+          "name": "phone number",
+          "type": "string",
+          "desc": "The phone number to make the video call to"
+        }
+      ]
+    },
+    {
+      "id": "make voice call",
+      "desc": "Make a voice call to a specific phone number",
+      "parameters": [
+        {
+          "name": "phone number",
+          "type": "string",
+          "desc": "The phone number to make the voice call to"
+        }
+      ]
+    },
+    {
+      "id": "organize meeting online",
+      "desc": "Organize a meeting online about a specific topic",
+      "parameters": [
+        {
+          "name": "topic",
+          "type": "string",
+          "desc": "The topic of the meeting"
+        }
+      ]
+    },
+    {
+      "id": "attend meeting online",
+      "desc": "Attend a meeting online about a specific topic",
+      "parameters": [
+        {
+          "name": "topic",
+          "type": "string",
+          "desc": "The topic of the meeting"
+        }
+      ]
+    },
+    {
+      "id": "software management",
+      "desc": "Manage a specific software by a specific instruction",
+      "parameters": [
+        {
+          "name": "software",
+          "type": "string",
+          "desc": "The software to manage"
+        },
+        {
+          "name": "instruction",
+          "type": "string",
+          "desc": "The instruction to manage the software by, eg. install, uninstall, update etc."
+        }
+      ]
+    },
+    {
+      "id": "print document",
+      "desc": "Print a specific document",
+      "parameters": [
+        {
+          "name": "document",
+          "type": "string",
+          "desc": "The document to print"
+        }
+      ]
+    },
+    {
+      "id": "set alarm",
+      "desc": "Set an alarm for a specific time",
+      "parameters": [
+        {
+          "name": "time",
+          "type": "string",
+          "desc": "The time to set the alarm for"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "source": "get weather",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "get weather",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "get news for topic",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "stock operation",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "book flight",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "book hotel",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "book restaurant",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "book car",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "online shopping",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "send email",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "send sms",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "share by social network",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "search by engine",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "apply for job",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "see doctor online",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "consult lawyer online",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "enroll in course",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "buy insurance",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "online banking",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "daily bill payment",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "sell item online",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "do tax return",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "apply for passport",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "pay for credit card",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "auto housework by robot",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "auto driving to destination",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "deliver package",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "order food delivery",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "order taxi",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "play music by title",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "play movie by title",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "take note",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "borrow book online",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "recording audio",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "make video call",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "make voice call",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "organize meeting online",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "attend meeting online",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "print document",
+      "type": "complete"
+    },
+    {
+      "source": "software management",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "print document",
+      "target": "set alarm",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "get weather",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "get news for topic",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "stock operation",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "book flight",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "book hotel",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "book restaurant",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "book car",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "online shopping",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "send email",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "send sms",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "share by social network",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "search by engine",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "apply for job",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "see doctor online",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "consult lawyer online",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "enroll in course",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "buy insurance",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "online banking",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "daily bill payment",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "sell item online",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "do tax return",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "apply for passport",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "pay for credit card",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "auto housework by robot",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "auto driving to destination",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "deliver package",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "order food delivery",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "order taxi",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "play music by title",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "play movie by title",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "take note",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "borrow book online",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "recording audio",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "make video call",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "make voice call",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "organize meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "attend meeting online",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "software management",
+      "type": "complete"
+    },
+    {
+      "source": "set alarm",
+      "target": "print document",
+      "type": "complete"
+    }
+  ]
+}

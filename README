@@ -1,0 +1,27 @@
+# Graph Enhanced Tool Planning with Large Language Model
+
+## environment preparation
+
+```bash
+    pip install -r requirements.txt
+```
+
+## data preparation
+```bash
+    python -m src.dataset.preprocess.huggingface
+    # python -m src.dataset.preprocess.multimedia
+    # python -m src.dataset.preprocess.dailylife
+    # python -m src.dataset.preprocess.toole
+```
+```bash
+    python -m src.dataset.huggingface
+    # python -m src.dataset.multimedia
+    # python -m src.dataset.dailylife
+    # python -m src.dataset.toole
+```
+
+## run
+```bash
+    python train.py --dataset huggingface --llm_model_name llama
+```
+

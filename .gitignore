@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# envs / caches / work dirs (never commit)
+venv/
+.venv/
+hf_home/
+tb_work/
+wandb/
+
+# secrets
+*.secret.sh
+env.local.sh
+.env
+
+# generated artifacts (all reproducible from code + dataset/*/data.json)
+output/
+artifacts/
+dataset/*/graphs/
+dataset/*/nodes.csv
+dataset/*/edges.csv
+dataset/*/split/
+
+# other repo's deploy templates (kept locally as reference, not part of this repo)
+scripts/scripts_zou/
+
+# OS
+.DS_Store

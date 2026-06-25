@@ -1,0 +1,637 @@
+{
+    "nodes": [
+        "FinanceTool",
+        "NewsTool",
+        "CourseTool",
+        "PDF&URLTool",
+        "TripTool",
+        "TripAdviceTool",
+        "MusicTool",
+        "WeatherTool",
+        "HousePurchasingTool",
+        "JobTool",
+        "ResearchFinder",
+        "ResearchHelper",
+        "ProductSearch",
+        "Discount",
+        "RepoTool"
+    ],
+    "edges": [
+        {
+            "source": "FinanceTool",
+            "target": "NewsTool"
+        },
+        {
+            "source": "FinanceTool",
+            "target": "CourseTool"
+        },
+        {
+            "source": "FinanceTool",
+            "target": "PDF&URLTool"
+        },
+        {
+            "source": "FinanceTool",
+            "target": "TripTool"
+        },
+        {
+            "source": "FinanceTool",
+            "target": "TripAdviceTool"
+        },
+        {
+            "source": "FinanceTool",
+            "target": "MusicTool"
+        },
+        {
+            "source": "FinanceTool",
+            "target": "WeatherTool"
+        },
+        {
+            "source": "FinanceTool",
+            "target": "HousePurchasingTool"
+        },
+        {
+            "source": "FinanceTool",
+            "target": "JobTool"
+        },
+        {
+            "source": "FinanceTool",
+            "target": "ResearchFinder"
+        },
+        {
+            "source": "FinanceTool",
+            "target": "ResearchHelper"
+        },
+        {
+            "source": "FinanceTool",
+            "target": "ProductSearch"
+        },
+        {
+            "source": "FinanceTool",
+            "target": "Discount"
+        },
+        {
+            "source": "NewsTool",
+            "target": "FinanceTool"
+        },
+        {
+            "source": "NewsTool",
+            "target": "CourseTool"
+        },
+        {
+            "source": "NewsTool",
+            "target": "PDF&URLTool"
+        },
+        {
+            "source": "NewsTool",
+            "target": "TripTool"
+        },
+        {
+            "source": "NewsTool",
+            "target": "TripAdviceTool"
+        },
+        {
+            "source": "NewsTool",
+            "target": "MusicTool"
+        },
+        {
+            "source": "NewsTool",
+            "target": "WeatherTool"
+        },
+        {
+            "source": "NewsTool",
+            "target": "HousePurchasingTool"
+        },
+        {
+            "source": "NewsTool",
+            "target": "JobTool"
+        },
+        {
+            "source": "NewsTool",
+            "target": "RepoTool"
+        },
+        {
+            "source": "NewsTool",
+            "target": "ResearchFinder"
+        },
+        {
+            "source": "NewsTool",
+            "target": "ResearchHelper"
+        },
+        {
+            "source": "NewsTool",
+            "target": "ProductSearch"
+        },
+        {
+            "source": "NewsTool",
+            "target": "Discount"
+        },
+        {
+            "source": "CourseTool",
+            "target": "FinanceTool"
+        },
+        {
+            "source": "CourseTool",
+            "target": "NewsTool"
+        },
+        {
+            "source": "CourseTool",
+            "target": "PDF&URLTool"
+        },
+        {
+            "source": "CourseTool",
+            "target": "TripTool"
+        },
+        {
+            "source": "CourseTool",
+            "target": "TripAdviceTool"
+        },
+        {
+            "source": "CourseTool",
+            "target": "MusicTool"
+        },
+        {
+            "source": "CourseTool",
+            "target": "WeatherTool"
+        },
+        {
+            "source": "CourseTool",
+            "target": "HousePurchasingTool"
+        },
+        {
+            "source": "CourseTool",
+            "target": "JobTool"
+        },
+        {
+            "source": "CourseTool",
+            "target": "RepoTool"
+        },
+        {
+            "source": "CourseTool",
+            "target": "ResearchFinder"
+        },
+        {
+            "source": "CourseTool",
+            "target": "ResearchHelper"
+        },
+        {
+            "source": "CourseTool",
+            "target": "Discount"
+        },
+        {
+            "source": "PDF&URLTool",
+            "target": "FinanceTool"
+        },
+        {
+            "source": "PDF&URLTool",
+            "target": "NewsTool"
+        },
+        {
+            "source": "PDF&URLTool",
+            "target": "CourseTool"
+        },
+        {
+            "source": "PDF&URLTool",
+            "target": "TripAdviceTool"
+        },
+        {
+            "source": "PDF&URLTool",
+            "target": "MusicTool"
+        },
+        {
+            "source": "PDF&URLTool",
+            "target": "WeatherTool"
+        },
+        {
+            "source": "PDF&URLTool",
+            "target": "HousePurchasingTool"
+        },
+        {
+            "source": "PDF&URLTool",
+            "target": "JobTool"
+        },
+        {
+            "source": "PDF&URLTool",
+            "target": "ResearchFinder"
+        },
+        {
+            "source": "PDF&URLTool",
+            "target": "ResearchHelper"
+        },
+        {
+            "source": "PDF&URLTool",
+            "target": "Discount"
+        },
+        {
+            "source": "TripTool",
+            "target": "FinanceTool"
+        },
+        {
+            "source": "TripTool",
+            "target": "NewsTool"
+        },
+        {
+            "source": "TripTool",
+            "target": "PDF&URLTool"
+        },
+        {
+            "source": "TripTool",
+            "target": "TripAdviceTool"
+        },
+        {
+            "source": "TripTool",
+            "target": "MusicTool"
+        },
+        {
+            "source": "TripTool",
+            "target": "WeatherTool"
+        },
+        {
+            "source": "TripTool",
+            "target": "JobTool"
+        },
+        {
+            "source": "TripTool",
+            "target": "ResearchFinder"
+        },
+        {
+            "source": "TripTool",
+            "target": "ResearchHelper"
+        },
+        {
+            "source": "TripTool",
+            "target": "Discount"
+        },
+        {
+            "source": "TripAdviceTool",
+            "target": "FinanceTool"
+        },
+        {
+            "source": "TripAdviceTool",
+            "target": "NewsTool"
+        },
+        {
+            "source": "TripAdviceTool",
+            "target": "CourseTool"
+        },
+        {
+            "source": "TripAdviceTool",
+            "target": "PDF&URLTool"
+        },
+        {
+            "source": "TripAdviceTool",
+            "target": "TripTool"
+        },
+        {
+            "source": "TripAdviceTool",
+            "target": "MusicTool"
+        },
+        {
+            "source": "TripAdviceTool",
+            "target": "WeatherTool"
+        },
+        {
+            "source": "TripAdviceTool",
+            "target": "HousePurchasingTool"
+        },
+        {
+            "source": "TripAdviceTool",
+            "target": "JobTool"
+        },
+        {
+            "source": "TripAdviceTool",
+            "target": "Discount"
+        },
+        {
+            "source": "MusicTool",
+            "target": "NewsTool"
+        },
+        {
+            "source": "MusicTool",
+            "target": "CourseTool"
+        },
+        {
+            "source": "MusicTool",
+            "target": "PDF&URLTool"
+        },
+        {
+            "source": "MusicTool",
+            "target": "TripTool"
+        },
+        {
+            "source": "MusicTool",
+            "target": "TripAdviceTool"
+        },
+        {
+            "source": "MusicTool",
+            "target": "WeatherTool"
+        },
+        {
+            "source": "MusicTool",
+            "target": "ResearchFinder"
+        },
+        {
+            "source": "MusicTool",
+            "target": "ProductSearch"
+        },
+        {
+            "source": "MusicTool",
+            "target": "Discount"
+        },
+        {
+            "source": "WeatherTool",
+            "target": "FinanceTool"
+        },
+        {
+            "source": "WeatherTool",
+            "target": "NewsTool"
+        },
+        {
+            "source": "WeatherTool",
+            "target": "CourseTool"
+        },
+        {
+            "source": "WeatherTool",
+            "target": "PDF&URLTool"
+        },
+        {
+            "source": "WeatherTool",
+            "target": "TripTool"
+        },
+        {
+            "source": "WeatherTool",
+            "target": "TripAdviceTool"
+        },
+        {
+            "source": "WeatherTool",
+            "target": "MusicTool"
+        },
+        {
+            "source": "WeatherTool",
+            "target": "HousePurchasingTool"
+        },
+        {
+            "source": "WeatherTool",
+            "target": "JobTool"
+        },
+        {
+            "source": "WeatherTool",
+            "target": "RepoTool"
+        },
+        {
+            "source": "WeatherTool",
+            "target": "ResearchFinder"
+        },
+        {
+            "source": "WeatherTool",
+            "target": "ResearchHelper"
+        },
+        {
+            "source": "WeatherTool",
+            "target": "ProductSearch"
+        },
+        {
+            "source": "WeatherTool",
+            "target": "Discount"
+        },
+        {
+            "source": "HousePurchasingTool",
+            "target": "FinanceTool"
+        },
+        {
+            "source": "HousePurchasingTool",
+            "target": "NewsTool"
+        },
+        {
+            "source": "HousePurchasingTool",
+            "target": "CourseTool"
+        },
+        {
+            "source": "HousePurchasingTool",
+            "target": "PDF&URLTool"
+        },
+        {
+            "source": "HousePurchasingTool",
+            "target": "TripTool"
+        },
+        {
+            "source": "HousePurchasingTool",
+            "target": "TripAdviceTool"
+        },
+        {
+            "source": "HousePurchasingTool",
+            "target": "WeatherTool"
+        },
+        {
+            "source": "HousePurchasingTool",
+            "target": "JobTool"
+        },
+        {
+            "source": "HousePurchasingTool",
+            "target": "ResearchFinder"
+        },
+        {
+            "source": "HousePurchasingTool",
+            "target": "ResearchHelper"
+        },
+        {
+            "source": "HousePurchasingTool",
+            "target": "Discount"
+        },
+        {
+            "source": "JobTool",
+            "target": "FinanceTool"
+        },
+        {
+            "source": "JobTool",
+            "target": "NewsTool"
+        },
+        {
+            "source": "JobTool",
+            "target": "CourseTool"
+        },
+        {
+            "source": "JobTool",
+            "target": "PDF&URLTool"
+        },
+        {
+            "source": "JobTool",
+            "target": "TripAdviceTool"
+        },
+        {
+            "source": "JobTool",
+            "target": "WeatherTool"
+        },
+        {
+            "source": "JobTool",
+            "target": "HousePurchasingTool"
+        },
+        {
+            "source": "JobTool",
+            "target": "ResearchHelper"
+        },
+        {
+            "source": "JobTool",
+            "target": "Discount"
+        },
+        {
+            "source": "RepoTool",
+            "target": "FinanceTool"
+        },
+        {
+            "source": "RepoTool",
+            "target": "NewsTool"
+        },
+        {
+            "source": "RepoTool",
+            "target": "CourseTool"
+        },
+        {
+            "source": "ResearchFinder",
+            "target": "FinanceTool"
+        },
+        {
+            "source": "ResearchFinder",
+            "target": "NewsTool"
+        },
+        {
+            "source": "ResearchFinder",
+            "target": "CourseTool"
+        },
+        {
+            "source": "ResearchFinder",
+            "target": "PDF&URLTool"
+        },
+        {
+            "source": "ResearchFinder",
+            "target": "TripTool"
+        },
+        {
+            "source": "ResearchFinder",
+            "target": "MusicTool"
+        },
+        {
+            "source": "ResearchFinder",
+            "target": "WeatherTool"
+        },
+        {
+            "source": "ResearchFinder",
+            "target": "HousePurchasingTool"
+        },
+        {
+            "source": "ResearchFinder",
+            "target": "JobTool"
+        },
+        {
+            "source": "ResearchFinder",
+            "target": "RepoTool"
+        },
+        {
+            "source": "ResearchFinder",
+            "target": "ResearchHelper"
+        },
+        {
+            "source": "ResearchHelper",
+            "target": "FinanceTool"
+        },
+        {
+            "source": "ResearchHelper",
+            "target": "NewsTool"
+        },
+        {
+            "source": "ResearchHelper",
+            "target": "MusicTool"
+        },
+        {
+            "source": "ResearchHelper",
+            "target": "WeatherTool"
+        },
+        {
+            "source": "ResearchHelper",
+            "target": "JobTool"
+        },
+        {
+            "source": "ResearchHelper",
+            "target": "RepoTool"
+        },
+        {
+            "source": "ResearchHelper",
+            "target": "ResearchFinder"
+        },
+        {
+            "source": "ResearchHelper",
+            "target": "ProductSearch"
+        },
+        {
+            "source": "ResearchHelper",
+            "target": "Discount"
+        },
+        {
+            "source": "ProductSearch",
+            "target": "FinanceTool"
+        },
+        {
+            "source": "ProductSearch",
+            "target": "NewsTool"
+        },
+        {
+            "source": "ProductSearch",
+            "target": "PDF&URLTool"
+        },
+        {
+            "source": "ProductSearch",
+            "target": "WeatherTool"
+        },
+        {
+            "source": "ProductSearch",
+            "target": "RepoTool"
+        },
+        {
+            "source": "ProductSearch",
+            "target": "ResearchFinder"
+        },
+        {
+            "source": "ProductSearch",
+            "target": "Discount"
+        },
+        {
+            "source": "Discount",
+            "target": "NewsTool"
+        },
+        {
+            "source": "Discount",
+            "target": "CourseTool"
+        },
+        {
+            "source": "Discount",
+            "target": "PDF&URLTool"
+        },
+        {
+            "source": "Discount",
+            "target": "TripTool"
+        },
+        {
+            "source": "Discount",
+            "target": "TripAdviceTool"
+        },
+        {
+            "source": "Discount",
+            "target": "MusicTool"
+        },
+        {
+            "source": "Discount",
+            "target": "WeatherTool"
+        },
+        {
+            "source": "Discount",
+            "target": "HousePurchasingTool"
+        },
+        {
+            "source": "Discount",
+            "target": "ResearchHelper"
+        },
+        {
+            "source": "Discount",
+            "target": "ProductSearch"
+        }
+    ]
+}
