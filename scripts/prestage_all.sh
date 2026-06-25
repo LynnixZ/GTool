@@ -26,6 +26,7 @@ DEFAULT_MODELS=(
   "Qwen/Qwen2.5-0.5B-Instruct"                  # smoke (non-gated)
   "sentence-transformers/all-roberta-large-v1"  # SBERT -- MANDATORY (builds the tool graphs)
   "Qwen/Qwen3-8B"                               # non-gated
+  "lmsys/vicuna-7b-v1.5"                         # non-gated
   "mistralai/Mistral-7B-Instruct-v0.3"          # gated -> needs HF_TOKEN
 )
 if [ -n "${MODELS:-}" ]; then read -ra MODEL_LIST <<< "$MODELS"; else MODEL_LIST=("${DEFAULT_MODELS[@]}"); fi

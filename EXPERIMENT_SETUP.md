@@ -63,12 +63,13 @@
 
 ### 3.1 主干 LLM（本次实验）
 
-| 别名（`--llm_model_name`） | HF 路径 |
-|---|---|
-| `mistral` | `mistralai/Mistral-7B-Instruct-v0.3` |
-| `qwen3-8b` | `Qwen/Qwen3-8B` |
+| 别名（`--llm_model_name`） | HF 路径 | 备注 |
+|---|---|---|
+| `mistral` | `mistralai/Mistral-7B-Instruct-v0.3` | gated（需 HF_TOKEN） |
+| `qwen3-8b` | `Qwen/Qwen3-8B` | 非 gated |
+| `vicuna` | `lmsys/vicuna-7b-v1.5` | 非 gated；Llama-2 底座，走 `[INST]` 格式 |
 
-（仓库另含 `llama`=Llama-2-7b、`vicuna`=vicuna-7b-v1.5、`qwen3`=Qwen3-14B 备用。）
+（仓库另含 `llama`=Llama-2-7b、`qwen3`=Qwen3-14B、以及烟测用的 `qwen3-0.6b` / `qwen2.5-0.5b` 备用。）
 
 ### 3.2 GTool 架构
 
@@ -160,8 +161,9 @@ python inference_zou.py --dataset zou_mistral --llm_model_name mistral \
 
 ## 7. 注意事项
 
-1. **硬件**：[src/model/GTool.py](src/model/GTool.py) 的 `max_memory={0:'80GiB',1:'80GiB'}` 默认假设两张 80G 卡，需按实际硬件调整。
-2. **SBERT 本地化**：`all-roberta-large-v1` 默认 `local_files_only=True`，需提前下载到本地缓存。
-3. **Qwen3 模板**：当前为能跑通的 baseline chat 模板，若要进一步提点可细化。
-4. **种子区分**：切分 seed=42（固定，保证可复现）与训练 seed=0（`--seed`）是两个独立种子。
-5. **checkpoint 匹配**：测试时超参（含 `--dataset` tag）必须与训练一致，否则找不到 `..._checkpoint_best.pth`。
+1. **硬件 / 显存**：[src/model/GTool.py](src/model/GTool.py) 用 `device_map="auto"`，自适应任意 GPU 数/显存（原写死的 2×80G 已移除）。冻结 7B/8B + 小 GNN，单张 A100 默认参数即可；24G（4090）跑 7B/8B 建议 `--batch_size 1~2`、`--max_txt_len 1536`。架构选 Ampere/Ada，避开 Blackwell。
+2. **多 GPU**：单个 run 无数据并行（无 DDP），多卡只会把一个模型切片摊开（model-parallel），对能塞进单卡的 7B/8B 不加速。要用多卡请用 [run_grid.sh](run_grid.sh)：每卡跑一个独立模型（任务级并行），模型多于卡时自动排队。
+3. **SBERT 本地化**：`all-roberta-large-v1` 默认 `local_files_only=True`，需提前下载到本地缓存。
+4. **Qwen3 模板**：当前为能跑通的 baseline chat 模板，若要进一步提点可细化。
+5. **种子区分**：切分 seed=42（固定，保证可复现）与训练 seed=0（`--seed`）是两个独立种子。
+6. **checkpoint 匹配**：测试时超参（含 `--dataset` tag）必须与训练一致，否则找不到 `..._checkpoint_best.pth`。

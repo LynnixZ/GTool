@@ -16,9 +16,10 @@
 | [scripts/prestage_all.sh](scripts/prestage_all.sh) | PART1 | venv（尽量复用 base torch，否则装 2.1.0）+ PyG 轮子 + `requirements-node.txt` + 下模型（gated 自动检测）。**bash** |
 | [scripts/job_env.sh](scripts/job_env.sh) | PART2 | 离线环境（`HF_HUB_OFFLINE` 等）+ 激活 venv + `GPUS`。**source** |
 | [scripts/job_unites.sbatch](scripts/job_unites.sbatch) | PART2 | 美国 Slurm 离线作业模板（分区/mem/共享 NFS 坑都注释了）。**sbatch** |
-| [run_experiment.sh](run_experiment.sh) | PART2 | 建图→切分→训练→测试（幂等）。`--smoke` 走小模型小数据 |
+| [run_experiment.sh](run_experiment.sh) | PART2 | 单模型：建图→切分→训练→测试（幂等）。`--smoke` 走小模型小数据 |
+| [run_grid.sh](run_grid.sh) | PART2 | 多模型并行：每卡一个模型（任务级并行），自动排队 |
 
-模型：`Qwen/Qwen2.5-0.5B-Instruct`(烟测) · `sentence-transformers/all-roberta-large-v1`(建图 SBERT，必下) · `Qwen/Qwen3-8B` · `mistralai/Mistral-7B-Instruct-v0.3`(gated)。
+模型：`Qwen/Qwen2.5-0.5B-Instruct`(烟测) · `sentence-transformers/all-roberta-large-v1`(建图 SBERT，必下) · `Qwen/Qwen3-8B` · `lmsys/vicuna-7b-v1.5` · `mistralai/Mistral-7B-Instruct-v0.3`(gated)。
 
 ---
 
@@ -36,6 +37,20 @@ source scripts/job_env.sh               # 开离线开关 + 激活 venv
 bash run_experiment.sh --smoke          # 先烟测；通了再 ↓
 bash run_experiment.sh qwen3-8b
 bash run_experiment.sh mistral          # 4090(24G) 若 OOM：加 --batch_size 1 --max_txt_len 1536
+```
+
+## 多 GPU：并行跑多个模型
+
+GTool 训练是单进程、**无数据并行（DDP）**，所以单个模型用多卡不会加速。2/4 卡的正确用法是 **每卡跑一个独立模型**，用 [run_grid.sh](run_grid.sh) 调度（先一次性建图+切分，再 fan-out；模型多于卡时自动排队）：
+
+```bash
+# 自动探测可见 GPU，按卡轮转分配
+bash run_grid.sh vicuna mistral qwen3-8b
+# 指定用哪几张卡
+GPUS="0 1 2 3" bash run_grid.sh vicuna mistral qwen3-8b
+# 24G 卡给每个 run 限显存
+EXTRA="--batch_size 1 --max_txt_len 1536" bash run_grid.sh vicuna mistral qwen3-8b
+# 各模型日志：output/grid_logs/grid_<model>.log；结果：output/grid_<model>/
 ```
 
 ## 美国 Slurm 集群（登录节点联网 / 计算节点离线）
