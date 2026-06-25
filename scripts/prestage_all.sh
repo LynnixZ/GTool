@@ -46,20 +46,26 @@ VENV_FLAGS=""; [ "${VENV_ISOLATED:-0}" = 1 ] || VENV_FLAGS="--system-site-packag
 source "$VENV_DIR/bin/activate"
 python -m pip install --upgrade pip wheel setuptools >/dev/null
 
-# Reuse base torch ONLY if it is EXACTLY 2.1.x with working CUDA (the pinned PyG
-# wheels are pt21cu121). Note: a plain startswith('2.1') wrongly matches 2.12.x.
-if python -c "import torch,sys; v=torch.__version__.split('+')[0].split('.'); sys.exit(0 if (torch.cuda.is_available() and v[0]=='2' and v[1]=='1') else 1)" 2>/dev/null; then
-  log "reusing base torch $(python -c 'import torch;print(torch.__version__)')  (cuda OK)"
+# Reuse base torch only if it is EXACTLY 2.1.x (the pinned PyG wheels are pt21cu121).
+# Version-only check: CUDA can't be verified on a no-GPU prep box (AutoDL 无卡模式),
+# and a plain startswith('2.1') would wrongly match 2.12.x.
+if python -c "import torch,sys; v=torch.__version__.split('+')[0].split('.'); sys.exit(0 if (v[0]=='2' and v[1]=='1') else 1)" 2>/dev/null; then
+  log "reusing torch $(python -c 'import torch;print(torch.__version__)')"
 else
   log "installing torch==2.1.0 from $TORCH_INDEX_URL"
   pip install --force-reinstall "torch==2.1.0" --index-url "$TORCH_INDEX_URL"
-  # If the base image shipped a NEWER CUDA stack, --system-site-packages can let
-  # mismatched nvidia-* libs shadow the cu121 ones -> cuda=False. If so, re-run
-  # prestage with VENV_ISOLATED=1 (fresh venv) so torch pulls its own cu121 libs.
-  python -c "import torch; assert torch.cuda.is_available(), 'CUDA False after torch install -> retry with: rm -rf \$WORK_DIR/venv && VENV_ISOLATED=1 bash scripts/prestage_all.sh'" \
-    || { log "FATAL: torch installed but CUDA unavailable. Re-run: rm -rf \$WORK_DIR/venv && VENV_ISOLATED=1 bash scripts/prestage_all.sh"; exit 1; }
 fi
-python -c "import torch; assert torch.cuda.is_available(), 'CUDA not available (likely cu13 mismatch)'; print('torch', torch.__version__, 'cuda OK')"
+
+# GPU status is INFORMATIONAL: pre-staging (deps + model download) does NOT need a
+# GPU. Training (PART2) does. So we warn, not fail, when CUDA is unavailable.
+if python -c "import torch,sys; sys.exit(0 if torch.cuda.is_available() else 1)" 2>/dev/null; then
+  log "CUDA OK: cuda=$(python -c 'import torch;print(torch.version.cuda)')  devices=$(python -c 'import torch;print(torch.cuda.device_count())')"
+else
+  log "WARN: torch.cuda.is_available()=False."
+  log "      - If this is AutoDL 无卡模式 (no GPU attached for cheap prep): FINE here --"
+  log "        finish prestage, then reboot into a GPU instance and run training (PART2)."
+  log "      - If you DO have a GPU now: check 'nvidia-smi' (cu121 needs driver >= 525)."
+fi
 
 log "installing PyG companion wheels (pt21cu121)"
 pip install torch-scatter==2.1.2 torch-sparse==0.6.18 torch-cluster==1.6.3 torch-spline-conv==1.2.2 -f "$PYG_FIND_LINKS"
