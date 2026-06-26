@@ -17,7 +17,7 @@ WORK_DIR="${WORK_DIR:-/root/autodl-tmp/tb_work}"
 HF_HOME="${HF_HOME:-$WORK_DIR/hf_home}"
 VENV_DIR="${VENV_DIR:-$WORK_DIR/venv}"
 TORCH_INDEX_URL="${TORCH_INDEX_URL:-https://download.pytorch.org/whl/cu121}"
-PYG_FIND_LINKS="https://data.pyg.org/whl/torch-2.1.0+cu121.html"
+PYG_FIND_LINKS="https://data.pyg.org/whl/torch-2.2.0+cu121.html"   # pt22cu121 wheels (match torch 2.2.x)
 export HF_HOME
 mkdir -p "$WORK_DIR" "$HF_HOME"
 
@@ -43,39 +43,41 @@ log "PIP_INDEX_URL=${PIP_INDEX_URL:-(default PyPI)}  HF_ENDPOINT=${HF_ENDPOINT:-
 #   (b) the base image's newer CUDA libs SHADOWED the cu121 ones -> cuda.is_available()
 #       stayed False even after installing torch 2.1.0+cu121.
 # An isolated venv avoids both. Set VENV_SYSTEM_SITE=1 only if you deliberately want to
-# reuse a base torch (then it must already be 2.1.x+cu121; the PyG wheels are pt21cu121).
+# reuse a base torch (then it must already be 2.2.x+cu121; the PyG wheels are pt22cu121).
 VENV_FLAGS=""; [ "${VENV_SYSTEM_SITE:-0}" = 1 ] && VENV_FLAGS="--system-site-packages"
 [ -d "$VENV_DIR" ] || { log "creating venv (${VENV_FLAGS:-isolated})"; python3 -m venv $VENV_FLAGS "$VENV_DIR"; }
 # shellcheck disable=SC1091
 source "$VENV_DIR/bin/activate"
 python -m pip install --upgrade pip wheel setuptools >/dev/null
 
-# torch 2.1.0+cu121 is REQUIRED (the pinned PyG companion wheels are pt21cu121 -- do NOT
-# bump off 2.1.x). Install with a fallback: try the configured $TORCH_INDEX_URL first, then
-# the OFFICIAL cu121 index. This is needed because the China SJTU mirror's cu121 wheels
-# START at 2.2.0 (no 2.1.0) -> a bare install there fails "No matching distribution".
+# torch 2.2.2+cu121 (pinned PyG companion wheels are pt22cu121 -- keep torch 2.2.x).
+# NOTE: torch 2.1.0+cu121 is no longer distributed -- both SJTU and the official cu121
+# index now START at 2.2.0 ("No matching distribution found for torch==2.1.0"). So the
+# whole stack targets 2.2.2+cu121, which SJTU has (fast in China) and matches cu12.x drivers.
+# Install with a fallback: try the configured $TORCH_INDEX_URL first, then the OFFICIAL index.
 # (No --force-reinstall: in an isolated venv torch isn't present, and force-reinstall is
 # what nuked the base image's torch under --system-site-packages.)
+TORCH_VERSION="2.2.2"
 TORCH_OFFICIAL_URL="https://download.pytorch.org/whl/cu121"
 install_torch() {
-  # $1 = index url; returns nonzero if torch==2.1.0 isn't found there.
-  pip install "torch==2.1.0" --index-url "$1"
+  # $1 = index url; returns nonzero if torch==$TORCH_VERSION isn't found there.
+  pip install "torch==$TORCH_VERSION" --index-url "$1"
 }
-# Install unless this venv ALREADY has EXACTLY 2.1.x. Isolated venv -> import fails first
+# Install unless this venv ALREADY has EXACTLY 2.2.x. Isolated venv -> import fails first
 # time -> we install. Version-only check: CUDA can't be verified on a no-GPU prep box
-# (AutoDL 无卡模式), and a plain startswith('2.1') would wrongly match 2.12.x.
-if python -c "import torch,sys; v=torch.__version__.split('+')[0].split('.'); sys.exit(0 if (v[0]=='2' and v[1]=='1') else 1)" 2>/dev/null; then
+# (AutoDL 无卡模式).
+if python -c "import torch,sys; v=torch.__version__.split('+')[0].split('.'); sys.exit(0 if (v[0]=='2' and v[1]=='2') else 1)" 2>/dev/null; then
   log "torch already present: $(python -c 'import torch;print(torch.__version__)')"
 else
-  log "installing torch==2.1.0 (try $TORCH_INDEX_URL first)"
+  log "installing torch==$TORCH_VERSION (try $TORCH_INDEX_URL first)"
   if install_torch "$TORCH_INDEX_URL"; then
     log "torch installed from $TORCH_INDEX_URL"
   elif [ "$TORCH_INDEX_URL" = "$TORCH_OFFICIAL_URL" ]; then
-    log "ERROR: torch==2.1.0 not found at official $TORCH_OFFICIAL_URL"; exit 1
+    log "ERROR: torch==$TORCH_VERSION not found at official $TORCH_OFFICIAL_URL"; exit 1
   else
-    log "WARN: torch==2.1.0 not at $TORCH_INDEX_URL (e.g. SJTU cu121 starts at 2.2.0)."
-    log "      falling back to OFFICIAL $TORCH_OFFICIAL_URL (tip: 'source /etc/network_turbo' makes this fast on AutoDL)"
-    install_torch "$TORCH_OFFICIAL_URL" || { log "ERROR: torch==2.1.0 install failed on both indexes"; exit 1; }
+    log "WARN: torch==$TORCH_VERSION not at $TORCH_INDEX_URL; falling back to OFFICIAL $TORCH_OFFICIAL_URL"
+    log "      (tip: 'source /etc/network_turbo' makes the official-source download fast on AutoDL)"
+    install_torch "$TORCH_OFFICIAL_URL" || { log "ERROR: torch==$TORCH_VERSION install failed on both indexes"; exit 1; }
     log "torch installed from $TORCH_OFFICIAL_URL (fallback)"
   fi
 fi
@@ -96,7 +98,7 @@ else
   log "      - If you DO have a GPU now: check 'nvidia-smi' (cu121 needs driver >= 525)."
 fi
 
-log "installing PyG companion wheels (pt21cu121)"
+log "installing PyG companion wheels (pt22cu121)"
 pip install torch-scatter==2.1.2 torch-sparse==0.6.18 torch-cluster==1.6.3 torch-spline-conv==1.2.2 \
   -f "$PYG_FIND_LINKS" -c "$WORK_DIR/torch.constraint"
 
