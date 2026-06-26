@@ -30,21 +30,26 @@ if [ "$SMOKE" = "1" ]; then
   TAG="${2:-smoke_${MODEL//[^a-zA-Z0-9]/_}}"
   SPLIT_DIR="${SPLIT_DIR:-artifacts/splits_smoke}"
   SMOKE_LIMIT="${SMOKE_LIMIT:-40}"              # usable samples per domain
+  # Smoke uses ONE domain only (huggingface = fewest tools=23 -> fastest graph build).
+  # Override with SMOKE_DOMAIN=multimedia etc.
+  SMOKE_DOMAIN="${SMOKE_DOMAIN:-huggingface}"
+  DOMAINS=("$SMOKE_DOMAIN")
   # tiny + fast train args (overridable by appending more args)
   TRAIN_ARGS=(--num_epochs 1 --batch_size 2 --eval_batch_size 2 --patience 1)
 else
   MODEL="${1:-mistral}"
   TAG="${2:-zou_${MODEL//[^a-zA-Z0-9]/_}}"
   SPLIT_DIR="${SPLIT_DIR:-artifacts/splits_subset}"
+  DOMAINS=(huggingface multimedia dailylife)
   TRAIN_ARGS=()
 fi
 EXTRA=("${@:3}")
 
-echo "SMOKE=$SMOKE  MODEL=$MODEL  TAG=$TAG  RAW_ROOT=$RAW_ROOT  SPLIT_DIR=$SPLIT_DIR"
+echo "SMOKE=$SMOKE  MODEL=$MODEL  TAG=$TAG  RAW_ROOT=$RAW_ROOT  SPLIT_DIR=$SPLIT_DIR  DOMAINS=${DOMAINS[*]}"
 python -c "import torch;print('cuda available:', torch.cuda.is_available(), '| devices:', torch.cuda.device_count())"
 
-# 1) Build GTool graphs per domain (idempotent: skip if already built).
-for d in huggingface multimedia dailylife; do
+# 1) Build GTool graphs for the selected domain(s) (idempotent: skip if already built).
+for d in "${DOMAINS[@]}"; do
   if [ -d "$RAW_ROOT/$d/graphs" ] && [ -n "$(ls -A "$RAW_ROOT/$d/graphs" 2>/dev/null)" ]; then
     echo "[skip] graphs exist for $d"
   else
@@ -53,13 +58,14 @@ for d in huggingface multimedia dailylife; do
   fi
 done
 
-# 2) Stratified split (idempotent). Smoke uses a tiny, coverage-relaxed split.
+# 2) Stratified split (idempotent). Smoke = tiny, coverage-relaxed, single-domain.
+DOMAINS_CSV=$(IFS=,; echo "${DOMAINS[*]}")
 if [ -f "$SPLIT_DIR/train.jsonl" ]; then
   echo "[skip] split exists at $SPLIT_DIR"
 elif [ "$SMOKE" = "1" ]; then
-  echo "[build] smoke split -> $SPLIT_DIR (limit_per_domain=$SMOKE_LIMIT)"
+  echo "[build] smoke split -> $SPLIT_DIR (domain=$DOMAINS_CSV, limit_per_domain=$SMOKE_LIMIT)"
   python -m src.dataset.preprocess_zou.split_subset \
-      --raw_root "$RAW_ROOT" --out_dir "$SPLIT_DIR" \
+      --raw_root "$RAW_ROOT" --out_dir "$SPLIT_DIR" --domains "$DOMAINS_CSV" \
       --limit_per_domain "$SMOKE_LIMIT" --skip_coverage
 else
   echo "[build] split -> $SPLIT_DIR"

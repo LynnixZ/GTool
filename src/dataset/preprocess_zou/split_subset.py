@@ -157,10 +157,14 @@ def _annotate(sample):
 
 
 # ----------------------------------------------------------------- load samples
-def load_subset(raw_root):
+def load_subset(raw_root, domains=None):
+    """domains: optional iterable of GTool dir names (huggingface/multimedia/dailylife)
+    to restrict to; None = all."""
     samples = []
     reasons = Counter()
     for dir_, domain in DIR_TO_DOMAIN.items():
+        if domains is not None and dir_ not in domains:
+            continue
         path = os.path.join(raw_root, dir_, "data.json")
         if not os.path.exists(path):
             print(f"[skip] {path} not found")
@@ -331,10 +335,13 @@ def main():
                    help="Keep only the first N usable samples per domain (0=all). For smoke tests.")
     p.add_argument("--skip_coverage", action="store_true",
                    help="Skip the train-tool-coverage guarantee (needed for tiny smoke splits).")
+    p.add_argument("--domains", type=str, default="",
+                   help="Comma-separated GTool dir names to restrict to (e.g. 'huggingface'). Empty=all.")
     args = p.parse_args()
 
     stratify_by = ["domain", "topology", "chain_length_bucket"]
-    samples = load_subset(args.raw_root)
+    domains = [d.strip() for d in args.domains.split(",") if d.strip()] or None
+    samples = load_subset(args.raw_root, domains=domains)
 
     if args.limit_per_domain:
         kept, cnt = [], defaultdict(int)

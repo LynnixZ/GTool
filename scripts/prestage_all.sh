@@ -118,22 +118,43 @@ python -c "import torch; print('[verify] venv='+'$VENV_DIR'); print('[verify] to
 if [ "${SKIP_MODELS:-0}" = 1 ]; then log "SKIP_MODELS=1 -> env ready, no models pre-downloaded."; exit 0; fi
 log "downloading models to $HF_HOME ..."
 SUMMARY="$WORK_DIR/prestage_models_summary.txt"; : > "$SUMMARY"
-for model in "${MODEL_LIST[@]}"; do
-  log "=== $model ==="
-  status=$(MODEL_ID="$model" python - <<'PY'
-import os
+# Download helper (run via python -c). Exit: 0=OK, 2=gated/needs-token, 1=other error.
+read -r -d '' PYDL <<'PY' || true
+import os, sys
 from huggingface_hub import snapshot_download
 model = os.environ["MODEL_ID"]; token = os.environ.get("HF_TOKEN") or None
 try:
     # KEEP .bin (SBERT ships pytorch_model.bin); skip raw consolidated / GGUF.
     snapshot_download(model, token=token, ignore_patterns=["original/*", "*.pth", "*.gguf", "consolidated*"])
-    print("OK")
+    sys.exit(0)
 except Exception as e:
     msg = str(e).lower()
-    print("NEEDS_TOKEN" if any(s in msg for s in ("gated","restricted","401","403","awaiting","access to model")) else "ERROR:"+type(e).__name__)
+    if any(s in msg for s in ("gated","restricted","401","403","awaiting","access to model")):
+        sys.exit(2)
+    sys.stderr.write(f"{type(e).__name__}: {e}\n")   # surface the REAL error (not just RuntimeError)
+    sys.exit(1)
 PY
-)
+# Default uses the fast accelerators (hf_transfer/Xet, set by setup_china/US). If a model's
+# accelerated download fails (common: hf_transfer/Xet RuntimeError on big files via a mirror),
+# auto-retry THAT model once with the accelerators OFF (plain HTTP) -- reliable fallback.
+for model in "${MODEL_LIST[@]}"; do
+  log "=== $model ==="
+  if MODEL_ID="$model" python -c "$PYDL"; then
+    status="OK"
+  else
+    rc=$?
+    if [ "$rc" = 2 ]; then
+      status="NEEDS_TOKEN"
+    else
+      log "  accelerated download failed -> retry with hf_transfer/Xet OFF (plain HTTP)"
+      if MODEL_ID="$model" HF_HUB_ENABLE_HF_TRANSFER=0 HF_HUB_DISABLE_XET=1 python -c "$PYDL"; then
+        status="OK(fallback)"
+      else
+        rc=$?; [ "$rc" = 2 ] && status="NEEDS_TOKEN" || status="ERROR"
+      fi
+    fi
+  fi
   echo "$status  $model" | tee -a "$SUMMARY"
 done
 log "================= SUMMARY ================="; cat "$SUMMARY"
-log "OK = cached; NEEDS_TOKEN = gated (set HF_TOKEN + accept license, re-run). done."
+log "OK = cached (OK(fallback) = via plain HTTP); NEEDS_TOKEN = gated (set HF_TOKEN + accept license, re-run). done."
