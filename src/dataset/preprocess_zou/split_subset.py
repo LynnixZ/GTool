@@ -9,7 +9,9 @@ needed — GTool's own ``python -m src.dataset.preprocess.<domain>`` already bui
 the graphs for exactly these samples.
 
 Faithful to taskbench_sft:
-* 80/10/10, stratified by ``domain x topology x chain_length_bucket``.
+* 80/10/10, stratified by ``topology x chain_length_bucket`` (per-domain: each
+  domain is split independently, so ``domain`` would be a constant no-op in the
+  stratify key and is intentionally omitted — call this once per ``--domains``).
 * Per-stratum deterministic shuffle: ``random.Random(f"{seed}|{key}")``.
 * Train tool coverage: every tool in val/test must appear in train, else the
   whole split is re-drawn with ``seed+attempt`` (up to ``max_resamples``).
@@ -339,7 +341,9 @@ def main():
                    help="Comma-separated GTool dir names to restrict to (e.g. 'huggingface'). Empty=all.")
     args = p.parse_args()
 
-    stratify_by = ["domain", "topology", "chain_length_bucket"]
+    # Per-domain split: stratify by topology x chain_length_bucket only.
+    # (domain is constant within a single --domains call, so it would be a no-op.)
+    stratify_by = ["topology", "chain_length_bucket"]
     domains = [d.strip() for d in args.domains.split(",") if d.strip()] or None
     samples = load_subset(args.raw_root, domains=domains)
 

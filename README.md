@@ -221,14 +221,16 @@ python train.py --dataset huggingface --llm_model_name qwen3
 
 本节是为「用分层切分逻辑，在 **Mistral-7B-Instruct-v0.3** 和 **Qwen3-8B** 上训练/测试」准备的。**切分用 `preprocess_zou` 的分层逻辑，其余全部沿用 GTool；数据用仓库自带的过滤子集（不碰全量 TaskBench）。**
 
+> **按域训练（per-domain，对齐 GTool 论文协议）**：GTool 论文是逐数据集训练的（`train.py --dataset <单个域>`），所以这里也**每个域独立切分、独立训练、独立测试**——**3 个模型 × 3 个域 = 9 次运行**，互不混合。每个 (model, domain) 用各自的 TAG / `output/<tag>/` / checkpoint / split 目录，绝不串台。
+
 ### 8.1 与 GTool 原生流程的区别
 
-- **切分**：不再用 GTool 的 `split/*.txt`（按下标随机 6:2:2），改用分层切分（80/10/10，按 `domain × topology × chain_length_bucket` 分层 + 训练集工具覆盖保证，seed=42），文件为 `train.jsonl / validation.jsonl / test_node.jsonl / test_chain.jsonl / test_all.jsonl`。
+- **切分**：不再用 GTool 的 `split/*.txt`（按下标随机 6:2:2），改用分层切分（80/10/10，**在每个域内**按 `topology × chain_length_bucket` 分层 + 训练集工具覆盖保证，seed=42），文件为 `train.jsonl / validation.jsonl / test_node.jsonl / test_chain.jsonl / test_all.jsonl`。**每个域单独切分到 `artifacts/splits_subset/<domain>/`**（域是常量，故不再进 stratify key）。
 - **数据范围**：用仓库自带的**过滤子集** `dataset/<domain>/data.json`（huggingface 3630 / multimedia 2981 / dailylife 2787，全部为 `chain` 类型），不重建图、不引入全量 TaskBench。
 - **样本匹配**：新数据类 [src/dataset/zou_split.py](src/dataset/zou_split.py) 用 `id → data.json 行号` 找到 GTool 预处理好的图 `.pt`；gold 顺序直接取记录里的 `trajectory`。
 - **其余全部不变**：建图、SBERT 编码、GNN、冻结 LLM、graph token、EARE/MDPL 损失、评测指标，都还是 GTool 的逻辑。
 
-> 说明：子集**全是 chain**（没有单工具 `node` 样本），所以分层实际是 `domain × chain_length_bucket`，且切出的 `test_node.jsonl` 为空、`test_chain == test_all`——这是预期行为，不是 bug。
+> 说明：子集**全是 chain**（没有单工具 `node` 样本），所以分层实际是 `chain_length_bucket`，且切出的 `test_node.jsonl` 为空、`test_chain == test_all`——这是预期行为，不是 bug。
 
 ### 8.2 准备数据与切分
 
@@ -238,44 +240,61 @@ python -m src.dataset.preprocess.huggingface
 python -m src.dataset.preprocess.multimedia
 python -m src.dataset.preprocess.dailylife
 
-# 2) 在子集上跑分层切分（自包含，不依赖 taskbench_sft），产出 JSONL 到 artifacts/splits_subset/
+# 2) 按域分别跑分层切分（自包含，不依赖 taskbench_sft），每个域产出独立 JSONL 到
+#    artifacts/splits_subset/<domain>/。用 --domains 指定单个域。
 python -m src.dataset.preprocess_zou.split_subset \
-    --raw_root dataset --out_dir artifacts/splits_subset
+    --raw_root dataset --out_dir artifacts/splits_subset/huggingface --domains huggingface
+python -m src.dataset.preprocess_zou.split_subset \
+    --raw_root dataset --out_dir artifacts/splits_subset/multimedia  --domains multimedia
+python -m src.dataset.preprocess_zou.split_subset \
+    --raw_root dataset --out_dir artifacts/splits_subset/dailylife   --domains dailylife
 ```
 
-[src/dataset/preprocess_zou/split_subset.py](src/dataset/preprocess_zou/split_subset.py) 忠实复刻了 `taskbench_sft` 的切分逻辑（同样的 80/10/10、per-stratum 确定性 shuffle `random.Random(f"{seed}|{key}")`、训练集工具覆盖 resample、chain 简单路径校验、`trajectory` = 拓扑序），但直接读 GTool 子集、零外部依赖。
+> 实际上不必手动跑这步：`run_experiment.sh` / `run_grid.sh` 会在每个域第一次用到时自动建好对应的 `artifacts/splits_subset/<domain>/`（幂等，已存在则跳过）。
 
-> 已校验：9398 条 usable 样本 → train 7518 / val 939 / test 941（test_node=0），全部 id 与子集 `data.json` 0 缺失。
+[src/dataset/preprocess_zou/split_subset.py](src/dataset/preprocess_zou/split_subset.py) 忠实复刻了 `taskbench_sft` 的切分逻辑（同样的 80/10/10、per-stratum 确定性 shuffle `random.Random(f"{seed}|{key}")`、训练集工具覆盖 resample、chain 简单路径校验、`trajectory` = 拓扑序），但直接读 GTool 子集、零外部依赖，**且按域独立切分**（stratify key = `topology × chain_length_bucket`，域内常量的 `domain` 已移除）。
 
-### 8.3 训练
+### 8.3 训练（按域）
+
+**推荐：直接用编排脚本，它会对一个模型自动跑全部 3 个域**（建图 → 切分 → 训练 → 测试，每个域独立 TAG/输出/checkpoint）：
 
 ```bash
-# Mistral-7B-Instruct-v0.3
-python train_zou.py \
-    --dataset zou_mistral \
-    --llm_model_name mistral \
-    --split_dir artifacts/splits_subset \
-    --raw_root dataset
+# 一个模型 × 3 个域（huggingface / multimedia / dailylife）
+bash run_experiment.sh mistral            # TAG = zou_mistral_<domain>
+bash run_experiment.sh qwen3-8b           # TAG = zou_qwen3_8b_<domain>
 
-# Qwen3-8B
+# 只跑某一个域
+ONLY_DOMAIN=huggingface bash run_experiment.sh mistral
+
+# 全网格：3 模型 × 3 域 = 9 次运行，每 GPU 一次、轮转分发（无 DDP）
+bash run_grid.sh vicuna mistral qwen3-8b
+GPUS="0 1 2 3" bash run_grid.sh vicuna mistral qwen3-8b
+```
+
+底层逐域命令（按域单独训练，对齐论文）：
+
+```bash
+# Mistral-7B-Instruct-v0.3，huggingface 域（其余域改 --dataset/--split_dir 即可）
 python train_zou.py \
-    --dataset zou_qwen3_8b \
-    --llm_model_name qwen3-8b \
-    --split_dir artifacts/splits_subset \
+    --dataset zou_mistral_huggingface \
+    --llm_model_name mistral \
+    --split_dir artifacts/splits_subset/huggingface \
     --raw_root dataset
 ```
 
+- `--split_dir` 必须指向**该域**的切分目录 `artifacts/splits_subset/<domain>/`。
 - `--raw_root dataset` 指向 GTool 自带子集（已由 8.2 第 1 步建好图）。
-- `--dataset` 仅作为输出命名空间（`output/<dataset>/`），不同实验请用不同 tag，避免 checkpoint/结果互相覆盖。
+- `--dataset` 仅作为输出命名空间（`output/<dataset>/`），**必须含域名**（如 `zou_mistral_huggingface`），不同 (模型,域) 用不同 tag，避免 checkpoint/结果互相覆盖。
 - 训练逻辑与 `train.py` 完全一致：按验证集 loss 保存最优、early stop、训练后在 `--test_split`（默认 `test_all`）上自动评测。
 
-### 8.4 测试
+### 8.4 测试（按域）
 
 ```bash
+# 必须与训练用同样的 --dataset（含域名）和 --split_dir，才能定位到同一个 checkpoint
 python inference_zou.py \
-    --dataset zou_mistral \
+    --dataset zou_mistral_huggingface \
     --llm_model_name mistral \
-    --split_dir artifacts/splits_subset \
+    --split_dir artifacts/splits_subset/huggingface \
     --raw_root dataset
 ```
 

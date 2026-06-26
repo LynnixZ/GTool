@@ -14,7 +14,8 @@ export HF_XET_HIGH_PERFORMANCE="${HF_XET_HIGH_PERFORMANCE:-1}"        # parallel
 export HF_HUB_ENABLE_HF_TRANSFER="${HF_HUB_ENABLE_HF_TRANSFER:-1}"   # parallel classic-LFS
 
 # Clear any China-mirror / offline leftovers so we use official international sources.
-unset HF_ENDPOINT HF_HUB_DISABLE_XET HF_HUB_OFFLINE PIP_INDEX_URL
+# PART 1 is ONLINE -> also drop TRANSFORMERS_OFFLINE leaked from a prior PART 2 job_env.
+unset HF_ENDPOINT HF_HUB_DISABLE_XET HF_HUB_OFFLINE TRANSFORMERS_OFFLINE PIP_INDEX_URL
 
 echo "[setup_us] WORK_DIR=$WORK_DIR  HF_HOME=$HF_HOME  (official HF/PyPI)"
 [ -n "${HF_TOKEN:-}" ] || echo "[setup_us] NOTE: HF_TOKEN unset -> gated Mistral skipped (set it + accept license to fetch)"

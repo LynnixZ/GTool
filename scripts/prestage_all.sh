@@ -120,12 +120,20 @@ log "downloading models to $HF_HOME ..."
 SUMMARY="$WORK_DIR/prestage_models_summary.txt"; : > "$SUMMARY"
 # Download helper (run via python -c). Exit: 0=OK, 2=gated/needs-token, 1=other error.
 read -r -d '' PYDL <<'PY' || true
-import os, sys
+import os, sys, glob
 from huggingface_hub import snapshot_download
 model = os.environ["MODEL_ID"]; token = os.environ.get("HF_TOKEN") or None
 try:
     # KEEP .bin (SBERT ships pytorch_model.bin); skip raw consolidated / GGUF.
-    snapshot_download(model, token=token, ignore_patterns=["original/*", "*.pth", "*.gguf", "consolidated*"])
+    path = snapshot_download(model, token=token, ignore_patterns=["original/*", "*.pth", "*.gguf", "consolidated*"])
+    # FAIL-FAST: a successful snapshot_download does NOT guarantee weights landed -- an
+    # interrupted/partial download can leave just config.json, which would crash PART 2 at
+    # model load. Require a real weights file (*.safetensors or *.bin), else exit 1 (ERROR).
+    weights = glob.glob(os.path.join(path, "**", "*.safetensors"), recursive=True) \
+            + glob.glob(os.path.join(path, "**", "*.bin"), recursive=True)
+    if not weights:
+        sys.stderr.write("NoWeights: snapshot has no *.safetensors/*.bin (partial download)\n")
+        sys.exit(1)
     sys.exit(0)
 except Exception as e:
     msg = str(e).lower()

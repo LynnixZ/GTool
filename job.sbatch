@@ -1,4 +1,9 @@
 #!/bin/bash
+# ⚠️ DEPRECATED / DEAD COPY -- the LIVE US-submission path is scripts/job_unites.sbatch
+# (that's what run.sh submits). This top-level file is NOT referenced anywhere and is kept
+# only for history; PREFER:  sbatch scripts/job_unites.sbatch  (it sources scripts/job_env.sh
+# for the offline-flag + GPU-guard hygiene, and writes logs to shared NFS, not login-local CWD).
+#
 # US Slurm — offline GTool job (submit from the LOGIN node with: sbatch job.sbatch).
 # Edit REPO / WORK_DIR / partition / paths to match your cluster, then submit.
 # Override per-submit, e.g.:  MODEL=qwen3-8b sbatch --gres=gpu:1 job.sbatch
@@ -9,7 +14,8 @@
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=96G
 #SBATCH --time=24:00:00
-#SBATCH --output=%x-%j.out          # consider an absolute path on shared FS
+#SBATCH --output=/playpen-shared/%u/tb_work/logs/gtool-%j.out   # shared NFS (edit %u if dir != login name)
+#SBATCH --error=/playpen-shared/%u/tb_work/logs/gtool-%j.err
 
 set -euo pipefail
 

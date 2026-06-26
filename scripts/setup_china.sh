@@ -6,12 +6,28 @@
 
 export WORK_DIR="${WORK_DIR:-/root/autodl-tmp/tb_work}"   # big data disk (AutoDL)
 export HF_HOME="${HF_HOME:-$WORK_DIR/hf_home}"
+unset HF_HUB_OFFLINE TRANSFORMERS_OFFLINE                # PART 1 is ONLINE; drop any leaked offline flags
 
-# --- China mirrors / network workarounds ---
-# AutoDL TIP: if /etc/network_turbo exists, `source /etc/network_turbo` BEFORE this file
-# gives proxied access to the OFFICIAL HF + github (often faster/more complete than mirrors).
-# pip + torch still keep the China mirrors below even under turbo, so this stays correct.
-export HF_ENDPOINT="${HF_ENDPOINT:-https://hf-mirror.com}"
+# --- Network: DEFAULT to AutoDL academic acceleration whenever it exists. ---
+# It proxies git + githubusercontent + huggingface.co. THE KEY: disable Xet. The Xet
+# client (hf-xet) does NOT honor http_proxy, so with Xet ON the big weights bypass the
+# proxy and crawl (~3 MB/s) -- this bit us repeatedly. With Xet OFF, weights stream over
+# plain HTTP THROUGH the proxy (fast), and hf_transfer parallelizes. No network_turbo
+# (non-AutoDL box) -> fall back to hf-mirror.com.
+if [ -f /etc/network_turbo ]; then
+  # shellcheck disable=SC1091
+  source /etc/network_turbo
+  unset HF_ENDPOINT                                                 # official huggingface.co, via the proxy
+  echo "[setup_china] AutoDL network_turbo ON -> official HF + git through the proxy (Xet off)"
+else
+  export HF_ENDPOINT="${HF_ENDPOINT:-https://hf-mirror.com}"
+  echo "[setup_china] no network_turbo -> hf-mirror.com for HuggingFace"
+fi
+export HF_HUB_DISABLE_XET="${HF_HUB_DISABLE_XET:-1}"               # Xet bypasses the proxy -> OFF (critical)
+export HF_HUB_ENABLE_HF_TRANSFER="${HF_HUB_ENABLE_HF_TRANSFER:-1}" # parallel HTTP download
+
+# pip + torch: AutoDL's proxy does NOT reliably cover PyPI / pytorch.org, and these
+# China mirrors are fast + reliable regardless -> always use them.
 export PIP_INDEX_URL="${PIP_INDEX_URL:-https://pypi.tuna.tsinghua.edu.cn/simple}"
 # torch: this is SJTU's MIRROR of PyTorch's official cu121 wheels (same driver-safe build,
 # just fast from China; the official download.pytorch.org is ~3 MB/s here). DO NOT use plain
@@ -20,9 +36,6 @@ export PIP_INDEX_URL="${PIP_INDEX_URL:-https://pypi.tuna.tsinghua.edu.cn/simple}
 # cu121 indexes). prestage_all.sh installs from this mirror directly; if a version is ever
 # missing here it auto-falls-back to the official index.
 export TORCH_INDEX_URL="${TORCH_INDEX_URL:-https://mirror.sjtu.edu.cn/pytorch-wheels/cu121}"
-# Parallel downloads (Xet for new models like Qwen3; hf_transfer for classic LFS).
-export HF_XET_HIGH_PERFORMANCE="${HF_XET_HIGH_PERFORMANCE:-1}"
-export HF_HUB_ENABLE_HF_TRANSFER="${HF_HUB_ENABLE_HF_TRANSFER:-1}"
 
 echo "[setup_china] WORK_DIR=$WORK_DIR  HF_HOME=$HF_HOME  HF_ENDPOINT=$HF_ENDPOINT"
 [ -n "${HF_TOKEN:-}" ] || echo "[setup_china] NOTE: HF_TOKEN unset -> gated Mistral skipped (fine for smoke / Qwen)"
