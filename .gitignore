@@ -11,10 +11,12 @@ hf_home/
 tb_work/
 wandb/
 
-# secrets
+# secrets / personal run scripts (may contain tokens)
 *.secret.sh
 env.local.sh
 .env
+run_ch.sh
+run.sh
 
 # generated artifacts (all reproducible from code + dataset/*/data.json)
 output/
