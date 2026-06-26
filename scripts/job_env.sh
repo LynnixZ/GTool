@@ -23,7 +23,15 @@ export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
 export OMP_NUM_THREADS="${OMP_NUM_THREADS:-1}"
 
 # Use exactly the GPUs Slurm pinned to this job (they appear as 0..N-1 inside it).
-NGPU=$(nvidia-smi -L 2>/dev/null | wc -l)
-export GPUS="${GPUS:-$(seq -s' ' 0 $((NGPU-1)))}"
+# Guard NGPU=0: on a no-GPU box `seq 0 -1` is empty on GNU but prints "0 -1" on BSD/macOS,
+# which would silently export a garbage GPUS. PART 2 needs a GPU -> warn loudly if none.
+NGPU=$(nvidia-smi -L 2>/dev/null | wc -l | tr -d ' ')
+if [ "${NGPU:-0}" -ge 1 ]; then
+  export GPUS="${GPUS:-$(seq -s' ' 0 $((NGPU-1)))}"
+else
+  export GPUS="${GPUS:-}"
+  echo "[job_env] WARN: no GPU detected (NGPU=0). PART 2 (build graphs + train) NEEDS a GPU." >&2
+  echo "[job_env]       China: reboot into a GPU instance.  US: this should run inside the sbatch job." >&2
+fi
 
 echo "[job_env] $(hostname)  GPUS='$GPUS'  WORK_DIR=$WORK_DIR  (offline cache)"
