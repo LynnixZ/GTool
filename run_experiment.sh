@@ -78,8 +78,10 @@ python train_zou.py --dataset "$TAG" --llm_model_name "$MODEL" \
     --split_dir "$SPLIT_DIR" --raw_root "$RAW_ROOT" "${TRAIN_ARGS[@]}" "${EXTRA[@]}"
 
 # 4) Test (per-bucket node/chain breakdown + overall).
+# MUST pass the same TRAIN_ARGS/EXTRA: the checkpoint filename encodes num_epochs &
+# patience, so inference has to use identical values to locate ..._checkpoint_best.pth.
 echo "[test] $MODEL"
 python inference_zou.py --dataset "$TAG" --llm_model_name "$MODEL" \
-    --split_dir "$SPLIT_DIR" --raw_root "$RAW_ROOT"
+    --split_dir "$SPLIT_DIR" --raw_root "$RAW_ROOT" "${TRAIN_ARGS[@]}" "${EXTRA[@]}"
 
 echo "DONE. Results: output/$TAG/*.csv"
