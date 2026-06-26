@@ -21,15 +21,20 @@ PYG_FIND_LINKS="https://data.pyg.org/whl/torch-2.2.0+cu121.html"   # pt22cu121 w
 export HF_HOME
 mkdir -p "$WORK_DIR" "$HF_HOME"
 
-# Models: smoke + SBERT (mandatory for graph building) + the two comparison LLMs.
-DEFAULT_MODELS=(
-  "Qwen/Qwen2.5-0.5B-Instruct"                  # smoke (non-gated)
-  "sentence-transformers/all-roberta-large-v1"  # SBERT -- MANDATORY (builds the tool graphs)
-  "Qwen/Qwen3-8B"                               # non-gated
-  "lmsys/vicuna-7b-v1.5"                         # non-gated
-  "mistralai/Mistral-7B-Instruct-v0.3"          # gated -> needs HF_TOKEN
+# SBERT is MANDATORY (builds the tool graphs for EVERY run) -> always downloaded,
+# regardless of MODELS. `MODELS="repo1 repo2"` only chooses which LLM(s) to stage;
+# SBERT is added automatically. Unset MODELS -> the full comparison set below.
+SBERT_MODEL="sentence-transformers/all-roberta-large-v1"
+DEFAULT_LLMS=(
+  "Qwen/Qwen2.5-0.5B-Instruct"          # smoke (non-gated)
+  "Qwen/Qwen3-8B"                       # non-gated
+  "lmsys/vicuna-7b-v1.5"                # non-gated
+  "mistralai/Mistral-7B-Instruct-v0.3"  # gated -> needs HF_TOKEN
 )
-if [ -n "${MODELS:-}" ]; then read -ra MODEL_LIST <<< "$MODELS"; else MODEL_LIST=("${DEFAULT_MODELS[@]}"); fi
+if [ -n "${MODELS:-}" ]; then read -ra LLM_LIST <<< "$MODELS"; else LLM_LIST=("${DEFAULT_LLMS[@]}"); fi
+# SBERT first, then the chosen LLMs (dedup if SBERT was also passed in MODELS).
+MODEL_LIST=("$SBERT_MODEL")
+for m in "${LLM_LIST[@]}"; do [ "$m" = "$SBERT_MODEL" ] || MODEL_LIST+=("$m"); done
 
 log() { echo "[$(date -u +%H:%M:%S)] [prestage] $*"; }
 log "WORK_DIR=$WORK_DIR  HF_HOME=$HF_HOME"
