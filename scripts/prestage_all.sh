@@ -50,17 +50,34 @@ VENV_FLAGS=""; [ "${VENV_SYSTEM_SITE:-0}" = 1 ] && VENV_FLAGS="--system-site-pac
 source "$VENV_DIR/bin/activate"
 python -m pip install --upgrade pip wheel setuptools >/dev/null
 
-# Install torch unless this venv ALREADY has EXACTLY 2.1.x (the pinned PyG wheels are
-# pt21cu121). Isolated venv -> import fails first time -> we install. Version-only check:
-# CUDA can't be verified on a no-GPU prep box (AutoDL 无卡模式), and a plain
-# startswith('2.1') would wrongly match 2.12.x.
+# torch 2.1.0+cu121 is REQUIRED (the pinned PyG companion wheels are pt21cu121 -- do NOT
+# bump off 2.1.x). Install with a fallback: try the configured $TORCH_INDEX_URL first, then
+# the OFFICIAL cu121 index. This is needed because the China SJTU mirror's cu121 wheels
+# START at 2.2.0 (no 2.1.0) -> a bare install there fails "No matching distribution".
+# (No --force-reinstall: in an isolated venv torch isn't present, and force-reinstall is
+# what nuked the base image's torch under --system-site-packages.)
+TORCH_OFFICIAL_URL="https://download.pytorch.org/whl/cu121"
+install_torch() {
+  # $1 = index url; returns nonzero if torch==2.1.0 isn't found there.
+  pip install "torch==2.1.0" --index-url "$1"
+}
+# Install unless this venv ALREADY has EXACTLY 2.1.x. Isolated venv -> import fails first
+# time -> we install. Version-only check: CUDA can't be verified on a no-GPU prep box
+# (AutoDL 无卡模式), and a plain startswith('2.1') would wrongly match 2.12.x.
 if python -c "import torch,sys; v=torch.__version__.split('+')[0].split('.'); sys.exit(0 if (v[0]=='2' and v[1]=='1') else 1)" 2>/dev/null; then
   log "torch already present: $(python -c 'import torch;print(torch.__version__)')"
 else
-  log "installing torch==2.1.0 from $TORCH_INDEX_URL"
-  # No --force-reinstall: in an isolated venv torch isn't present, and force-reinstall
-  # is what nuked the base image's torch under --system-site-packages.
-  pip install "torch==2.1.0" --index-url "$TORCH_INDEX_URL"
+  log "installing torch==2.1.0 (try $TORCH_INDEX_URL first)"
+  if install_torch "$TORCH_INDEX_URL"; then
+    log "torch installed from $TORCH_INDEX_URL"
+  elif [ "$TORCH_INDEX_URL" = "$TORCH_OFFICIAL_URL" ]; then
+    log "ERROR: torch==2.1.0 not found at official $TORCH_OFFICIAL_URL"; exit 1
+  else
+    log "WARN: torch==2.1.0 not at $TORCH_INDEX_URL (e.g. SJTU cu121 starts at 2.2.0)."
+    log "      falling back to OFFICIAL $TORCH_OFFICIAL_URL (tip: 'source /etc/network_turbo' makes this fast on AutoDL)"
+    install_torch "$TORCH_OFFICIAL_URL" || { log "ERROR: torch==2.1.0 install failed on both indexes"; exit 1; }
+    log "torch installed from $TORCH_OFFICIAL_URL (fallback)"
+  fi
 fi
 # PIN torch so the unpinned deps below (transformers/accelerate/PyG) can never swap it
 # for a cu13 wheel during their resolve. cu13 on a 12.x driver is the #1 failure mode.
