@@ -8,6 +8,8 @@
 
 **工具规划（tool planning）**：给定一个自然语言用户请求和一组候选工具，模型输出完成该请求所需工具的**有序序列**（`Tool1: ... → Tool2: ... → ...`），既要选对工具（节点），也要排对依赖顺序（边）。
 
+> **协议：per-domain（按域独立）。** GTool 论文按域训练（`train.py --dataset <单个域>`），本实验也对每个域**独立**做「切分 → 训练 → 测试」，三个域互不混合——这也是与姊妹实验 `taskbench_sft`（同为 per-domain）对比的 baseline。**3 模型 × 3 域 = 9 个独立 run。**
+
 ---
 
 ## 2. 数据
@@ -29,24 +31,23 @@
 ### 2.2 切分（stratified split）
 
 - 切分逻辑：复刻自 `taskbench_sft` 的分层切分，自包含实现于 [src/dataset/preprocess_zou/split_subset.py](src/dataset/preprocess_zou/split_subset.py)（零外部依赖，直接跑在 GTool 子集上）。
-- 比例：**80 / 10 / 10**（train / val / test）。
-- 分层维度：`domain × topology × chain_length_bucket`（本子集 topology 恒为 chain，等效于 `domain × chain_length_bucket`）。
+- **按域独立切分**（per-domain）：每个域单独跑一次 `split_subset --domains <域>`，产物在 `artifacts/splits_subset/<域>/`；三个域**互不混合**。
+- 比例：每个域内 **80 / 10 / 10**（train / val / test）。
+- 分层维度：`topology × chain_length_bucket`（单域内 domain 是常量，已从分层维度移除；本子集 topology 恒为 chain，故实际等效于按 `chain_length_bucket` 分层）。
 - 切分种子：**seed = 42**；每个 stratum 用 `random.Random(f"{seed}|{key}")` 做确定性 shuffle。
 - **训练集工具覆盖保证**：val/test 中出现的每个工具，必须在 train 中至少出现一次；否则用 `seed+attempt` 重抽（最多 50 次）。
 - chain 合法性校验：必须是**简单连通路径**，否则排除（DAG / 不连通 / 成环 / 重名歧义都剔除）。
 - gold 顺序 `trajectory`：由 `task_links` 恢复的**拓扑序**。
 
-实测切分结果（seed=42）：
+实测各域切分（seed=42，每域 80/10/10）：
 
-| split | 数量 | 说明 |
-|---|---|---|
-| train | 7518 | |
-| validation | 939 | |
-| test_all | 941 | = test_chain |
-| test_chain | 941 | |
-| test_node | 0 | 子集无单工具样本，预期为空 |
+| 域 | usable | train | val | test |
+|---|---|---|---|---|
+| huggingface | 3630 | 2904 | 363 | 363 |
+| multimedia | 2981 | 2385 | 298 | 298 |
+| dailylife | 2787 | 2229 | 278 | 280 |
 
-> 已校验：9398 条 usable 样本的 id 与子集 `data.json` 行号 **0 缺失**匹配。
+> 子集全为 chain，故每个域 `test_node` 恒为空、`test_chain == test_all`；各域 test 的工具数分桶（chain_length 2/3/4+）见各自的 `split_manifest.json`。9398 条 usable 样本 id 与 `data.json` 行号 **0 缺失**匹配。
 
 ### 2.3 图构建（沿用 GTool 逻辑）
 
@@ -124,45 +125,45 @@
   - 分桶：**`tool=2` / `tool=3` / `tool>=4`**，外加 **`overall`**（每桶给 count + 三个指标）。
   - 在 `test_chain` / `test_all` 上分别评测（`test_node` 为空自动跳过）。
 
-  输出示例：
+  输出示例（per-domain，以 huggingface test=363 为例）：
   ```
   [test_all]
   group        count   node_f1   edge_f1       ned
-  tool=2         312    0.xxxx    0.xxxx    0.xxxx
-  tool=3         289    0.xxxx    0.xxxx    0.xxxx
-  tool>=4        340    0.xxxx    0.xxxx    0.xxxx
-  overall        941    0.xxxx    0.xxxx    0.xxxx
+  tool=2          42    0.xxxx    0.xxxx    0.xxxx
+  tool=3         136    0.xxxx    0.xxxx    0.xxxx
+  tool>=4        185    0.xxxx    0.xxxx    0.xxxx
+  overall        363    0.xxxx    0.xxxx    0.xxxx
   ```
 
 ---
 
 ## 6. 复现流程
 
+`run_experiment.sh` 已把「建图 → 按域切分 → 训练 → 测试」按域串起来（建图/切分幂等，可重复跑只补缺失）。每个 `(模型, 域)` 自动用独立 `TAG=<prefix>_<域>`、独立 `output/<TAG>/` 与 `artifacts/splits_subset/<域>/`，train 与 test 用相同超参 → checkpoint 路径对得上。
+
 ```bash
-# 1) 建图（GTool 原生预处理，每个域一次）
-python -m src.dataset.preprocess.huggingface
-python -m src.dataset.preprocess.multimedia
-python -m src.dataset.preprocess.dailylife
+# 一个模型 × 三个域（串行）
+bash run_experiment.sh mistral          # 换 qwen3-8b / vicuna 即可
 
-# 2) 分层切分（子集，seed=42）
-python -m src.dataset.preprocess_zou.split_subset \
-    --raw_root dataset --out_dir artifacts/splits_subset
+# 只跑单个 (模型, 域)
+ONLY_DOMAIN=huggingface bash run_experiment.sh mistral
 
-# 3) 训练（Qwen3 把 mistral 换成 qwen3-8b、tag 换成 zou_qwen3_8b）
-python train_zou.py --dataset zou_mistral --llm_model_name mistral \
-    --split_dir artifacts/splits_subset --raw_root dataset
+# 烟测：默认单域 tiny 1epoch；三域烟测：
+bash run_experiment.sh --smoke
+SMOKE_DOMAIN="huggingface multimedia dailylife" bash run_experiment.sh --smoke
 
-# 4) 测试（分桶 + overall）
-python inference_zou.py --dataset zou_mistral --llm_model_name mistral \
-    --split_dir artifacts/splits_subset --raw_root dataset
+# 多卡并行：3 模型 × 3 域 = 9 个 run 铺到各卡（一卡一 run）
+bash run_grid.sh vicuna mistral qwen3-8b
 ```
+
+> 底层等价于 GTool 原生：`python train_zou.py --dataset <TAG> --llm_model_name <模型> --split_dir artifacts/splits_subset/<域> --raw_root dataset`（+ 同参数的 `inference_zou.py`）。
 
 ---
 
 ## 7. 注意事项
 
 1. **硬件 / 显存**：[src/model/GTool.py](src/model/GTool.py) 用 `device_map="auto"`，自适应任意 GPU 数/显存（原写死的 2×80G 已移除）。冻结 7B/8B + 小 GNN，单张 A100 默认参数即可；24G（4090）跑 7B/8B 建议 `--batch_size 1~2`、`--max_txt_len 1536`。架构选 Ampere/Ada，避开 Blackwell。
-2. **多 GPU**：单个 run 无数据并行（无 DDP），多卡只会把一个模型切片摊开（model-parallel），对能塞进单卡的 7B/8B 不加速。要用多卡请用 [run_grid.sh](run_grid.sh)：每卡跑一个独立模型（任务级并行），模型多于卡时自动排队。
+2. **多 GPU**：单个 run 无数据并行（无 DDP），多卡只会把一个模型切片摊开（model-parallel），对能塞进单卡的 7B/8B 不加速。要用多卡请用 [run_grid.sh](run_grid.sh)：工作单元是 `(模型, 域)` pair（3×3=9），每卡跑一个 pair（任务级并行），pair 多于卡时自动排队；它会**先串行建好 graphs + 各域 split** 再 fan-out，避免并发建同一份 split 的竞争。
 3. **SBERT 本地化**：`all-roberta-large-v1` 默认 `local_files_only=True`，需提前下载到本地缓存。
 4. **Qwen3 模板**：当前为能跑通的 baseline chat 模板，若要进一步提点可细化。
 5. **种子区分**：切分 seed=42（固定，保证可复现）与训练 seed=0（`--seed`）是两个独立种子。

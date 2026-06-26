@@ -31,3 +31,4 @@ scripts/scripts_zou/
 
 # OS
 .DS_Store
+run_GTool.sh

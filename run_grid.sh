@@ -104,4 +104,15 @@ for ((k=0; k<NG; k++)); do
   pids+=($!)
 done
 wait "${pids[@]}"
-echo "[grid] all workers finished. logs: $LOGDIR/  results: output/grid_*/"
+echo "[grid] all workers finished. logs: $LOGDIR/"
+
+# ---- Package lightweight results (per-(model,domain) csv reports + logs; exclude the
+# big *.pth checkpoints) into ONE tarball under output/, and print its ABSOLUTE path at
+# the very end so it's easy to scp/download. ----
+TAR="output/gtool_results_${SLURM_JOB_ID:-$(date +%Y%m%d_%H%M%S)}.tar.gz"
+if tar czf "$TAR" --exclude='*.pth' output/grid_* 2>/dev/null; then
+  echo "[grid] results tarball -> $(cd "$(dirname "$TAR")" && pwd)/$(basename "$TAR")"
+else
+  echo "[grid] WARN: packaging failed (results still under output/grid_*/)"
+fi
+echo "[grid] ALL DONE."

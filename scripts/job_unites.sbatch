@@ -41,5 +41,8 @@ source scripts/job_env.sh                            # offline env + venv + GPUS
 if [ "${SMOKE:-0}" = 1 ]; then
   bash run_experiment.sh --smoke "${MODEL:-qwen2.5-0.5b}"
 else
-  bash run_experiment.sh "${MODEL:-mistral}"
+  # Full sweep ON THIS ONE NODE: run_grid builds graphs+splits once (serial, no race),
+  # then fans the (model x domain) runs across however many GPUs Slurm gave this job.
+  # MODELS="mistral" -> just that model's 3 domains. ${MODELS:-...} = all three.
+  bash run_grid.sh ${MODELS:-vicuna mistral qwen3-8b}
 fi
