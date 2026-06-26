@@ -37,24 +37,36 @@ log "PIP_INDEX_URL=${PIP_INDEX_URL:-(default PyPI)}  HF_ENDPOINT=${HF_ENDPOINT:-
 [ -n "${HF_TOKEN:-}" ] && log "HF_TOKEN set -> will also try gated Mistral" || log "HF_TOKEN unset -> gated Mistral skipped"
 
 # ---- 1. venv + deps ----
-# --system-site-packages REUSES a usable CUDA torch from the image/base env when
-# possible. GTool needs torch 2.1.x specifically (the pinned PyG wheels are pt21cu121),
-# so we only reuse the base torch if it is 2.1.x AND CUDA works; otherwise install 2.1.0.
-VENV_FLAGS=""; [ "${VENV_ISOLATED:-0}" = 1 ] || VENV_FLAGS="--system-site-packages"
-[ -d "$VENV_DIR" ] || { log "creating venv ($VENV_FLAGS)"; python3 -m venv $VENV_FLAGS "$VENV_DIR"; }
+# ISOLATED venv is the DEFAULT (do NOT use --system-site-packages). We learned that
+# coupling to the base image (root + --system-site-packages) caused two failures:
+#   (a) `pip install --force-reinstall torch` DELETED the base image's torch, and
+#   (b) the base image's newer CUDA libs SHADOWED the cu121 ones -> cuda.is_available()
+#       stayed False even after installing torch 2.1.0+cu121.
+# An isolated venv avoids both. Set VENV_SYSTEM_SITE=1 only if you deliberately want to
+# reuse a base torch (then it must already be 2.1.x+cu121; the PyG wheels are pt21cu121).
+VENV_FLAGS=""; [ "${VENV_SYSTEM_SITE:-0}" = 1 ] && VENV_FLAGS="--system-site-packages"
+[ -d "$VENV_DIR" ] || { log "creating venv (${VENV_FLAGS:-isolated})"; python3 -m venv $VENV_FLAGS "$VENV_DIR"; }
 # shellcheck disable=SC1091
 source "$VENV_DIR/bin/activate"
 python -m pip install --upgrade pip wheel setuptools >/dev/null
 
-# Reuse base torch only if it is EXACTLY 2.1.x (the pinned PyG wheels are pt21cu121).
-# Version-only check: CUDA can't be verified on a no-GPU prep box (AutoDL 无卡模式),
-# and a plain startswith('2.1') would wrongly match 2.12.x.
+# Install torch unless this venv ALREADY has EXACTLY 2.1.x (the pinned PyG wheels are
+# pt21cu121). Isolated venv -> import fails first time -> we install. Version-only check:
+# CUDA can't be verified on a no-GPU prep box (AutoDL 无卡模式), and a plain
+# startswith('2.1') would wrongly match 2.12.x.
 if python -c "import torch,sys; v=torch.__version__.split('+')[0].split('.'); sys.exit(0 if (v[0]=='2' and v[1]=='1') else 1)" 2>/dev/null; then
-  log "reusing torch $(python -c 'import torch;print(torch.__version__)')"
+  log "torch already present: $(python -c 'import torch;print(torch.__version__)')"
 else
   log "installing torch==2.1.0 from $TORCH_INDEX_URL"
-  pip install --force-reinstall "torch==2.1.0" --index-url "$TORCH_INDEX_URL"
+  # No --force-reinstall: in an isolated venv torch isn't present, and force-reinstall
+  # is what nuked the base image's torch under --system-site-packages.
+  pip install "torch==2.1.0" --index-url "$TORCH_INDEX_URL"
 fi
+# PIN torch so the unpinned deps below (transformers/accelerate/PyG) can never swap it
+# for a cu13 wheel during their resolve. cu13 on a 12.x driver is the #1 failure mode.
+TORCH_VER="$(python -c 'import torch; print(torch.__version__)')"
+echo "torch==$TORCH_VER" > "$WORK_DIR/torch.constraint"
+log "pinned torch==$TORCH_VER -> $WORK_DIR/torch.constraint"
 
 # GPU status is INFORMATIONAL: pre-staging (deps + model download) does NOT need a
 # GPU. Training (PART2) does. So we warn, not fail, when CUDA is unavailable.
@@ -68,11 +80,15 @@ else
 fi
 
 log "installing PyG companion wheels (pt21cu121)"
-pip install torch-scatter==2.1.2 torch-sparse==0.6.18 torch-cluster==1.6.3 torch-spline-conv==1.2.2 -f "$PYG_FIND_LINKS"
+pip install torch-scatter==2.1.2 torch-sparse==0.6.18 torch-cluster==1.6.3 torch-spline-conv==1.2.2 \
+  -f "$PYG_FIND_LINKS" -c "$WORK_DIR/torch.constraint"
 
 log "installing requirements-node.txt"
 pip install hf_transfer || log "WARN: hf_transfer failed (downloads just slower)"
-pip install -r requirements-node.txt
+pip install -r requirements-node.txt -c "$WORK_DIR/torch.constraint"
+
+# Final env verify (informational; cuda False is OK in 无卡模式 prep -- see warn above).
+python -c "import torch; print('[verify] venv='+'$VENV_DIR'); print('[verify] torch', torch.__version__, '| cuda_build', torch.version.cuda, '| cuda.is_available', torch.cuda.is_available())"
 
 # ---- 2. Models (auto-detect gated). SBERT + Qwen are free; Mistral is gated. ----
 if [ "${SKIP_MODELS:-0}" = 1 ]; then log "SKIP_MODELS=1 -> env ready, no models pre-downloaded."; exit 0; fi

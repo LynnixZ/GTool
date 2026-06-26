@@ -3,6 +3,9 @@
 #   source scripts/setup_US.sh
 # Values respect anything you already exported (override per box).
 
+# ⚠️ On a Slurm cluster (e.g. UNITES) OVERRIDE this to shared NFS (/playpen-shared/<dir>)
+# BEFORE sourcing -- $HOME is login-node local and INVISIBLE to compute nodes. prep_env.sh
+# already does this; only the bare-server fallback uses $HOME.
 export WORK_DIR="${WORK_DIR:-$HOME/tb_work}"        # override to a big/scratch/shared disk
 export HF_HOME="${HF_HOME:-$WORK_DIR/hf_home}"
 # Official cu121 wheels (Ampere/Ada OK; avoid Blackwell which needs cu128+).

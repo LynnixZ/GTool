@@ -8,6 +8,9 @@ export WORK_DIR="${WORK_DIR:-/root/autodl-tmp/tb_work}"   # big data disk (AutoD
 export HF_HOME="${HF_HOME:-$WORK_DIR/hf_home}"
 
 # --- China mirrors / network workarounds ---
+# AutoDL TIP: if /etc/network_turbo exists, `source /etc/network_turbo` BEFORE this file
+# gives proxied access to the OFFICIAL HF + github (often faster/more complete than mirrors).
+# pip + torch still keep the China mirrors below even under turbo, so this stays correct.
 export HF_ENDPOINT="${HF_ENDPOINT:-https://hf-mirror.com}"
 export PIP_INDEX_URL="${PIP_INDEX_URL:-https://pypi.tuna.tsinghua.edu.cn/simple}"
 # torch: download.pytorch.org is ~3 MB/s from China. Use SJTU's MIRROR of the cu121

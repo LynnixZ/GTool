@@ -3,18 +3,27 @@
 # NOT installable elsewhere (44 entries are `@ file:///croot/...` local paths).
 # Use THIS file instead. Versions match the original env where they matter.
 #
+# Prefer the script: `bash scripts/prestage_all.sh` does all of the below (isolated venv,
+# driver-safe cu121 torch, PyG pt21cu121, this file) with the torch pin applied. Manual order:
+#
 # ── Install order (cu121 / Ampere e.g. A100; see RUNBOOK §3 torch notes) ──
 #
-#   # 1) torch first (or reuse the base image's CUDA torch — preferred in China):
+#   # 0) ISOLATED venv (NOT --system-site-packages): avoids base-image torch/CUDA shadowing.
+#   python3 -m venv venv && source venv/bin/activate
+#
+#   # 1) torch FIRST, exactly 2.1.0+cu121 (a plain `pip install torch` pulls a cu13 wheel
+#   #    that fails on a 12.x driver):
 #   pip install torch==2.1.0 --index-url https://download.pytorch.org/whl/cu121
-#   #    (China mirror: --index-url https://mirror.sjtu.edu.cn/pytorch-wheels/cu121)
+#   #    (China: --index-url https://mirror.sjtu.edu.cn/pytorch-wheels/cu121 -- NOT Tsinghua's
+#   #     default torch, which is cu13)
+#   echo "torch==$(python -c 'import torch;print(torch.__version__)')" > torch.constraint
 #
 #   # 2) PyG companion wheels — MUST come from the PyG wheel index for torch-2.1.0+cu121:
 #   pip install torch-scatter==2.1.2 torch-sparse==0.6.18 torch-cluster==1.6.3 torch-spline-conv==1.2.2 \
-#       -f https://data.pyg.org/whl/torch-2.1.0+cu121.html
+#       -f https://data.pyg.org/whl/torch-2.1.0+cu121.html -c torch.constraint
 #
-#   # 3) everything else:
-#   pip install -r requirements-node.txt
+#   # 3) everything else (PIN torch so unpinned deps can't swap in a cu13 wheel):
+#   pip install -r requirements-node.txt -c torch.constraint
 #
 # Verify CUDA before training:  python -c "import torch;print(torch.__version__, torch.cuda.is_available())"  # must be True
 
