@@ -39,10 +39,11 @@ if [ "$SMOKE" = "1" ]; then
   TAG_PREFIX="${2:-smoke_${MODEL//[^a-zA-Z0-9]/_}}"
   SPLIT_ROOT="${SPLIT_ROOT_SMOKE:-artifacts/splits_smoke}"
   SMOKE_LIMIT="${SMOKE_LIMIT:-40}"              # usable samples per domain
-  # Smoke uses ONE domain only (huggingface = fewest tools=23 -> fastest graph build).
-  # Override with SMOKE_DOMAIN=multimedia etc.
+  # Smoke defaults to ONE domain (huggingface = fewest tools=23 -> fastest graph build).
+  # SMOKE_DOMAIN accepts ONE or MORE space-separated domains, e.g. all three:
+  #   SMOKE_DOMAIN="huggingface multimedia dailylife" bash run_experiment.sh --smoke
   SMOKE_DOMAIN="${SMOKE_DOMAIN:-huggingface}"
-  DOMAINS=("$SMOKE_DOMAIN")
+  DOMAINS=($SMOKE_DOMAIN)
   # tiny + fast train args (overridable by appending more args)
   TRAIN_ARGS=(--num_epochs 1 --batch_size 2 --eval_batch_size 2 --patience 1)
 else
