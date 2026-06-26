@@ -16,7 +16,7 @@ wandb/
 env.local.sh
 .env
 run_ch.sh
-run.sh
+# run.sh is now COMMITTED (no secrets; reads HF_TOKEN from your shell).
 
 # generated artifacts (all reproducible from code + dataset/*/data.json)
 output/
