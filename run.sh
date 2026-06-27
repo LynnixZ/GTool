@@ -15,7 +15,7 @@ set -e
 
 # ======================【 要改①：共享目录名 SHARED 】======================
 #   填你 /playpen-shared/<这个> 的真实目录名（可能 ≠ 登录名）；不确定就 `ls /playpen-shared/`。
-export SHARED="${SHARED:-$USER}"                                   # <-- 改这里
+export SHARED="${SHARED:-xinyu}"                                   # <-- 改这里（默认 xinyu；不确定 `ls /playpen-shared/`）
 export REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"        # 本 repo 位置（自动，须在 /playpen-shared）
 export WORK_DIR="${WORK_DIR:-/playpen-shared/$SHARED/tb_work}"     # venv + 缓存（共享 NFS）
 export HF_HOME="$WORK_DIR/hf_home"
@@ -30,7 +30,7 @@ bash scripts/prestage_all.sh             # 隔离 venv + cu121 torch + PyG + 下
 #   job 内 run_grid 把 3 模型 × 3 域 = 9 个 run 铺到这 N 卡（一卡一 run，排队）。
 #   分区自动投 a100,ada,a6000（避 blackwell）。Mistral 没许可会自动跳过，vicuna/qwen3 照跑。
 # ======================【 要改②：申请几张 GPU 】======================
-GPUS_PER_JOB=2 bash scripts/submit_unites.sh                       # <-- 改卡数
+GPUS_PER_JOB="${GPUS_PER_JOB:-2}" bash scripts/submit_unites.sh    # <-- 改卡数；也可 GPUS_PER_JOB=4 bash run.sh 覆盖
 
 # 其他用法（按需）：
 #   只跑某个模型（×3 域）：MODELS=mistral GPUS_PER_JOB=2 bash scripts/submit_unites.sh

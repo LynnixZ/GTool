@@ -7,14 +7,15 @@
 
 export WORK_DIR="${WORK_DIR:-/playpen-shared/$USER/tb_work}"   # China: /root/autodl-tmp/tb_work
 export HF_HOME="${HF_HOME:-$WORK_DIR/hf_home}"
+VENV_DIR="${VENV_DIR:-$WORK_DIR/GTool_venv}"                   # match prestage_all.sh
 
 # Fail loudly if WORK_DIR is wrong (e.g. shared dir != $USER), rather than a cryptic
 # "source: no such file" from activate. The venv must have been built by PART 1.
-if [ ! -f "$WORK_DIR/venv/bin/activate" ]; then
-  echo "[job_env] ERROR: no venv at $WORK_DIR/venv -- WORK_DIR wrong (shared dir != \$USER?) or PART 1 not run." >&2
+if [ ! -f "$VENV_DIR/bin/activate" ]; then
+  echo "[job_env] ERROR: no venv at $VENV_DIR -- WORK_DIR wrong (shared dir != \$USER?) or PART 1 not run." >&2
   return 1 2>/dev/null || exit 1
 fi
-source "$WORK_DIR/venv/bin/activate"
+source "$VENV_DIR/bin/activate"
 
 # Cache-only: never touch the network. Offline != auto-skip -- HF/transformers will TRY
 # to reach the hub (even to freshness-check the cache) and hang/fail offline unless these

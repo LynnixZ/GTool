@@ -15,7 +15,7 @@ cd "$(dirname "$0")/.."
 
 WORK_DIR="${WORK_DIR:-/root/autodl-tmp/tb_work}"
 HF_HOME="${HF_HOME:-$WORK_DIR/hf_home}"
-VENV_DIR="${VENV_DIR:-$WORK_DIR/venv}"
+VENV_DIR="${VENV_DIR:-$WORK_DIR/GTool_venv}"
 # Base python the venv is built FROM. MUST exist on the RUN node too: a venv built from a
 # login-node-only conda python leaves bin/python dangling on an offline compute node ->
 # "python: command not found". On Slurm set VENV_PYTHON to a node-visible python
