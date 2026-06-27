@@ -15,8 +15,23 @@ set -e
 GPUS_PER_JOB="${GPUS_PER_JOB:-1}"
 # =======================================================================================
 # cu121 torch runs on Ampere/Ada (a100/a6000/ada) but NOT Blackwell ("no kernel image").
-# Submit to all compatible partitions -> Slurm picks whichever frees up first.
-PARTITION="${PARTITION:-a100,ada,a6000}"
+# AUTO-SELECT only the cu121-safe partitions THAT EXIST here: Slurm rejects the WHOLE
+# `-p a,b,c` request if ANY name is invalid (it won't use the valid subset), so a stale
+# 'ada'/'a6000' on a cluster lacking them kills the submit. Intersect a preferred list with
+# `sinfo`. Override with PARTITION=<name>; tune the pool with PARTITION_PREFERRED.
+PREFERRED="${PARTITION_PREFERRED:-a100 ada a6000}"
+if [ -z "${PARTITION:-}" ]; then
+  AVAIL="$(sinfo -h -o '%R' 2>/dev/null | sort -u)"
+  for p in $PREFERRED; do
+    printf '%s\n' "$AVAIL" | grep -qx "$p" && PARTITION="${PARTITION:+$PARTITION,}$p"
+  done
+  if [ -z "${PARTITION:-}" ]; then
+    echo "[submit] ERROR: none of the preferred cu121 partitions [$PREFERRED] exist here." >&2
+    echo "[submit]   available partitions: $(printf '%s ' $AVAIL)" >&2
+    echo "[submit]   pick a cu121-capable one (NOT blackwell) and re-run: PARTITION=<name> bash run.sh" >&2
+    exit 1
+  fi
+fi
 CPUS="${CPUS:-$(( GPUS_PER_JOB * 12 ))}"
 MEM="${MEM:-$(( GPUS_PER_JOB * 50 ))G}"           # ~50G/GPU; stays under a node's ~472GiB limit
 

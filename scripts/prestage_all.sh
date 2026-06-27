@@ -16,6 +16,11 @@ cd "$(dirname "$0")/.."
 WORK_DIR="${WORK_DIR:-/root/autodl-tmp/tb_work}"
 HF_HOME="${HF_HOME:-$WORK_DIR/hf_home}"
 VENV_DIR="${VENV_DIR:-$WORK_DIR/venv}"
+# Base python the venv is built FROM. MUST exist on the RUN node too: a venv built from a
+# login-node-only conda python leaves bin/python dangling on an offline compute node ->
+# "python: command not found". On Slurm set VENV_PYTHON to a node-visible python
+# (e.g. /usr/bin/python3, or `module load python` then python3), NOT the login conda base.
+VENV_PYTHON="${VENV_PYTHON:-python3}"
 TORCH_INDEX_URL="${TORCH_INDEX_URL:-https://download.pytorch.org/whl/cu121}"
 PYG_FIND_LINKS="https://data.pyg.org/whl/torch-2.2.0+cu121.html"   # pt22cu121 wheels (match torch 2.2.x)
 export HF_HOME
@@ -50,7 +55,9 @@ log "PIP_INDEX_URL=${PIP_INDEX_URL:-(default PyPI)}  HF_ENDPOINT=${HF_ENDPOINT:-
 # An isolated venv avoids both. Set VENV_SYSTEM_SITE=1 only if you deliberately want to
 # reuse a base torch (then it must already be 2.2.x+cu121; the PyG wheels are pt22cu121).
 VENV_FLAGS=""; [ "${VENV_SYSTEM_SITE:-0}" = 1 ] && VENV_FLAGS="--system-site-packages"
-[ -d "$VENV_DIR" ] || { log "creating venv (${VENV_FLAGS:-isolated})"; python3 -m venv $VENV_FLAGS "$VENV_DIR"; }
+# Probe the activate FILE, not just the dir: a half-created/empty/manual dir passes -d but
+# then `source activate` dies. Re-running venv on the same path completes a partial one.
+[ -f "$VENV_DIR/bin/activate" ] || { log "creating venv (${VENV_FLAGS:-isolated}) from $VENV_PYTHON"; "$VENV_PYTHON" -m venv $VENV_FLAGS "$VENV_DIR"; }
 # shellcheck disable=SC1091
 source "$VENV_DIR/bin/activate"
 python -m pip install --upgrade pip wheel setuptools >/dev/null
