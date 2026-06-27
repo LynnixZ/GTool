@@ -2,13 +2,15 @@
 # ============================================================================
 # GTool 美国节点启动脚本 — per-domain 实验。COMMITTED（已入库，无密钥，可直接 clone/pull）。
 #
-# 师兄用法：
+# 用法：
 #   1) clone 到【共享 NFS】（不是 $HOME，计算节点看不到 /home）：
 #        git clone https://github.com/LynnixZ/GTool.git /playpen-shared/<你的共享目录>/GTool
 #        cd /playpen-shared/<你的共享目录>/GTool
 #   2) 在你自己的 shell export 密钥（别写进这个文件）：
 #        export HF_TOKEN=hf_xxx          # 下 gated 的 Mistral 用；token 须在 HF 接受过 Mistral 许可
 #   3) 改下面【要改①】SHARED、【要改②】GPU 数，然后：  bash run.sh
+#   ★ US Slurm 必带 VENV_PYTHON（登录节点 conda 建的 venv 在计算节点会失效）：
+#        VENV_PYTHON=/usr/bin/python3 bash run.sh      # China 不用设；它会透传给 prestage 建 venv
 #   以后更新只需 `git pull`。
 # ============================================================================
 set -e
