@@ -47,8 +47,10 @@ if [ "$SMOKE" = "1" ]; then
   #   SMOKE_DOMAIN=huggingface bash run_experiment.sh --smoke
   SMOKE_DOMAIN="${SMOKE_DOMAIN:-huggingface multimedia dailylife}"
   DOMAINS=($SMOKE_DOMAIN)
-  # tiny + fast train args (overridable by appending more args)
-  TRAIN_ARGS=(--num_epochs 1 --batch_size 2 --eval_batch_size 2 --patience 1)
+  # tiny + fast + LOW-MEMORY train args so a 7B fits a 24G card (4090) out of the box.
+  # (the graph token needs grad -> backprop runs through the whole frozen LLM -> full
+  # activations; batch 1 + short max_txt_len keeps it under 24G.) Overridable by appending.
+  TRAIN_ARGS=(--num_epochs 1 --batch_size 1 --eval_batch_size 1 --patience 1 --max_txt_len 1024)
 else
   MODEL="${1:-mistral}"
   TAG_PREFIX="${2:-g4p_${MODEL//[^a-zA-Z0-9]/_}}"
