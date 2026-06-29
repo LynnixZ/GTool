@@ -38,7 +38,10 @@ def run_split(model, args, test_split):
         return None
     test_loader = DataLoader(test_dataset, batch_size=args.eval_batch_size, drop_last=False, shuffle=False, collate_fn=collate_fn)
 
-    path = f'{args.output_dir}/{args.dataset}/llm_model_name_{args.llm_model_name}_gnn_num_layers_{args.gnn_num_layers}_mask_prob_{args.mask_prob}_LLMP_dim_{args.LLMP_dim}_alpha_{args.alpha}_patience_{args.patience}_num_epochs_{args.num_epochs}_seed_{args.seed}_{test_split}.csv'
+    # Transfer eval: tag the output with the domain under test so a source-domain
+    # checkpoint evaluated on another domain doesn't clobber its own csv.
+    evalon = f'_evalon_{args.eval_tag}' if getattr(args, 'eval_tag', '') else ''
+    path = f'{args.output_dir}/{args.dataset}/llm_model_name_{args.llm_model_name}_gnn_num_layers_{args.gnn_num_layers}_mask_prob_{args.mask_prob}_LLMP_dim_{args.LLMP_dim}_alpha_{args.alpha}_patience_{args.patience}_num_epochs_{args.num_epochs}_seed_{args.seed}{evalon}_{test_split}.csv'
     print(f'[{test_split}] n={len(test_dataset)} -> {path}')
 
     progress_bar_test = tqdm(range(len(test_loader)))

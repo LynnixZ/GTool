@@ -48,6 +48,10 @@ def parse_args_llama():
     parser.add_argument("--raw_root", type=str, default='dataset')
     # Which test file to evaluate on: test_all | test_node | test_chain.
     parser.add_argument("--test_split", type=str, default='test_all')
+    # Transfer/cross-domain eval: tag the OUTPUT csv with the domain being tested on,
+    # so testing a source-domain checkpoint on another domain doesn't overwrite its own
+    # results. Empty = same-domain (original behaviour). e.g. --eval_tag multimedia.
+    parser.add_argument("--eval_tag", type=str, default='')
 
     parser.add_argument("--max_txt_len", type=int, default=3072)
     parser.add_argument("--max_new_tokens", type=int, default=64)

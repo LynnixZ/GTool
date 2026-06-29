@@ -25,8 +25,8 @@
 set -Eeuo pipefail
 cd "$(dirname "$0")"
 
-RAW_ROOT="${RAW_ROOT:-dataset}"
-SPLIT_ROOT="${SPLIT_ROOT:-artifacts/splits_subset}"
+RAW_ROOT="${RAW_ROOT:-dataset_gnn4plan}"        # vendored GNN4TaskPlan data
+SPLIT_ROOT="${SPLIT_ROOT:-artifacts/splits_gnn4plan}"
 LOGDIR="${LOGDIR:-output/grid_logs}"; mkdir -p "$LOGDIR"
 EXTRA="${EXTRA:-}"
 
@@ -49,8 +49,8 @@ for d in $DOMAINS; do
   if [ -d "$RAW_ROOT/$d/graphs" ] && [ -n "$(ls -A "$RAW_ROOT/$d/graphs" 2>/dev/null)" ]; then
     echo "[grid] graphs ok: $d"
   else
-    echo "[grid] building graphs: $d (on GPU ${GPU_ARR[0]})"
-    CUDA_VISIBLE_DEVICES="${GPU_ARR[0]}" python -m "src.dataset.preprocess.$d"
+    echo "[grid] building graphs: $d (GNN4TaskPlan data, on GPU ${GPU_ARR[0]})"
+    CUDA_VISIBLE_DEVICES="${GPU_ARR[0]}" python -m src.dataset.preprocess_gnn4plan --root "$RAW_ROOT" --domains "$d"
   fi
 done
 
@@ -63,9 +63,9 @@ for d in $DOMAINS; do
   if [ -f "$SPLIT_ROOT/$d/train.jsonl" ]; then
     echo "[grid] split ok: $d"
   else
-    echo "[grid] building split: $d -> $SPLIT_ROOT/$d"
+    echo "[grid] building gnn4plan split: $d -> $SPLIT_ROOT/$d"
     python -m src.dataset.preprocess_zou.split_subset \
-        --raw_root "$RAW_ROOT" --out_dir "$SPLIT_ROOT/$d" --domains "$d"
+        --raw_root "$RAW_ROOT" --out_dir "$SPLIT_ROOT/$d" --domains "$d" --mode gnn4plan
   fi
 done
 

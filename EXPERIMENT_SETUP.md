@@ -16,42 +16,35 @@
 
 ### 2.1 数据来源与范围
 
-- 数据集：**TaskBench** 三个域 —— `huggingface`、`multimedia`、`dailylife`。
-- 使用 GTool 仓库自带的**过滤子集**（不使用全量 TaskBench）：
+- 数据集：**GNN4TaskPlan** 提供的三个域 —— `huggingface`、`multimedia`、`dailylife`（GNN4Plan / GRAFT / GTool 都基准在这同一份数据上，便于 1:1 对比）。
+- 通过 [scripts/download_gnn4plan.sh](scripts/download_gnn4plan.sh) 从 [WxxShirley/GNN4TaskPlan](https://github.com/WxxShirley/GNN4TaskPlan) 下载到 `dataset_gnn4plan/<域>/`（含 `data.json`、`tool_desc.json`、`graph_desc.json`、`split_ids.json`）。
+- 每个域含 single + chain 样本（DAG / 不连通 / 成环 / 重名歧义会在拓扑校验时剔除）。
 
-  | 域 | 样本数 | 拓扑类型 | 依赖类型 |
-  |---|---|---|---|
-  | huggingface | 3630 | 全部 chain | resource |
-  | multimedia | 2981 | 全部 chain | resource |
-  | dailylife | 2787 | 全部 chain | temporal |
-  | **合计** | **9398** | | |
+> 不再使用 GTool 仓库自带的过滤子集（那份是全 chain 的 9398 条）；改用 GNN4TaskPlan 的数据 + 固定测试集，和论文严格可比。
 
-- **关键特征：子集全部为 `chain` 类型，不含单工具（`node`）样本。** 因此工具数最少为 2，分层与分桶里都不会出现 `tool=1`。
+### 2.2 切分（GNN4plan split，per-domain）
 
-### 2.2 切分（stratified split）
+忠实复刻 GNN4TaskPlan / GNN4Plan / GRAFT / GTool 的设定，实现于 [src/dataset/preprocess_zou/split_subset.py](src/dataset/preprocess_zou/split_subset.py) 的 `make_split_gnn4plan`（`--mode gnn4plan`）：
 
-- 切分逻辑：复刻自 `taskbench_sft` 的分层切分，自包含实现于 [src/dataset/preprocess_zou/split_subset.py](src/dataset/preprocess_zou/split_subset.py)（零外部依赖，直接跑在 GTool 子集上）。
-- **按域独立切分**（per-domain）：每个域单独跑一次 `split_subset --domains <域>`，产物在 `artifacts/splits_subset/<域>/`；三个域**互不混合**。
-- 比例：每个域内 **80 / 10 / 10**（train / val / test）。
-- 分层维度：`topology × chain_length_bucket`（单域内 domain 是常量，已从分层维度移除；本子集 topology 恒为 chain，故实际等效于按 `chain_length_bucket` 分层）。
-- 切分种子：**seed = 42**；每个 stratum 用 `random.Random(f"{seed}|{key}")` 做确定性 shuffle。
-- **训练集工具覆盖保证**：val/test 中出现的每个工具，必须在 train 中至少出现一次；否则用 `seed+attempt` 重抽（最多 50 次）。
-- chain 合法性校验：必须是**简单连通路径**，否则排除（DAG / 不连通 / 成环 / 重名歧义都剔除）。
-- gold 顺序 `trajectory`：由 `task_links` 恢复的**拓扑序**。
+- **test = 固定的 `split_ids.json` chains**（每域约 500，chain-only）——和论文报告的**同一批测试样本**。
+- **train/val = single+chain 的 usable 池 减去 test**，用 `seed=42` shuffle，**截断到 3000**（`train_cap`），再按 **85 / 15** 切 train/val。
+- **不做工具覆盖重抽**（GNN4Plan 不做，只 WARN）。
+- 按域独立（每个域读自己的 `split_ids.json`），产物在 `artifacts/splits_gnn4plan/<域>/`。
+- gold 顺序 `trajectory`：由 `task_links` 恢复的拓扑序。
 
-实测各域切分（seed=42，每域 80/10/10）：
+实测各域切分（seed=42；huggingface 已本地验证）：
 
-| 域 | usable | train | val | test |
+| 域 | test（固定 chains） | train | val | pool |
 |---|---|---|---|---|
-| huggingface | 3630 | 2904 | 363 | 363 |
-| multimedia | 2981 | 2385 | 298 | 298 |
-| dailylife | 2787 | 2229 | 278 | 280 |
+| huggingface | 498（500−2 无效） | 2550 | 450 | 3000（cap） |
+| multimedia | ~split_ids | 2550 | 450 | 3000（cap） |
+| dailylife | ~split_ids | 2550 | 450 | 3000（cap） |
 
-> 子集全为 chain，故每个域 `test_node` 恒为空、`test_chain == test_all`；各域 test 的工具数分桶（chain_length 2/3/4+）见各自的 `split_manifest.json`。9398 条 usable 样本 id 与 `data.json` 行号 **0 缺失**匹配。
+> test 为 chain-only，故 `test_node` 恒为空、`test_chain == test_all`；train 含 single+chain。多/日域的具体 test 数取决于各自 `split_ids.json` 与拓扑校验（跑一次即知）。
 
-### 2.3 图构建（沿用 GTool 逻辑）
+### 2.3 图构建（沿用 GTool 逻辑，从 GNN4TaskPlan 数据）
 
-- 由 `python -m src.dataset.preprocess.<domain>` 生成（每个域一次）。
+- 由 `python -m src.dataset.preprocess_gnn4plan --root dataset_gnn4plan --domains <域>` 生成（GNN4TaskPlan 不带 `node_desc.json`，从 `tool_desc.json` 派生；其余与 GTool 一致）。
 - **工具依赖图（拓扑）**：来自各域 `graph_desc.json`，是预定义的领域工具依赖图（如 huggingface 为 23 节点 / 225 边），**对所有样本相同，不从样本统计、无训练/测试泄漏**。
 - **节点/边特征**：用 SBERT（`sentence-transformers/all-roberta-large-v1`，1024 维）编码节点描述、边类型与用户请求。
 - **super-node（请求节点）**：连接所有工具节点，特征 = 该样本用户请求的 SBERT 嵌入；其 GNN 输出即图级表示。
@@ -139,24 +132,38 @@
 
 ## 6. 复现流程
 
-`run_experiment.sh` 已把「建图 → 按域切分 → 训练 → 测试」按域串起来（建图/切分幂等，可重复跑只补缺失）。每个 `(模型, 域)` 自动用独立 `TAG=<prefix>_<域>`、独立 `output/<TAG>/` 与 `artifacts/splits_subset/<域>/`，train 与 test 用相同超参 → checkpoint 路径对得上。
+先在联网节点下载 GNN4TaskPlan 数据，再按域跑。`run_experiment.sh` 把「建图 → GNN4plan 按域切分 → 训练 → 测试」串起来（幂等，重复跑只补缺失）；每个 `(模型, 域)` 用独立 `TAG=g4p_<模型>_<域>`、`output/<TAG>/`、`artifacts/splits_gnn4plan/<域>/`，train/test 同参数 → checkpoint 路径对得上。
 
 ```bash
-# 一个模型 × 三个域（串行）
-bash run_experiment.sh mistral          # 换 qwen3-8b / vicuna 即可
+# 0) 一次性：下载 GNN4TaskPlan 数据（联网节点）
+bash scripts/download_gnn4plan.sh                # -> dataset_gnn4plan/<域>/
+
+# 1) 一个模型 × 三个域（串行；首次建图 + 切分）
+bash run_experiment.sh mistral                   # 换 qwen3-8b / vicuna 即可
 
 # 只跑单个 (模型, 域)
 ONLY_DOMAIN=huggingface bash run_experiment.sh mistral
 
-# 烟测：默认单域 tiny 1epoch；三域烟测：
+# 烟测（gnn4plan tiny：train_cap=30 test_cap=8，1 epoch；默认三域）
 bash run_experiment.sh --smoke
-SMOKE_DOMAIN="huggingface multimedia dailylife" bash run_experiment.sh --smoke
+SMOKE_DOMAIN=huggingface bash run_experiment.sh --smoke   # 单域最快
 
 # 多卡并行：3 模型 × 3 域 = 9 个 run 铺到各卡（一卡一 run）
 bash run_grid.sh vicuna mistral qwen3-8b
 ```
 
-> 底层等价于 GTool 原生：`python train_zou.py --dataset <TAG> --llm_model_name <模型> --split_dir artifacts/splits_subset/<域> --raw_root dataset`（+ 同参数的 `inference_zou.py`）。
+> 底层等价：`python train_zou.py --dataset g4p_<模型>_<域> --llm_model_name <模型> --split_dir artifacts/splits_gnn4plan/<域> --raw_root dataset_gnn4plan`（+ 同参数 `inference_zou.py`）。
+
+### 6.1 迁移（跨域）实验
+
+在某个**源域**训练好后，用同一 checkpoint 测**全部 3 个域**的 test 集（含自身），衡量跨域泛化。可行的原因：GNN 作用在 SBERT 特征上、与具体工具无关；LLM 在 prompt 里看到的是**目标域**的工具列表，所以源域模型能在目标域图上规划。
+
+```bash
+# 先正常训练源域（如 huggingface），再：
+bash transfer_eval.sh mistral huggingface        # hf 训练 → 测 hf / mm / dl
+```
+
+[transfer_eval.sh](transfer_eval.sh) 复用源域 checkpoint（`output/g4p_<模型>_huggingface/`），对每个目标域调 `inference_zou.py --eval_tag <目标域>`，结果写成 `..._evalon_<目标域>_test_all.csv`，互不覆盖。注意：transfer 时传的训练超参（num_epochs/patience/seed）要和训练一致，否则定位不到 checkpoint。
 
 ---
 

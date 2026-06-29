@@ -23,22 +23,25 @@
 #   export HF_HOME=$WORK_DIR/hf_home
 #   export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
 #
-# NOTE: graph building (src.dataset.preprocess.*) needs a GPU (SBERT on cuda:0)
-# and the SBERT model in cache, so this whole script runs on the GPU compute node.
-# The first run builds the domain's graphs (~one-time); later runs reuse them.
+# Data: vendored GNN4TaskPlan (RAW_ROOT=dataset_gnn4plan, scripts/download_gnn4plan.sh).
+# Split: GNN4plan (fixed split_ids.json test + capped 85/15 pool) -- same as GNN4Plan/GRAFT/GTool.
+# NOTE: graph building (src.dataset.preprocess_gnn4plan) needs a GPU (SBERT on cuda:0) and the
+# SBERT model in cache, so this whole script runs on the GPU compute node. First run builds the
+# domain's graphs (~one-time); later runs reuse them.
 set -euo pipefail
 
 SMOKE=0
 if [ "${1:-}" = "--smoke" ]; then SMOKE=1; shift; fi
 
-RAW_ROOT="${RAW_ROOT:-dataset}"                 # GTool preprocess writes to dataset/<domain>/
-SPLIT_ROOT="${SPLIT_ROOT:-artifacts/splits_subset}"   # per-domain split lives at $SPLIT_ROOT/<domain>/
+RAW_ROOT="${RAW_ROOT:-dataset_gnn4plan}"        # vendored GNN4TaskPlan data (scripts/download_gnn4plan.sh)
+SPLIT_ROOT="${SPLIT_ROOT:-artifacts/splits_gnn4plan}" # per-domain GNN4plan split at $SPLIT_ROOT/<domain>/
 
 if [ "$SMOKE" = "1" ]; then
   MODEL="${1:-qwen3-0.6b}"
   TAG_PREFIX="${2:-smoke_${MODEL//[^a-zA-Z0-9]/_}}"
   SPLIT_ROOT="${SPLIT_ROOT_SMOKE:-artifacts/splits_smoke}"
-  SMOKE_LIMIT="${SMOKE_LIMIT:-40}"              # usable samples per domain
+  SMOKE_TRAIN_CAP="${SMOKE_TRAIN_CAP:-30}"     # tiny gnn4plan train pool for a fast smoke
+  SMOKE_TEST_CAP="${SMOKE_TEST_CAP:-8}"        # shrink the FIXED test set for smoke only
   # Smoke defaults to ALL THREE domains (verify the whole protocol). SMOKE_DOMAIN
   # accepts one or more space-separated domains; for the fastest single-domain check:
   #   SMOKE_DOMAIN=huggingface bash run_experiment.sh --smoke
@@ -48,7 +51,7 @@ if [ "$SMOKE" = "1" ]; then
   TRAIN_ARGS=(--num_epochs 1 --batch_size 2 --eval_batch_size 2 --patience 1)
 else
   MODEL="${1:-mistral}"
-  TAG_PREFIX="${2:-zou_${MODEL//[^a-zA-Z0-9]/_}}"
+  TAG_PREFIX="${2:-g4p_${MODEL//[^a-zA-Z0-9]/_}}"
   DOMAINS=(huggingface multimedia dailylife)
   TRAIN_ARGS=()
 fi
@@ -64,26 +67,27 @@ for d in "${DOMAINS[@]}"; do
   SPLIT_DIR="$SPLIT_ROOT/$d"
   echo "===== [$MODEL / $d] TAG=$TAG SPLIT_DIR=$SPLIT_DIR ====="
 
-  # 1) Build this domain's GTool graphs (idempotent: skip if already built).
+  # 1) Build this domain's GTool graphs from the vendored GNN4TaskPlan data (idempotent).
   if [ -d "$RAW_ROOT/$d/graphs" ] && [ -n "$(ls -A "$RAW_ROOT/$d/graphs" 2>/dev/null)" ]; then
     echo "[skip] graphs exist for $d"
   else
-    echo "[build] graphs for $d"
-    python -m "src.dataset.preprocess.$d"
+    echo "[build] graphs for $d (from GNN4TaskPlan data)"
+    python -m src.dataset.preprocess_gnn4plan --root "$RAW_ROOT" --domains "$d"
   fi
 
-  # 2) Stratified split for THIS domain only (idempotent).
+  # 2) GNN4plan split for THIS domain only (idempotent): test = fixed split_ids.json
+  #    chains; train/val = pool minus test, shuffled seed42, cap 3000, 85/15.
   if [ -f "$SPLIT_DIR/train.jsonl" ]; then
     echo "[skip] split exists at $SPLIT_DIR"
   elif [ "$SMOKE" = "1" ]; then
-    echo "[build] smoke split -> $SPLIT_DIR (domain=$d, limit_per_domain=$SMOKE_LIMIT)"
+    echo "[build] smoke split -> $SPLIT_DIR (domain=$d, gnn4plan tiny: train_cap=$SMOKE_TRAIN_CAP test_cap=$SMOKE_TEST_CAP)"
     python -m src.dataset.preprocess_zou.split_subset \
         --raw_root "$RAW_ROOT" --out_dir "$SPLIT_DIR" --domains "$d" \
-        --limit_per_domain "$SMOKE_LIMIT" --skip_coverage
+        --mode gnn4plan --train_cap "$SMOKE_TRAIN_CAP" --test_cap "$SMOKE_TEST_CAP"
   else
-    echo "[build] split -> $SPLIT_DIR (domain=$d)"
+    echo "[build] gnn4plan split -> $SPLIT_DIR (domain=$d)"
     python -m src.dataset.preprocess_zou.split_subset \
-        --raw_root "$RAW_ROOT" --out_dir "$SPLIT_DIR" --domains "$d"
+        --raw_root "$RAW_ROOT" --out_dir "$SPLIT_DIR" --domains "$d" --mode gnn4plan
   fi
 
   # 3) Train (best checkpoint by val loss + early stop; auto-tests on test_all at the end).

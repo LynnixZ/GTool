@@ -264,6 +264,41 @@ def make_split(samples, seed, train_frac, val_frac, stratify_by, max_resamples,
                        f"Rare tools: {json.dumps(last_missing, indent=2)}")
 
 
+def make_split_gnn4plan(samples, seed, test_ids, train_cap, test_cap=0):
+    """GNN4Plan / GRAFT / GTool-aligned split (faithful to GNN4TaskPlan's split_data.py +
+    finetunellm/main.py):
+
+    * test = the FIXED chain ids in split_ids.json (same test samples the papers report on),
+      chain-only.
+    * train/val candidates = the single+chain usable pool MINUS the test ids; shuffled with
+      `seed`, capped at `train_cap` (GNN4Plan=3000), then split 85/15 into train/val.
+    * NO tool-coverage resampling (GNN4Plan doesn't do it; we only WARN).
+    """
+    usable = [s for s in samples if s["is_usable"] and s["topology"] in ("single", "chain")]
+    test_id_set = set(str(i) for i in test_ids)
+    test = [s for s in usable if s["id"] in test_id_set and s["topology"] == "chain"]
+    found = {s["id"] for s in test}
+    missing = test_id_set - found
+    if missing:
+        print(f"GNN4Plan split: {len(missing)}/{len(test_id_set)} test ids not found as usable "
+              f"chains (dropped from test): e.g. {sorted(missing)[:5]}")
+    if test_cap:  # smoke only: shrink the fixed test set so a smoke run is fast
+        test = sorted(test, key=lambda x: x["id"])[:test_cap]
+    pool = sorted((s for s in usable if s["id"] not in test_id_set), key=lambda x: x["id"])
+    random.Random(seed).shuffle(pool)
+    if train_cap:
+        pool = pool[:train_cap]
+    n_train = int(round(0.85 * len(pool)))   # GNN4Plan finetunellm/main.py: 0.85
+    train, val = pool[:n_train], pool[n_train:]
+    cov = _coverage_violations(train, val + test)
+    if cov:
+        print(f"GNN4Plan split: {len(cov)} tools in val/test missing from train "
+              f"(NOT resampled -- faithful to GNN4Plan)")
+    print(f"GNN4Plan split: train={len(train)} val={len(val)} test={len(test)} "
+          f"(pool={len(pool)}, cap={train_cap}, seed={seed})")
+    return train, val, test, seed
+
+
 # --------------------------------------------------------------------- write out
 _RECORD_FIELDS = ["id", "domain", "dependency_type", "topology", "n_tools",
                   "user_request", "task_steps", "task_nodes", "task_links",
@@ -339,11 +374,15 @@ def main():
                    help="Skip the train-tool-coverage guarantee (needed for tiny smoke splits).")
     p.add_argument("--domains", type=str, default="",
                    help="Comma-separated GTool dir names to restrict to (e.g. 'huggingface'). Empty=all.")
+    p.add_argument("--mode", type=str, default="gnn4plan", choices=["gnn4plan", "stratified"],
+                   help="gnn4plan (default): GNN4TaskPlan's fixed split_ids test + capped 85/15 pool. "
+                        "stratified: the old zou topology x chain_length_bucket split.")
+    p.add_argument("--train_cap", type=int, default=3000,
+                   help="gnn4plan: cap the shuffled single+chain train pool (GNN4Plan uses 3000; 0=no cap).")
+    p.add_argument("--test_cap", type=int, default=0,
+                   help="gnn4plan SMOKE ONLY: shrink the fixed test set to this many (0=full). Not for real runs.")
     args = p.parse_args()
 
-    # Per-domain split: stratify by topology x chain_length_bucket only.
-    # (domain is constant within a single --domains call, so it would be a no-op.)
-    stratify_by = ["topology", "chain_length_bucket"]
     domains = [d.strip() for d in args.domains.split(",") if d.strip()] or None
     samples = load_subset(args.raw_root, domains=domains)
 
@@ -358,13 +397,30 @@ def main():
         print(f"limit_per_domain={args.limit_per_domain}: kept {dict(cnt)}")
         samples = kept
 
-    train, val, test, used_seed = make_split(
-        samples, args.seed, args.train_frac, args.val_frac, stratify_by,
-        args.max_resamples, skip_coverage=args.skip_coverage)
-    cfg = {"train_frac": args.train_frac, "validation_frac": args.val_frac,
-           "test_frac": round(1 - args.train_frac - args.val_frac, 6),
-           "seed": args.seed, "stratify_by": stratify_by, "max_resamples": args.max_resamples,
-           "out_dir": args.out_dir, "raw_root": args.raw_root}
+    if args.mode == "gnn4plan":
+        # test = the FIXED chains from each domain's split_ids.json (GNN4TaskPlan).
+        test_ids = []
+        for dir_ in (domains or list(DIR_TO_DOMAIN.keys())):
+            sp = os.path.join(args.raw_root, dir_, "split_ids.json")
+            if not os.path.exists(sp):
+                raise FileNotFoundError(
+                    f"--mode gnn4plan but {sp} missing -- run scripts/download_gnn4plan.sh first "
+                    f"(and point --raw_root at the vendored dir, e.g. dataset_gnn4plan).")
+            test_ids += json.load(open(sp, "r", encoding="utf-8"))["test_ids"]["chain"]
+        train, val, test, used_seed = make_split_gnn4plan(
+            samples, args.seed, test_ids, args.train_cap, test_cap=args.test_cap)
+        cfg = {"mode": "gnn4plan", "seed": args.seed, "train_cap": args.train_cap,
+               "test_cap": args.test_cap, "test": "fixed split_ids.json chains",
+               "train_val_split": "85/15", "out_dir": args.out_dir, "raw_root": args.raw_root}
+    else:
+        stratify_by = ["topology", "chain_length_bucket"]
+        train, val, test, used_seed = make_split(
+            samples, args.seed, args.train_frac, args.val_frac, stratify_by,
+            args.max_resamples, skip_coverage=args.skip_coverage)
+        cfg = {"mode": "stratified", "train_frac": args.train_frac, "validation_frac": args.val_frac,
+               "test_frac": round(1 - args.train_frac - args.val_frac, 6),
+               "seed": args.seed, "stratify_by": stratify_by, "max_resamples": args.max_resamples,
+               "out_dir": args.out_dir, "raw_root": args.raw_root}
     write_split(train, val, test, args.out_dir, used_seed, cfg)
 
 

@@ -219,9 +219,21 @@ python train.py --dataset huggingface --llm_model_name qwen3
 
 ---
 
-## 8. 使用 zou 分层切分 + Mistral / Qwen3（本次实验用法）
+## 8. 本次实验用法（Mistral / Qwen3 / vicuna）
 
-本节是为「用分层切分逻辑，在 **Mistral-7B-Instruct-v0.3** 和 **Qwen3-8B** 上训练/测试」准备的。**切分用 `preprocess_zou` 的分层逻辑，其余全部沿用 GTool；数据用仓库自带的过滤子集（不碰全量 TaskBench）。**
+> ⚠️ **协议已更新为 GNN4plan（GNN4TaskPlan 数据 + 固定 `split_ids.json` 测试集），并新增跨域迁移实验。** 权威说明见 [EXPERIMENT_SETUP.md](EXPERIMENT_SETUP.md)（数据/切分/复现/迁移）。最短路径：
+> ```bash
+> bash scripts/download_gnn4plan.sh          # 下 GNN4TaskPlan 数据 -> dataset_gnn4plan/
+> bash run_experiment.sh mistral             # 建图(从GNN4TaskPlan) + gnn4plan切分 + 训 + 测，3 域
+> bash transfer_eval.sh mistral huggingface  # 跨域：hf 训练 → 测 hf/mm/dl
+> ```
+> 本节下方保留的是**早期 zou 分层切分**的说明（数据用仓库自带子集），已被 GNN4plan 取代，仅作历史参考——`run_experiment.sh` / `run_grid.sh` 现在默认 `RAW_ROOT=dataset_gnn4plan` + `--mode gnn4plan`。
+
+---
+
+### （历史）zou 分层切分版本
+
+本小节是早期「用分层切分逻辑」的说明（已被 §8 顶部的 GNN4plan 取代）：**切分用 `preprocess_zou` 的分层逻辑，其余全部沿用 GTool；数据用仓库自带的过滤子集（不碰全量 TaskBench）。**
 
 > **按域训练（per-domain，对齐 GTool 论文协议）**：GTool 论文是逐数据集训练的（`train.py --dataset <单个域>`），所以这里也**每个域独立切分、独立训练、独立测试**——**3 个模型 × 3 个域 = 9 次运行**，互不混合。每个 (model, domain) 用各自的 TAG / `output/<tag>/` / checkpoint / split 目录，绝不串台。
 

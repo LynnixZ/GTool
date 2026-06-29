@@ -32,3 +32,6 @@ scripts/scripts_zou/
 # OS
 .DS_Store
 run_GTool.sh
+
+# vendored GNN4TaskPlan data + built graphs (download via scripts/download_gnn4plan.sh)
+dataset_gnn4plan/
