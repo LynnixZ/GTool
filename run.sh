@@ -27,7 +27,8 @@ case "$REPO" in /playpen-shared/*) : ;; *) echo "⚠️ REPO=$REPO 不在 /playp
 # ===== PART1：登录节点（有网）下环境 + 数据 + 模型 =====
 source scripts/prep_env.sh               # 官方源 cu121 + WORK_DIR/HF_HOME（共享 NFS）
 bash scripts/download_gnn4plan.sh        # GNN4TaskPlan 数据 -> dataset_gnn4plan/（共享 NFS，计算节点可见；离线节点下不了，必须登录节点下）
-bash scripts/prestage_all.sh             # 隔离 venv + cu121 torch + PyG + 下模型（含建图用的 SBERT）
+MODELS="" bash scripts/prestage_all.sh   # venv + torch + PyG + 下【全部默认】模型+SBERT（已缓存→秒过、装依赖）
+                                         # ↑ 清空 MODELS：PART2 的短名（如 mistral）不能当 HF 路径喂给 prestage
 
 # ===== PART2：提交【一个】离线作业占【一个】节点的 N 张卡 =====
 #   job 内 run_grid 把 3 模型 × 3 域 = 9 个 run 铺到这 N 卡（一卡一 run，排队）。
