@@ -86,7 +86,7 @@ tail -f $WORK_DIR/logs/*.out
 #SBATCH --gres=gpu:8            # ≤ 个人上限
 #SBATCH --output=/playpen-shared/%u/.../logs/%j.out
 cd $REPO
-source $WORK_DIR/venv/bin/activate
+source $WORK_DIR/GTool_venv/bin/activate        # GTool 实际由 scripts/job_env.sh 处理
 export WORK_DIR=... HF_HOME=...                 # 重新设（计算节点是干净环境）
 export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 WANDB_MODE=offline
 # 用 Slurm 实际分配的卡：

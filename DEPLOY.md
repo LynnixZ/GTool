@@ -13,7 +13,7 @@
 | [scripts/setup_US.sh](scripts/setup_US.sh) | PART1 | 美国官方源 + Xet/hf_transfer，清掉镜像残留。**source** |
 | [scripts/prep_env_china.sh](scripts/prep_env_china.sh) | PART1 | 中国联网环境（路径 + source setup_china）。**source** |
 | [scripts/prep_env.sh](scripts/prep_env.sh) | PART1 | 美国联网环境（共享 NFS 路径 + source setup_US）。**source** |
-| [scripts/prestage_all.sh](scripts/prestage_all.sh) | PART1 | venv（尽量复用 base torch，否则装 2.1.0）+ PyG 轮子 + `requirements-node.txt` + 下模型（gated 自动检测）。**bash** |
+| [scripts/prestage_all.sh](scripts/prestage_all.sh) | PART1 | 隔离 venv（`$WORK_DIR/GTool_venv`）+ cu121 torch 2.2.2 + PyG(pt22cu121) 轮子 + `requirements-node.txt` + 下模型（gated 自动检测）。**bash** |
 | [scripts/job_env.sh](scripts/job_env.sh) | PART2 | 离线环境（`HF_HUB_OFFLINE` 等）+ 激活 venv + `GPUS`。**source** |
 | [scripts/job_unites.sbatch](scripts/job_unites.sbatch) | PART2 | 美国 Slurm 离线作业模板（分区/mem/共享 NFS 坑都注释了）。**sbatch** |
 | [run_experiment.sh](run_experiment.sh) | PART2 | 单模型：建图→切分→训练→测试（幂等）。`--smoke` 走小模型小数据 |
@@ -75,7 +75,7 @@ tail -f /playpen-shared/$USER/tb_work/logs/gtool-*.out
 
 ## 关键提醒（详见 RUNBOOK §3/§4/§5、§8）
 
-- **torch 必须 `cuda.is_available()==True`**：`prestage_all.sh` 会校验，False 直接终止（多半是 cu13 装错）。GTool 的 PyG 轮子锁 `pt21cu121`，所以 torch 必须是 2.1.x。
+- **torch 必须 `cuda.is_available()==True`**：`prestage_all.sh` 会校验，False 直接终止（多半是 cu13 装错）。GTool 的 PyG 轮子锁 `pt22cu121`，所以 torch 必须是 **2.2.x**（默认装 `torch==2.2.2+cu121`；2.1.0 已从 cu121 源下架）。
 - **GPU**：cu121 支持 A100/Ada(4090)，**避开 Blackwell**。0.5B 烟测单卡足够；7B/8B 在 24G 上需调小 `--batch_size/--max_txt_len`。
 - **建图需 GPU**：`preprocess.*`（SBERT 编码）只能在有卡的节点跑，已包在 `run_experiment.sh`/作业里；首次建全部图（一次性），之后复用。
 - **美国共享盘**：repo+venv+缓存放 `/playpen-shared`（**不是 $HOME**）；共享目录名可能 ≠ 登录名，注意改 `WORK_DIR`/`cd`/`--output`。

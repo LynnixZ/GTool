@@ -94,7 +94,9 @@ GTool/
 pip install -r requirements.txt
 ```
 
-关键依赖（已固定版本）：`torch==2.1.0`、`transformers==4.51.3`、`torch-geometric==2.6.1`（含 torch-scatter/sparse/cluster 的 cu121 轮子）、`peft==0.14.0`、`Levenshtein==0.26.1`、`gensim==4.3.3`、`accelerate`、`sentencepiece`。
+关键依赖（仓库自带 `requirements.txt` 的固定版本）：`torch==2.1.0`、`transformers==4.51.3`、`torch-geometric==2.6.1`（含 torch-scatter/sparse/cluster 的 cu121 轮子）、`peft==0.14.0`、`Levenshtein==0.26.1`、`gensim==4.3.3`、`accelerate`、`sentencepiece`。
+
+> ⚠️ 跨节点部署（中/美）请勿用 `requirements.txt`（conda freeze，含本地 `file://` 路径不可迁移）。改用 `requirements-node.txt` + `scripts/prestage_all.sh`，且 **torch 用 `2.2.2+cu121`**（`2.1.0` 已从 cu121 源下架，PyG 配套轮子改为 `pt22cu121`）。详见 [DEPLOY.md](DEPLOY.md)。
 
 需要 **CUDA GPU**（代码大量使用 `cuda:0`、`device_map="auto"` 与 bf16 autocast，CPU 跑不起来）。
 
