@@ -33,6 +33,8 @@ numpy<2                 # torch 2.1 is incompatible with numpy>=2
 transformers==4.51.3    # >=4.51 needed for Qwen3
 accelerate==1.2.0       # device_map="auto"
 sentencepiece==0.2.0    # Llama/Mistral slow tokenizers
+protobuf                # REQUIRED with sentencepiece for slow->fast tokenizer conversion
+                        # (without it vicuna/mistral crash: "No module named 'google'")
 tokenizers>=0.21        # pulled by transformers; pinned high enough for Qwen3
 
 # --- graph stack (companion wheels installed separately above) ---
