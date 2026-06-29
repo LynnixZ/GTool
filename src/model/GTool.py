@@ -109,8 +109,12 @@ class GTool(torch.nn.Module):
         
         self.eos_tokens = self.tokenizer(self.eos_str, add_special_tokens=False)
         self.eos_user_tokens = self.tokenizer(PROMPT + self.eos_user_str, add_special_tokens=False)
-        self.bos_embeds = self.word_embedding(self.tokenizer(self.bos_str, add_special_tokens=False, return_tensors='pt').input_ids[0].to(self.model.device))
-        self.pad_embeds = self.word_embedding(torch.tensor(self.tokenizer.pad_token_id).to(self.model.device)).unsqueeze(0)
+        # .float(): the LLM is loaded in bf16 but the trainable side (GNN output + graph/node
+        # tokens) is fp32 and must stay fp32 (bf16 would drop the tiny optimizer updates). So
+        # build all prompt embeddings in fp32 (cat stays consistent); maybe_autocast() casts to
+        # bf16 inside the LLM forward/generate.
+        self.bos_embeds = self.word_embedding(self.tokenizer(self.bos_str, add_special_tokens=False, return_tensors='pt').input_ids[0].to(self.model.device)).float()
+        self.pad_embeds = self.word_embedding(torch.tensor(self.tokenizer.pad_token_id).to(self.model.device)).unsqueeze(0).float()
         self.graph_token_embeds = nn.Parameter(torch.randn(self.word_embedding.embedding_dim)).to(self.model.device)
         self.node_token_embeds = nn.Parameter(torch.randn(self.word_embedding.embedding_dim)).to(self.model.device)
 
@@ -150,8 +154,8 @@ class GTool(torch.nn.Module):
         for i in range(x_i_p.shape[0]):
             label_input_ids = yes_token.input_ids + self.eos_tokens.input_ids
             input_ids = questions.input_ids + self.eos_user_tokens.input_ids + label_input_ids
-            inputs_embeds2 = self.word_embedding(torch.tensor(and_token.input_ids).to(self.model.device))
-            inputs_embeds3 = self.word_embedding(torch.tensor(input_ids).to(self.model.device))
+            inputs_embeds2 = self.word_embedding(torch.tensor(and_token.input_ids).to(self.model.device)).float()
+            inputs_embeds3 = self.word_embedding(torch.tensor(input_ids).to(self.model.device)).float()
             inputs_embeds = torch.cat([self.bos_embeds,self.node_token_embeds.unsqueeze(0), x_i_p[i].unsqueeze(0),self.node_token_embeds.unsqueeze(0), inputs_embeds2, self.node_token_embeds.unsqueeze(0), x_j_p[i].unsqueeze(0), self.node_token_embeds.unsqueeze(0), inputs_embeds3], dim=0)
 
             batch_inputs_embeds.append(inputs_embeds)
@@ -162,8 +166,8 @@ class GTool(torch.nn.Module):
         for i in range(x_i_n.shape[0]):
             label_input_ids = no_token.input_ids + self.eos_tokens.input_ids
             input_ids = questions.input_ids + self.eos_user_tokens.input_ids + label_input_ids
-            inputs_embeds2 = self.word_embedding(torch.tensor(and_token.input_ids).to(self.model.device))
-            inputs_embeds3 = self.word_embedding(torch.tensor(input_ids).to(self.model.device))
+            inputs_embeds2 = self.word_embedding(torch.tensor(and_token.input_ids).to(self.model.device)).float()
+            inputs_embeds3 = self.word_embedding(torch.tensor(input_ids).to(self.model.device)).float()
             inputs_embeds = torch.cat([self.bos_embeds,self.node_token_embeds.unsqueeze(0), x_i_n[i].unsqueeze(0),self.node_token_embeds.unsqueeze(0), inputs_embeds2, self.node_token_embeds.unsqueeze(0), x_j_n[i].unsqueeze(0), self.node_token_embeds.unsqueeze(0), inputs_embeds3], dim=0)
 
             batch_inputs_embeds.append(inputs_embeds)
@@ -231,7 +235,7 @@ class GTool(torch.nn.Module):
         for i in range(batch_size):
             label_input_ids = labels.input_ids[i][:self.max_new_tokens] + self.eos_tokens.input_ids
             input_ids = descriptions.input_ids[i][:self.max_txt_len] + questions.input_ids[i] + self.eos_user_tokens.input_ids + label_input_ids
-            inputs_embeds = self.word_embedding(torch.tensor(input_ids).to(self.model.device))
+            inputs_embeds = self.word_embedding(torch.tensor(input_ids).to(self.model.device)).float()
             inputs_embeds = torch.cat([self.bos_embeds, self.graph_token_embeds.unsqueeze(0), graph_embeds[i].unsqueeze(0),self.graph_token_embeds.unsqueeze(0), inputs_embeds], dim=0)
 
             batch_inputs_embeds.append(inputs_embeds)
@@ -279,7 +283,7 @@ class GTool(torch.nn.Module):
         batch_attention_mask = []
         for i in range(batch_size):
             input_ids = descriptions.input_ids[i][:self.max_txt_len] + questions.input_ids[i] + eos_user_tokens.input_ids
-            inputs_embeds = self.word_embedding(torch.tensor(input_ids).to(self.model.device))
+            inputs_embeds = self.word_embedding(torch.tensor(input_ids).to(self.model.device)).float()
             inputs_embeds = torch.cat([self.bos_embeds, self.graph_token_embeds.unsqueeze(0), graph_embeds[i].unsqueeze(0),self.graph_token_embeds.unsqueeze(0), inputs_embeds], dim=0)
             batch_inputs_embeds.append(inputs_embeds)
             batch_attention_mask.append([1] * inputs_embeds.shape[0])
