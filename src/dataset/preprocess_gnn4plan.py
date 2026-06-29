@@ -6,10 +6,13 @@ GNN4TaskPlan ships `data.json` (TaskBench-format: user_request/task_nodes/task_l
 `tool_desc.json` (lowercased id -> desc) and otherwise follows GTool's graph logic exactly:
 predefined tool graph (`graph_desc.json`) + a per-sample request super-node, SBERT features.
 
-Encode-once: the tool-node descriptions, edge types and topology are identical across samples,
-so they're encoded a single time; per sample only that sample's request is encoded and
-concatenated (bit-identical to encoding them together). Writes `nodes.csv`, `edges.csv`,
-`graphs/{i}.pt` next to the data (i = line index in `data.json`, matching ZouSplitDataset).
+Encode-once + COMPACT storage: the tool-node descriptions, edge types and topology are
+identical across all samples in a domain, so they're encoded ONCE and stored ONCE in
+`graph_base.pt` (node_embeds + edge_index + edge_attr). Only the per-sample request super-node
+differs, so all requests are stored as a single `requests.pt` tensor (num_samples x 1024).
+ZouSplitDataset assembles each sample's graph at load time -- this avoids writing thousands of
+~1 MB `.pt` files (which exhausted small disks: each carried a redundant copy of edge_attr).
+Also writes `nodes.csv` / `edges.csv` (i = line index in `data.json`, matching ZouSplitDataset).
 
     python -m src.dataset.preprocess_gnn4plan --root dataset_gnn4plan --domains huggingface
     python -m src.dataset.preprocess_gnn4plan --root dataset_gnn4plan      # all three
@@ -56,7 +59,7 @@ def build_domain(root, domain, model, tokenizer, device, text2embedding):
     node_desc = {n["id"].lower().strip(): n.get("desc", "") for n in td["nodes"]}
     node_desc_list = [node_desc[n] for n in nodes["node_attr"]]
 
-    # encode the constant parts ONCE
+    # encode the constant parts ONCE (same for every sample in this domain)
     node_list = nodes.node_attr.tolist()
     edge_list = edges.edge_attr.tolist() + ["precedes"] * len(node_list)
     node_embeds = text2embedding(model, tokenizer, device, node_desc_list)
@@ -65,14 +68,27 @@ def build_domain(root, domain, model, tokenizer, device, text2embedding):
         [[i for i in range(len(node_list))], [len(node_list)] * len(node_list)])
     edge_index = torch.hstack((torch.LongTensor([edges.src, edges.dst]), super_node_edge_index))
 
-    os.makedirs(f"{path}/graphs", exist_ok=True)
+    # per-sample: only the request super-node embedding differs -> stack into ONE tensor.
+    dim = node_embeds.shape[1]
+    req_list = []
     for i in tqdm(range(len(raw)), desc=domain):
         rec = json.loads(raw[i])
         request = rec.get("user_request", rec.get("instruction", ""))  # GNN4TaskPlan uses user_request
         req_embed = text2embedding(model, tokenizer, device, [request])
-        x = torch.cat([node_embeds, req_embed], dim=0)
-        data = Data(x=x, edge_index=edge_index, edge_attr=e, num_nodes=len(node_list) + 1)
-        torch.save(data, f"{path}/graphs/{i}.pt")
+        if req_embed.shape[0] == 0:                  # SBERT failed on this text -> zero vector
+            req_embed = torch.zeros(1, dim)
+        req_list.append(req_embed)
+    requests = torch.cat(req_list, dim=0)            # (num_samples, dim)
+
+    torch.save({"node_embeds": node_embeds, "edge_index": edge_index, "edge_attr": e},
+               f"{path}/graph_base.pt")
+    torch.save(requests, f"{path}/requests.pt")
+    # remove any old per-sample graphs/ (legacy/huge format) to free disk
+    import shutil
+    if os.path.isdir(f"{path}/graphs"):
+        shutil.rmtree(f"{path}/graphs")
+    print(f"[gnn4plan] {domain}: graph_base.pt + requests.pt{tuple(requests.shape)} saved "
+          f"({len(node_list)} tool nodes, {edge_index.shape[1]} edges)")
 
 
 def main():

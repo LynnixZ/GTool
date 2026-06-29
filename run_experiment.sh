@@ -68,7 +68,8 @@ for d in "${DOMAINS[@]}"; do
   echo "===== [$MODEL / $d] TAG=$TAG SPLIT_DIR=$SPLIT_DIR ====="
 
   # 1) Build this domain's GTool graphs from the vendored GNN4TaskPlan data (idempotent).
-  if [ -d "$RAW_ROOT/$d/graphs" ] && [ -n "$(ls -A "$RAW_ROOT/$d/graphs" 2>/dev/null)" ]; then
+  #    Compact format -> graph_base.pt + requests.pt (one each per domain).
+  if [ -f "$RAW_ROOT/$d/graph_base.pt" ] && [ -f "$RAW_ROOT/$d/requests.pt" ]; then
     echo "[skip] graphs exist for $d"
   else
     echo "[build] graphs for $d (from GNN4TaskPlan data)"

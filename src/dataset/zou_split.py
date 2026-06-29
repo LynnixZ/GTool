@@ -24,6 +24,7 @@ import json
 import pandas as pd
 import torch
 from torch.utils.data import Dataset
+from torch_geometric.data.data import Data
 
 # zou domain name -> GTool dataset directory under ``raw_root``.
 DOMAIN_TO_DIR = {
@@ -53,6 +54,7 @@ class ZouSplitDataset(Dataset):
         self._split = {"train": [], "val": [], "test": []}
         self._id_index = {}               # domain_dir -> {sample_id: line_idx in data.json}
         self._desc_cache = {}             # domain_dir -> desc string (nodes.csv dump)
+        self._graph_cache = {}            # domain_dir -> (graph_base dict, requests tensor) or (None, None)
 
         files = {}
         if load_train_val:
@@ -100,6 +102,21 @@ class ZouSplitDataset(Dataset):
             self._desc_cache[domain_dir] = "and a list of tools:\n " + nodes.to_csv(index=False)
         return self._desc_cache[domain_dir]
 
+    def _graph_assets(self, domain_dir):
+        """Compact graphs: one shared graph_base.pt (node/edge features + topology) + one
+        requests.pt (all per-sample request embeddings). Returns (None, None) if a domain was
+        built with the legacy per-sample graphs/{i}.pt format (then __getitem__ falls back)."""
+        if domain_dir not in self._graph_cache:
+            ddir = os.path.join(self.raw_root, domain_dir)
+            base_path = os.path.join(ddir, "graph_base.pt")
+            if os.path.exists(base_path):
+                base = torch.load(base_path, map_location="cpu", weights_only=False)
+                reqs = torch.load(os.path.join(ddir, "requests.pt"), map_location="cpu", weights_only=False)
+                self._graph_cache[domain_dir] = (base, reqs)
+            else:
+                self._graph_cache[domain_dir] = (None, None)
+        return self._graph_cache[domain_dir]
+
     # ----------------------------------------------------------------- Dataset
     def __len__(self):
         return len(self.records)
@@ -109,7 +126,16 @@ class ZouSplitDataset(Dataset):
         domain_dir = self._domain_dir(rec)
         line_idx = self._id_map(domain_dir)[str(rec["id"])]
 
-        graph = torch.load(os.path.join(self.raw_root, domain_dir, "graphs", f"{line_idx}.pt"))
+        base, reqs = self._graph_assets(domain_dir)
+        if base is not None:
+            # assemble the per-sample graph: shared tool-node/edge features + this sample's
+            # request super-node (row line_idx). Bit-identical to the old per-sample .pt.
+            x = torch.cat([base["node_embeds"], reqs[line_idx:line_idx + 1]], dim=0)
+            graph = Data(x=x, edge_index=base["edge_index"], edge_attr=base["edge_attr"],
+                         num_nodes=base["node_embeds"].shape[0] + 1)
+        else:  # legacy per-sample format
+            graph = torch.load(os.path.join(self.raw_root, domain_dir, "graphs", f"{line_idx}.pt"),
+                               weights_only=False)
         desc = self._desc(domain_dir)
 
         # The split already provides the gold execution order in `trajectory`;

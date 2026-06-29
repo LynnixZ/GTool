@@ -21,7 +21,10 @@ source "$VENV_DIR/bin/activate"
 # to reach the hub (even to freshness-check the cache) and hang/fail offline unless these
 # are set. (Do NOT source setup_US.sh here -- it UNSETs these.) GTool uses no wandb.
 export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
-export OMP_NUM_THREADS="${OMP_NUM_THREADS:-1}"
+# Force a valid OMP_NUM_THREADS: AutoDL containers sometimes set it to an invalid value
+# (e.g. whitespace) -> "libgomp: Invalid value" spam. `:-` won't override a non-empty-but-bad
+# value, so coerce anything non-numeric to 1.
+case "${OMP_NUM_THREADS:-}" in ''|*[!0-9]*) export OMP_NUM_THREADS=1 ;; esac
 
 # Use exactly the GPUs Slurm pinned to this job (they appear as 0..N-1 inside it).
 # Guard NGPU=0: on a no-GPU box `seq 0 -1` is empty on GNU but prints "0 -1" on BSD/macOS,

@@ -46,7 +46,7 @@ echo "[grid] MODELS='$MODELS'  DOMAINS='$DOMAINS'  GPUS='${GPU_ARR[*]}'  ($NG GP
 # 1) one-time graph build (serial; avoids parallel workers racing on the same
 #    files). Splits are per-domain and built lazily inside run_experiment.sh.
 for d in $DOMAINS; do
-  if [ -d "$RAW_ROOT/$d/graphs" ] && [ -n "$(ls -A "$RAW_ROOT/$d/graphs" 2>/dev/null)" ]; then
+  if [ -f "$RAW_ROOT/$d/graph_base.pt" ] && [ -f "$RAW_ROOT/$d/requests.pt" ]; then
     echo "[grid] graphs ok: $d"
   else
     echo "[grid] building graphs: $d (GNN4TaskPlan data, on GPU ${GPU_ARR[0]})"
