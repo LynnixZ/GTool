@@ -79,7 +79,10 @@ class GTool(torch.nn.Module):
         
         model = AutoModelForCausalLM.from_pretrained(
             args.llm_model_path,
-            torch_dtype="auto",
+            # Load in bf16, NOT "auto": some configs (e.g. vicuna-7b-v1.5) default to fp32,
+            # which makes a 7B ~27GB and fills a 24G card (OOM before any activation). bf16
+            # halves it to ~13.5GB and matches the bf16 autocast used in forward/inference.
+            torch_dtype=torch.bfloat16,
             low_cpu_mem_usage=True,
             trust_remote_code=True,
             **kwargs
