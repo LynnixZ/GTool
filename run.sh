@@ -24,9 +24,10 @@ export HF_HOME="$WORK_DIR/hf_home"
 case "$REPO" in /playpen-shared/*) : ;; *) echo "⚠️ REPO=$REPO 不在 /playpen-shared，计算节点看不到 -> 请 clone 到共享盘";; esac
 [ -n "${HF_TOKEN:-}" ] || echo "WARN: HF_TOKEN 没设 -> Mistral(gated) 会被跳过；export HF_TOKEN=... 再跑可补上。"
 
-# ===== PART1：登录节点（有网）下环境 + 模型 =====
+# ===== PART1：登录节点（有网）下环境 + 数据 + 模型 =====
 source scripts/prep_env.sh               # 官方源 cu121 + WORK_DIR/HF_HOME（共享 NFS）
-bash scripts/prestage_all.sh             # 隔离 venv + cu121 torch + PyG + 下模型
+bash scripts/download_gnn4plan.sh        # GNN4TaskPlan 数据 -> dataset_gnn4plan/（共享 NFS，计算节点可见；离线节点下不了，必须登录节点下）
+bash scripts/prestage_all.sh             # 隔离 venv + cu121 torch + PyG + 下模型（含建图用的 SBERT）
 
 # ===== PART2：提交【一个】离线作业占【一个】节点的 N 张卡 =====
 #   job 内 run_grid 把 3 模型 × 3 域 = 9 个 run 铺到这 N 卡（一卡一 run，排队）。
