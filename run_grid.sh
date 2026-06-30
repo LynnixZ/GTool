@@ -29,6 +29,9 @@ RAW_ROOT="${RAW_ROOT:-dataset_gnn4plan}"        # vendored GNN4TaskPlan data
 SPLIT_ROOT="${SPLIT_ROOT:-artifacts/splits_gnn4plan}"
 LOGDIR="${LOGDIR:-output/grid_logs}"; mkdir -p "$LOGDIR"
 EXTRA="${EXTRA:-}"
+# Drop the big *.pth checkpoints after a run's csv results are written (run_experiment.sh
+# already reloaded them for inference). Set DELETE_CHECKPOINTS=0 to keep for debugging.
+DELETE_CHECKPOINTS="${DELETE_CHECKPOINTS:-1}"
 
 # models from args or $MODELS
 [ "$#" -gt 0 ] && MODELS="$*"
@@ -96,6 +99,7 @@ for ((k=0; k<NG; k++)); do
            ONLY_DOMAIN="$d" \
            bash run_experiment.sh "$m" "grid_${m//[^a-zA-Z0-9]/_}" $EXTRA > "$LOGDIR/${tag}.log" 2>&1; then
         echo "[grid][gpu $g] DONE  $m / $d"
+        if [ "$DELETE_CHECKPOINTS" = 1 ]; then find "output/$tag" -name '*.pth' -delete 2>/dev/null || true; fi
       else
         echo "[grid][gpu $g] FAIL  $m / $d  (see $LOGDIR/${tag}.log)"
       fi
