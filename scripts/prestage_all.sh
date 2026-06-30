@@ -21,6 +21,13 @@ VENV_DIR="${VENV_DIR:-$WORK_DIR/GTool_venv}"
 # "python: command not found". On Slurm set VENV_PYTHON to a node-visible python
 # (e.g. /usr/bin/python3, or `module load python` then python3), NOT the login conda base.
 VENV_PYTHON="${VENV_PYTHON:-python3}"
+# pip caches downloads in PIP_CACHE_DIR and UNPACKS wheels in TMPDIR. The defaults
+# ($HOME/.cache, /tmp) are often a SMALL login-local disk -> "No space left on device"
+# while extracting torch (~2.5GB) even when WORK_DIR's shared disk has plenty of room.
+# Pin both onto the big shared disk.
+export TMPDIR="${TMPDIR:-$WORK_DIR/tmp}"
+export PIP_CACHE_DIR="${PIP_CACHE_DIR:-$WORK_DIR/pipcache}"
+mkdir -p "$TMPDIR" "$PIP_CACHE_DIR"
 TORCH_INDEX_URL="${TORCH_INDEX_URL:-https://download.pytorch.org/whl/cu121}"
 PYG_FIND_LINKS="https://data.pyg.org/whl/torch-2.2.0+cu121.html"   # pt22cu121 wheels (match torch 2.2.x)
 export HF_HOME
